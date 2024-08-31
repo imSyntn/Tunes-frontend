@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  user-select: none;
+  transition: all 0.3s;
+}
+body {
+  min-height: 100vh;
+  scrollbar-width: 0px;
+  transition: none;
+  background-color: #242424;
+  /* background-color: rgb(29, 29, 29); */
+}
+body ::-webkit-scrollbar {
+  display: none;
+}
