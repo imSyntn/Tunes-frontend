@@ -5,14 +5,14 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1.5rem;
-    // border: 1px solid rgb(255, 255, 255);
+    /* // border: 1px solid rgb(255, 255, 255); */
 
     h1 {
         display: flex;
         align-items: center;
         font-family: "Caveat", cursive;
         font-size: 2.3rem;
-        // font-optical-sizing: auto;
+        /* // font-optical-sizing: auto; */
 
         img {
             width: 2.3rem;
@@ -21,13 +21,13 @@ header {
 
     >.inputWrapper {
         width: 40%;
-        // height: 2.5rem;
+        /* // height: 2.5rem; */
         border: 2px solid rgba(198, 198, 198, 0.237);
         border-radius: 30px;
         position: relative;
-        // display: flex;
-        // align-items: center;
-        // justify-content: center;
+        /* // display: flex; */
+        /* // align-items: center; */
+        /* // justify-content: center; */
 
         >.top {
             height: 40px;
@@ -49,9 +49,6 @@ header {
                 font-size: 1.1rem;
                 padding-inline: 5px;
 
-                // &:focus {
-                //     outline: none;
-                // }
             }
 
             >.cross {
@@ -61,12 +58,12 @@ header {
     }
 
     >.activeInputWrapper {
-        width: 70%;
+        width: 80%;
         border-radius: 20px;
-        // border-radius: 20px 20px 0 0;
-        // border-bottom: none;
+        /* // border-radius: 20px 20px 0 0; */
+        /* // border-bottom: none; */
 
-        .top {
+        >.top {
             width: 100%;
             justify-content: space-evenly;
 
@@ -90,37 +87,40 @@ header {
             svg {
                 margin: 10px;
                 font-size: 1.2rem;
-                // &:nth-last-of-type(1) {
+                /* // &:nth-last-of-type(1) {
                 //     margin-left: 10px;
                 // }
 
                 // &:nth-last-of-type(2) {
                 //     margin-right: 10px;
-                // }
+                // } */
             }
         }
-        
+
         >.bottom {
             position: absolute;
             top: 50px;
             width: 100%;
             border: 2px solid rgba(198, 198, 198, 0.237);
-            background-color: white;
-            // border-top: none;
+            padding: 20px;
+            background-color: rgb(255, 255, 255);
+            /* // border-top: none; */
             border-radius: 20px;
             height: 0px;
+            // opacity: 0;
+            color: black;
             overflow: hidden;
-            animation: dataAnimation 0.2s linear 0.2s forwards;
-            @keyframes dataAnimation {
-                to {
-                    height: 250px;
-                }
-            }
+            display: grid;
+            grid-template-columns: repeat(auto-fit, 250px);
+            justify-content: space-evenly;
+            gap: 20px;
+            animation: dataAnimation 0.2s linear 0.3s forwards;
         }
     }
+}
 
-
-    // >input {
-    //     // width: 50%;
-    // }
+@keyframes dataAnimation {
+    to {
+        height: fit-content;
+    }
 }
