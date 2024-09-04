@@ -101,15 +101,19 @@
             border-radius: 20px;
             height: 0px;
             // opacity: 0;
-            color: black;
-            overflow: hidden;
             display: grid;
             grid-template-columns: repeat(auto-fit, 250px);
             justify-content: space-evenly;
             grid-gap: 20px;
             gap: 20px;
+            color: black;
+            overflow: hidden;
             animation: dataAnimation 0.2s linear 0.3s forwards;
-        }@keyframes dataAnimation {
+        }header > .activeInputWrapper > .bottom  > p {
+                color: black;
+                text-align: center;
+            }@keyframes dataAnimation {
+
     to {
         height: -moz-fit-content;
         height: fit-content;
@@ -123,7 +127,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }.HeaderSearchResult > .top  > button {
             border: 1.5px solid #2bc5b4;
             border-radius: 10px;
@@ -132,8 +136,11 @@
             font-weight: 700;
             background: transparent;
             padding: 3px 10px;
+            cursor: pointer;
         }.HeaderSearchResult .container {
         display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
 
         // background-color: gray;
     }.HeaderSearchResult .container img {

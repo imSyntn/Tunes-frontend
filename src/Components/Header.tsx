@@ -1,25 +1,49 @@
-import { useEffect, useState, useRef, ReactHTMLElement } from 'react'
+import { useEffect, useState, useRef } from 'react'
 // import '../Styles/Header.css'
 import { FaRegUser, FaSearch } from "react-icons/fa";
 import HeaderSearchResult from './HeaderSearchResult';
-import { useFetch } from '../Utils/useFetch';
+// import { useFetch } from '../Utils/useFetch';
+import { DataType } from '../App.types';
 
 
 const Header = () => {
 
     const [searchClicked, setSearchClicked] = useState<Boolean>(false)
     const [inputText, setInputText] = useState<string>('')
-    const [searchQuerry, setSearchQuerry] = useState<Boolean>(false)
+    // const [searchQuerry, setSearchQuerry] = useState<Boolean>(false)
+    const [data, setData] = useState<DataType | any>([])
 
     const inputRef = useRef<HTMLInputElement>(null)
+    const timer = useRef<number | null>(null)
 
     // useEffect(()=>{
     //     console.log(searchClicked)
     // },[searchClicked])
 
-    useEffect(()=> {
-        
-    },[inputText])
+    useEffect(() => {
+        const getData = async () => {
+            if (inputText) {
+                console.log(inputText)
+                try {
+                    const req = await fetch(`https://saavn.dev/api/search?query=${inputText}`)
+                    const res = await req.json()
+                    // console.log(res.data)
+                    setData(res.data)
+                } catch (error: any) {
+                    console.log(error.message)
+                }
+            }
+        }
+        if (timer.current !== null) {
+            clearTimeout(timer.current)
+        }
+        timer.current = setTimeout(getData, 500)
+    }, [inputText])
+
+    useEffect(() => {
+        console.log(data)
+        console.log(Object.keys(data))
+    }, [data])
 
     return (
         <header>
@@ -31,7 +55,7 @@ const Header = () => {
                 <div className="top">
                     <FaSearch />
                     <p>Search</p>
-                    <input type="text" ref={inputRef} onChange={(e:React.ChangeEvent<HTMLInputElement>)=> setInputText(e.target.value)} value={inputText} />
+                    <input type="text" ref={inputRef} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.target.value)} value={inputText} />
 
                     <svg className='cross' width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" onClick={(e) => {
                         e.stopPropagation()
@@ -42,11 +66,15 @@ const Header = () => {
                 </div>
                 {
                     searchClicked && (
-                        <div className='bottom' onClick={e=> e.stopPropagation()}>
+                        <div className='bottom' onClick={e => e.stopPropagation()}>
                             {
-                                new Array(5).fill(5).map((item,index)=> (
-                                    <HeaderSearchResult />
-                                ))
+                                data.length == 0 ? (
+                                    <p>Search...</p>
+                                ) : (
+                                    Object.keys(data).map((item: string, index) => (
+                                        <HeaderSearchResult headerName={item} result={data[item].results} key={index} />
+                                    ))
+                                )
                             }
                         </div>
                     )

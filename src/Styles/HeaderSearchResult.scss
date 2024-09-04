@@ -10,7 +10,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         >button {
             border: 1.5px solid #2bc5b4;
             border-radius: 10px;
@@ -19,11 +19,13 @@
             font-weight: 700;
             background: transparent;
             padding: 3px 10px;
+            cursor: pointer;
         }
     }
 
     .container {
         display: flex;
+        margin-block: 10px;
 
         // background-color: gray;
         img {

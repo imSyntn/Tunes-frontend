@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { ResultsInDataType } from '../App.types'
 
-const HeaderSearchResult = () => {
+interface HeaderSearchResultProps {
+    headerName: string;
+    result: ResultsInDataType[];
+}
+
+const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, result }) => {
+
+    useEffect(() => {
+        // console.log(result)
+    }, [])
+
     return (
         <div className='HeaderSearchResult'>
             <div className="top">
-                <h5>RESULTS</h5>
+                <h5>{headerName.toUpperCase()}</h5>
                 <button>View all</button>
             </div>
             {
-                new Array(3).fill(1).map((item, index) => (
+                result.map((item, index) => (
                     <div className="container" key={index}>
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYHMKdYQTG3r9YF1Vu1U49QyWGFBXkRKOeAQ&s" alt="" />
+                        <img src={item.image[0].url} alt="" />
                         <div className="detaiils">
-                            <p className='mainName'>Starboy</p>
-                            <p>{'The Keekenf, Daft Punk'.slice(0,25) + ' ...'}</p>
+                            <p className='mainName'>{item.title}</p>
+                            <p>{(item.description.length > 25) ? item.description.slice(0, 25) + ' ...' : item.description}</p>
                         </div>
                     </div>
                 ))
