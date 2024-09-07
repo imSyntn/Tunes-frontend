@@ -1,0 +1,13 @@
+.SongCard {
+    // width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px;
+    border-block: 1px solid  rgba(143, 143, 143, 0.304);
+    cursor: pointer;
+    svg {
+        width: 30px;
+        height: 17px;
+    }
+}

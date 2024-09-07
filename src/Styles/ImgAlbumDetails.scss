@@ -1,0 +1,28 @@
+.img-albumDetails {
+    padding-block: 50px;
+    // border: 1px solid white;
+    display: flex;
+    align-items: center;
+
+    >img {
+        width: 250px;
+        margin-right: 30px;
+    }
+
+    >.albumDetails {
+        p {
+            margin-block: 10px;
+        }
+        button {
+            background-color: #2bc5b4;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    }
+}

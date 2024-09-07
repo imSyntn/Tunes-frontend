@@ -1,0 +1,22 @@
+.artists {
+    display: flex;
+    flex-wrap: wrap;
+    // padding-inline: 20px;
+    >.artistCont {
+        // border: 1px solid rgb(255, 255, 255);
+        width: fit-content;
+        margin-inline: 10px;
+
+        // display: ;
+        img {
+            border-radius: 50%;
+            height: 150px;
+            width: 150px;
+        }
+
+        p {
+            margin-top: 10px;
+            text-align: center;
+        }
+    }
+}

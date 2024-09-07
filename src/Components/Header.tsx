@@ -8,7 +8,7 @@ import { DataType } from '../App.types';
 
 const Header = () => {
 
-    const [searchClicked, setSearchClicked] = useState<Boolean>(false)
+    const [searchClicked, setSearchClicked] = useState<boolean>(false)
     const [inputText, setInputText] = useState<string>('')
     // const [searchQuerry, setSearchQuerry] = useState<Boolean>(false)
     const [data, setData] = useState<DataType | any>([])
@@ -23,7 +23,7 @@ const Header = () => {
     useEffect(() => {
         const getData = async () => {
             if (inputText) {
-                console.log(inputText)
+                // console.log(inputText)
                 try {
                     const req = await fetch(`https://saavn.dev/api/search?query=${inputText}`)
                     const res = await req.json()
@@ -40,10 +40,10 @@ const Header = () => {
         timer.current = setTimeout(getData, 500)
     }, [inputText])
 
-    useEffect(() => {
-        console.log(data)
-        console.log(Object.keys(data))
-    }, [data])
+    // useEffect(() => {
+    //     console.log(data)
+    //     // console.log(Object.keys(data))
+    // }, [data])
 
     return (
         <header>

@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { ResultsInDataType } from '../App.types'
+import { useNavigate } from 'react-router-dom'
+// import { songIdContext } from '../App';
 
 interface HeaderSearchResultProps {
     headerName: string;
@@ -7,6 +9,16 @@ interface HeaderSearchResultProps {
 }
 
 const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, result }) => {
+
+    const navigate = useNavigate()
+
+    // const songContext = useContext(songIdContext)
+
+    // if (!songContext) {
+    //     return null
+    // }
+
+    // const { setPlayId } = songContext;
 
     useEffect(() => {
         // console.log(result)
@@ -19,8 +31,8 @@ const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, res
                 <button>View all</button>
             </div>
             {
-                result.map((item, index) => (
-                    <div className="container" key={index}>
+                result.map((item) => (
+                    <div className="container" key={item.id} onClick={()=> navigate(`/${item.type}/${item.id}`)}>
                         <img src={item.image[0].url} alt="" />
                         <div className="detaiils">
                             <p className='mainName'>{item.title}</p>

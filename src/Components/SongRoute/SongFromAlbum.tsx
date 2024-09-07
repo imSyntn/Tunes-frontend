@@ -1,0 +1,37 @@
+import React from 'react'
+import { useFetch } from '../../Utils/useFetch';
+import { useNavigate } from 'react-router-dom'
+
+const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) => {
+
+    const fetchUrl = `https://saavn.dev/api/albums?id=${id}`;
+    const { loading, error, data } = useFetch(fetchUrl);
+
+    const navigate = useNavigate()
+
+    if (loading) return <p className='Loading-Error'>Loading...</p>;
+    if (error) return <p className='Loading-Error'>Error loading album details.</p>;
+
+    console.log(data)
+
+  return (
+    <div className='SongFromAlbum'>
+        {
+            !loading && !error && data && (
+                <>
+                {
+                    data?.songs?.filter((item:any) => item.id !== currentSongId).map((item:any)=> (
+                        <div className="songInAlbum" key={item.id} onClick={()=> navigate(`/song/${item.id}`)}>
+                            <img src={item.image?.[1]?.url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt="" />
+                            <p>{item.name}</p>
+                        </div>
+                    ))
+                }
+                </>
+            )
+        }
+    </div>
+  )
+}
+
+export default SongFromAlbum

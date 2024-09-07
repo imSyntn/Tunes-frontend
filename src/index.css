@@ -1,3 +1,13 @@
 @import './App.css';
 @import './Styles/Header.scss';
-@import './Styles/HeaderSearchResult.scss'
+@import './Styles/HeaderSearchResult.scss';
+@import './Styles/Player.scss';
+@import './Styles//Main.scss';
+@import './Styles/SongCard.scss';
+@import './Styles/AlbumQuerryPage.scss';
+@import './Styles/ImgAlbumDetails.scss';
+@import './Styles/Artists.scss';
+@import './Styles/SongRoute/SongQuerryPage.scss';
+@import './Styles/SongRoute/Lyrics.scss';
+@import './Styles/SongRoute/SongFromAlbum.scss';
+@import './Styles/ArtistRoute/ArtistQuerryPage.scss'

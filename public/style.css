@@ -23,6 +23,12 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
     /* // border: 1px solid rgb(255, 255, 255); */
 }header h1 {
         display: flex;
@@ -113,10 +119,10 @@
                 color: black;
                 text-align: center;
             }@keyframes dataAnimation {
-
     to {
         height: -moz-fit-content;
         height: fit-content;
+        overflow-y: auto;
     }
 }.HeaderSearchResult {
     width: 250px;
@@ -141,6 +147,7 @@
         display: flex;
         margin-top: 10px;
         margin-bottom: 10px;
+        cursor: pointer;
 
         // background-color: gray;
     }.HeaderSearchResult .container img {
@@ -151,4 +158,212 @@
             }.HeaderSearchResult .container .detaiils  > .mainName {
                 font-size: 14px;
                 font-weight: 700;
+            }.Player {
+    // border: 1px solid red;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+}.Player svg {
+        font-size: 30px;
+    }.Player  > .img-Name {
+        display: flex;
+        align-items: center;
+    }.Player > .img-Name img {
+            margin-right: 10px;
+        }.Player > .img-Name .names p {
+                font-size: 13px;
+                margin-top: 5px;
+            }.Player .PlayerOptions {
+        width: 220px;
+        display: flex;
+        justify-content: space-between;
+    }.Player .PlayerOptions svg {
+            cursor: pointer;
+        }.Player  > .timestamp-volume {
+        display: flex;
+        align-items: center;
+    }.Player > .timestamp-volume .volume {
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            // align-items: center;
+            // border: 1px solid white;
+            width: 30px;
+            // height: 140px;
+            // pos
+        }.Player > .timestamp-volume .volume input {
+                width: 100px;
+                display: none;
+                // position: absolute;
+                position: relative;
+                left: 15px;
+                top: 5px;
+                transform: rotate(-90deg);
+                transform-origin: left;
+                cursor: grab;
+                // &:hover {
+                //     input {
+                //         display: block
+                //     }
+                // }
+            }.Player > .timestamp-volume .volume:hover {
+                position: relative;
+                top: -8px;
+            }.Player > .timestamp-volume .volume:hover input {
+                    display: block
+                }main {
+    min-height: calc(100vh);
+    margin-top: 63px;
+    padding-bottom: 20px;
+    margin-bottom: 92px;
+    // background: #000;
+    padding-left: 50px;
+    padding-right: 50px;
+}.SongCard {
+    // width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px;
+    border-top: 1px solid  rgba(143, 143, 143, 0.304);
+    border-bottom: 1px solid  rgba(143, 143, 143, 0.304);
+    cursor: pointer;
+}.SongCard svg {
+        width: 30px;
+        height: 17px;
+    }.Loading-Error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+}.AlbumQuerryPage  > .albumSongs {}.AlbumQuerryPage h2 {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }.AlbumQuerryPage .so {
+        margin-top: 0px;
+    }.img-albumDetails {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    // border: 1px solid white;
+    display: flex;
+    align-items: center;
+}.img-albumDetails  > img {
+        width: 250px;
+        margin-right: 30px;
+    }.img-albumDetails > .albumDetails p {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }.img-albumDetails > .albumDetails button {
+            background-color: #2bc5b4;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+        }.artists {
+    display: flex;
+    flex-wrap: wrap;
+    // padding-inline: 20px;
+}.artists  > .artistCont {
+        // border: 1px solid rgb(255, 255, 255);
+        width: -moz-fit-content;
+        width: fit-content;
+        margin-left: 10px;
+        margin-right: 10px;
+
+        // display: ;
+    }.artists > .artistCont img {
+            border-radius: 50%;
+            height: 150px;
+            width: 150px;
+        }.artists > .artistCont p {
+            margin-top: 10px;
+            text-align: center;
+        }.SongQuerryPage h2 {
+        margin-bottom: 20px;
+    }.Lyrics {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    // border: 1px solid red;
+    height: 100px;
+    // position: relative;
+    transition: height 0.3s;
+    overflow: hidden;
+}.fullView {
+    height: -moz-fit-content;
+    height: fit-content;
+}.fullView h4 {
+        letter-spacing: 1px;
+        color: rgb(176, 176, 176);
+    }.fullView h4:nth-of-type(1) {
+            margin-top: 20px;
+        }.readMore {
+    // width: 150px;
+    background: none;
+    // backdrop-filter: blur(5px);
+    // box-shadow: 0px -15px 20px rgb(2, 2, 2);
+    height: 30px;
+    border: none;
+    margin-left: 10px;
+    margin-bottom: 40px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+    color: orange;
+}.SongFromAlbum {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}.SongFromAlbum  > .songInAlbum {
+        margin: 10px 20px;
+        cursor: pointer;
+    }.SongFromAlbum > .songInAlbum p {
+            text-align: center;
+        }.ArtistQuerryPage .imgText {
+        padding-top: 50px;
+        // border: 1px solid white;
+        display: flex;
+        align-items: center;
+    }.ArtistQuerryPage .imgText img {
+            width: 350px;
+            border: none;
+            border-radius: 50%;
+            margin-right: 50px;
+        }.ArtistQuerryPage .imgText .text h1 {
+                display: flex;
+                align-items: center;
+            }.ArtistQuerryPage .imgText .text h1 svg {
+                    margin-left: 10px;
+                    fill: #2bc5b4;
+                }.ArtistQuerryPage .imgText .text p {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }.ArtistQuerryPage h2 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }.ArtistQuerryPage  > .type {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        // border: 1px solid white;
+    }.ArtistQuerryPage > .type .contentSwitcher button {
+                width: 100px;
+                height: 35px;
+                // padding-block: 5px;
+                background: none;
+                border-width: 4px;
+                border-radius: 25px;
+                margin-right: 20px;
+                cursor: pointer;
             }
