@@ -227,19 +227,47 @@
     // background: #000;
     padding-left: 50px;
     padding-right: 50px;
+}@media screen and (max-width: 600px) {
+    main {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }.SongCard {
     // width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 10px;
-    border-top: 1px solid  rgba(143, 143, 143, 0.304);
-    border-bottom: 1px solid  rgba(143, 143, 143, 0.304);
+    padding: 10px 20px 10px 10px;
+    border-top: 1px solid rgba(143, 143, 143, 0.304);
+    border-bottom: 1px solid rgba(143, 143, 143, 0.304);
     cursor: pointer;
-}.SongCard svg {
-        width: 30px;
-        height: 17px;
-    }.Loading-Error {
+}.SongCard h3 {
+        // border: 1px solid red;
+        width: 250px;
+        display: flex;
+        align-items: center;
+    }.SongCard h3 img {
+            margin-right: 10px;
+        }.SongCard h3 > .names p {
+                display: none;
+                font-size: 15px;
+                font-weight: 400;
+            }.SongCard h3,.SongCard p {
+        // border: 1px solid red;
+        text-wrap: nowrap;
+        overflow: hidden;
+    }.SongCard p {
+        width: 200px;
+    }.SongCard .desktopView {
+        display: block;
+    }@media screen and (max-width: 700px) {
+        .SongCard .desktopView {
+            display: none;
+        }
+                .SongCard h3 .names p {
+                    display: block;
+                }
+}.Loading-Error {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -282,6 +310,7 @@
         width: fit-content;
         margin-left: 10px;
         margin-right: 10px;
+        cursor: pointer;
 
         // display: ;
     }.artists > .artistCont img {
@@ -290,6 +319,7 @@
             width: 150px;
         }.artists > .artistCont p {
             margin-top: 10px;
+            margin-bottom: 20px;
             text-align: center;
         }.SongQuerryPage h2 {
         margin-bottom: 20px;
@@ -323,11 +353,19 @@
     font-size: 18px;
     color: orange;
 }.SongFromAlbum {
-    display: flex;
-    flex-wrap: wrap;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 150px);
+    grid-gap: 20px;
+    gap: 20px;
+    justify-content: space-evenly;
     margin-bottom: 20px;
 }.SongFromAlbum  > .songInAlbum {
-        margin: 10px 20px;
+        margin: 10px 0px;
+        width: 150px;
+        overflow: hidden;
         cursor: pointer;
     }.SongFromAlbum > .songInAlbum p {
             text-align: center;
@@ -350,12 +388,23 @@
                 }.ArtistQuerryPage .imgText .text p {
                 margin-top: 10px;
                 margin-bottom: 10px;
-            }.ArtistQuerryPage h2 {
+            }.ArtistQuerryPage .imgText button {
+            background-color: #2bc5b4;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+        }.ArtistQuerryPage h2 {
         margin-top: 20px;
         margin-bottom: 20px;
     }.ArtistQuerryPage  > .type {
         margin-top: 30px;
         margin-bottom: 30px;
+
         // border: 1px solid white;
     }.ArtistQuerryPage > .type .contentSwitcher button {
                 width: 100px;
@@ -366,4 +415,43 @@
                 border-radius: 25px;
                 margin-right: 20px;
                 cursor: pointer;
-            }
+            }.PlaylistQuerryPage h2 {
+        margin-bottom: 25px;
+    }.DynamicContent  > .albumCont {
+        // display: flex;
+        // flex-wrap: wrap;
+        // justify-content: space-evenly;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 150px);
+        grid-gap: 20px;
+        gap: 20px;
+        justify-content: space-evenly;
+    }.DynamicContent  > .load {
+        margin-top: 20px;
+        // border: 1px solid red;
+        display: flex;
+        justify-content: center;
+    }.DynamicContent > .load  > button {
+            background: none;
+            border: 2px solid #2bc5b4;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            height: 35px;
+            width: 120px;
+            cursor: pointer;
+        }.AlbumThumbnail {
+    // border: 1px solid white;
+    display: flex;
+    margin: 20px 0px;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    height: 190px;
+    overflow: hidden;
+    cursor: pointer;
+}.AlbumThumbnail img {
+        width: 150px;
+        height: 150px;
+    }

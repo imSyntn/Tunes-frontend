@@ -23,10 +23,10 @@ const ArtistQuerryPage = () => {
     const { loading, error, data } = useFetch(fetchUrl)
 
     if (loading) {
-        return null
+        return <p>Loading...</p>
     }
     if (error) {
-        return null
+        return <p>Error in loading.</p>
     }
 
     return (
@@ -39,6 +39,7 @@ const ArtistQuerryPage = () => {
                             <div className="text">
                                 <h1>{data.name} {data.isVerified && <SiTicktick />}</h1>
                                 <p>{data.fanCount} Listeners</p>
+                                <button>PLay</button>
                             </div>
                         </div>
                         <h2>Introduction</h2>

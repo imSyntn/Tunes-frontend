@@ -1,49 +1,65 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useFetch } from '../../Utils/useFetch'
 import SongCard from '../SongCard'
+import AlbumThumbnail from '../AlbumThumbnail'
 
 const DynamicContent = ({ type, id }: { type: string, id: string }) => {
-  const [totalData, setTotalData] = useState<any>([])
-  // const [page, setPage] = useState<number>(0)
+  const [page, setPage] = useState<number>(0)
 
-  const fetchUrl = `https://saavn.dev/api/artists/${id}/${type}`
+  const fetchUrl = `https://saavn.dev/api/artists/${id}/${type}?page=${page}`
 
   const { loading, error, data } = useFetch(fetchUrl)
-  // const PreviousData = useRef<any>(null)
+  const [totalData, setTotalData] = useState<any>([])
 
   useEffect(() => {
-    console.log('data:', data); 
-
-    if (data && data.length > 0) {  
+    if (data && Array.isArray(data[type])) {
       setTotalData((prev: any) => {
-        const updatedData = [...prev, ...data];
-        console.log('Updated totalData:', updatedData);
+        let updatedData;
+        if (prev.length == 0) {
+          updatedData = [...data[type]]
+        } else {
+          updatedData = [...prev, ...data[type]]
+        }
         return updatedData;
       });
     }
-  }, [data, type, id]);
+  }, [data]);
+
+  useEffect(() => {
+    setTotalData([])
+    setPage(0)
+  }, [type,id])
 
   // console.log(data)
-  // useEffect(() => {
-  //   console.log(data)
-  //   console.log(totalData)
-  // }, [totalData])
+  useEffect(() => {
+    // console.log(data)
+    console.log('totalData', totalData)
+  }, [totalData])
 
-  if (loading) {
-    return null
-  }
-  if (error) {
-    return null
-  }
+  // if (loading) {
+  //   return null
+  // }
+  // if (error) {
+  //   return null
+  // }
 
   return (
     <div className='DynamicContent'>
-      DynamicContent
-      {
-        totalData?.songs?.map((item: any) => (
-          <SongCard key={item.id} result={item} />
-        ))
-      }
+      <h2>{type.charAt(0).toUpperCase() + type.slice(1)}</h2>
+      <div className={type == 'albums' ? 'albumCont': ''}>
+        {
+          totalData?.map((item: any) => (
+            (type === 'songs') ? (
+              <SongCard key={item.id} result={item} />
+            ) : (
+              <AlbumThumbnail key={item.id} result={item} />
+            )
+          ))
+        }
+      </div>
+      <div className="load">
+        <button onClick={() => setPage(prev => prev + 1)}>Load more</button>
+      </div>
     </div>
   )
 }

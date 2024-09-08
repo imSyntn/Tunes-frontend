@@ -4,31 +4,50 @@
         // border: 1px solid white;
         display: flex;
         align-items: center;
+
         img {
             width: 350px;
             border: none;
             border-radius: 50%;
             margin-right: 50px;
         }
+
         .text {
             h1 {
                 display: flex;
                 align-items: center;
+
                 svg {
                     margin-left: 10px;
                     fill: #2bc5b4;
                 }
             }
+
             p {
                 margin-block: 10px;
             }
         }
+
+        button {
+            background-color: #2bc5b4;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+        }
     }
+
     h2 {
         margin-block: 20px;
     }
+
     >.type {
         margin-block: 30px;
+
         // border: 1px solid white;
         .contentSwitcher {
             button {

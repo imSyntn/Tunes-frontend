@@ -10,4 +10,7 @@
 @import './Styles/SongRoute/SongQuerryPage.scss';
 @import './Styles/SongRoute/Lyrics.scss';
 @import './Styles/SongRoute/SongFromAlbum.scss';
-@import './Styles/ArtistRoute/ArtistQuerryPage.scss'
+@import './Styles/ArtistRoute/ArtistQuerryPage.scss';
+@import './Styles/PlaylistRoute/PlaylistQuerryPage.scss';
+@import './Styles/ArtistRoute/DynamicContent.scss';
+@import './Styles/AlbumThumbnail.scss';

@@ -5,6 +5,7 @@ const ImgAlbumDetails = ({ data }:any) => {
     if (!data || !data.image) {
         return <p>Loading album details...</p>; // Add a fallback for when data is not available
       }
+    //   console.log(data)
     return (
         <div className="img-albumDetails">
             {
@@ -17,8 +18,9 @@ const ImgAlbumDetails = ({ data }:any) => {
             <div className="albumDetails">
                 <h1>{data.name}</h1>
                 <p>{data.description || data.copyright}</p>
-                <p>{data.label}, {data.year}</p>
-                <p>{data.playCount} plays</p>
+                <p>{data.label} {data.year}</p>
+                <p>{data.playCount ?  `${data.playCount}  plays` : ''}</p>
+                <p>{data.songCount ? `${data.songCount}  Songs` : ''}</p>
                 <button>Play</button>
             </div>
         </div>

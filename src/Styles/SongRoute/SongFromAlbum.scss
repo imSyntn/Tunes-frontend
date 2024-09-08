@@ -1,9 +1,16 @@
 .SongFromAlbum {
-    display: flex;
-    flex-wrap: wrap;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 150px);
+    gap: 20px;
+    justify-content: space-evenly;
     margin-bottom: 20px;
     >.songInAlbum {
-        margin: 10px 20px;
+        margin: 10px 0px;
+        width: 150px;
+        overflow: hidden;
         cursor: pointer;
         p {
             text-align: center;

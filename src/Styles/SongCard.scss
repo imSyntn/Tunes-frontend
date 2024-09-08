@@ -3,11 +3,54 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 10px;
-    border-block: 1px solid  rgba(143, 143, 143, 0.304);
+    padding: 10px 20px 10px 10px;
+    border-block: 1px solid rgba(143, 143, 143, 0.304);
     cursor: pointer;
-    svg {
-        width: 30px;
-        height: 17px;
+
+    h3 {
+        // border: 1px solid red;
+        width: 250px;
+        display: flex;
+        align-items: center;
+
+        img {
+            margin-right: 10px;
+        }
+        >.names {
+            p {
+                display: none;
+                font-size: 15px;
+                font-weight: 400;
+            }
+        }
+    }
+
+    h3,
+    p {
+        // border: 1px solid red;
+        text-wrap: nowrap;
+        overflow: hidden;
+    }
+
+    p {
+        width: 200px;
+    }
+    .desktopView {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .SongCard {
+        .desktopView {
+            display: none;
+        }
+        h3 {
+            .names {
+                p {
+                    display: block;
+                }
+            }
+        }
     }
 }
