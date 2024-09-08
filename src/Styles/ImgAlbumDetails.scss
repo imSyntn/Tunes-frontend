@@ -1,12 +1,15 @@
 .img-albumDetails {
-    padding-block: 50px;
+    padding-top: 50px;
+    padding-bottom: 20px;
     // border: 1px solid white;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     >img {
         width: 250px;
         margin-right: 30px;
+        margin-bottom: 20px;
     }
 
     >.albumDetails {
@@ -23,6 +26,13 @@
             font-weight: 700;
             margin-top: 20px;
             cursor: pointer;
+        }
+    }
+}
+@media screen and (max-width: 600px) {
+    .img-albumDetails {
+        h1 {
+            font-size: 26px;
         }
     }
 }
