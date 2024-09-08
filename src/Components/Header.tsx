@@ -72,7 +72,7 @@ const Header = () => {
                                     <p>Search...</p>
                                 ) : (
                                     Object.keys(data).map((item: string, index) => (
-                                        <HeaderSearchResult headerName={item} result={data[item].results} key={index} />
+                                        <HeaderSearchResult headerName={item} result={data[item].results} key={index} setSearchClicked={setSearchClicked} />
                                     ))
                                 )
                             }

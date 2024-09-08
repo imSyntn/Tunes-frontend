@@ -3,14 +3,9 @@
     grid-template-columns: repeat(auto-fit, 150px);
     gap: 20px;
     justify-content: space-evenly;
-    // padding-inline: 20px;
     >.artistCont {
-        // border: 1px solid rgb(255, 255, 255);
         width: fit-content;
-        // margin-inline: 10px;
         cursor: pointer;
-
-        // display: ;
         img {
             border-radius: 50%;
             height: 150px;
@@ -21,6 +16,18 @@
             margin-top: 10px;
             margin-bottom: 20px;
             text-align: center;
+        }
+    }
+}
+@media screen and (max-width: 400px) {
+    .artists {
+        grid-template-columns: repeat(auto-fit, 120px);
+        gap: 10px;
+        .artistCont {
+            img {
+                height: 120px;
+                width: 120px;
+            }
         }
     }
 }

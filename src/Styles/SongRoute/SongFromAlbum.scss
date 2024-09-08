@@ -1,7 +1,4 @@
 .SongFromAlbum {
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: space-evenly;
     display: grid;
     grid-template-columns: repeat(auto-fit, 150px);
     gap: 20px;

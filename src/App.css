@@ -5,6 +5,7 @@
   color: white;
   font-family: "Lato", sans-serif;
   user-select: none;
+  /* z-index: 1; */
   transition: all 0.3s;
 }
 

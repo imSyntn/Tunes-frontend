@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom'
 interface HeaderSearchResultProps {
     headerName: string;
     result: ResultsInDataType[];
+    setSearchClicked: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, result }) => {
+const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, result, setSearchClicked }) => {
 
     const navigate = useNavigate()
 
@@ -32,7 +33,10 @@ const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, res
             </div>
             {
                 result.map((item) => (
-                    <div className="container" key={item.id} onClick={()=> navigate(`/${item.type}/${item.id}`)}>
+                    <div className="container" key={item.id} onClick={()=> {
+                        navigate(`/${item.type}/${item.id}`);
+                        setSearchClicked(false)
+                    }}>
                         <img src={item.image[0].url} alt="" />
                         <div className="detaiils">
                             <p className='mainName'>{item.title}</p>

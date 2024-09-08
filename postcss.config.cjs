@@ -12,8 +12,8 @@ module.exports = {
       ],
       grid: true, // Enable grid prefixes for IE
     }),
-    // require('cssnano')({
-    //   preset: 'default',
-    // }),
+    require('cssnano')({
+      preset: 'default',
+    }),
   ],
 }
