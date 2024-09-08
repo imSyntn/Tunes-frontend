@@ -63,3 +63,54 @@
         }
     }
 }
+@media screen and (max-width:725px) {
+    .ArtistQuerryPage {
+        .imgText {
+            img {
+                width: 40vw;
+            }
+            .text {
+                h1 {
+                    font-size: 25px;
+                }
+                p {
+                    font-size:  16px;
+                }
+                h1,p {
+                    text-wrap:  nowrap;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:450px) {
+    .ArtistQuerryPage {
+        .imgText {
+            flex-direction: column;
+            align-items: start;
+            // justify-content: start;
+            img {
+                width: 200px;
+            }
+            .text {
+                // border: 1px solid red;
+                margin-top: 20px;
+                position: relative;
+                width: 100%;
+                button {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    margin: 0px;
+                    right: 10px;
+                }
+                h1 {
+                    font-size: 24px;
+                }
+                p {
+                    font-size:  15px;
+                }
+            }
+        }
+    }
+}

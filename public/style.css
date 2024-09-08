@@ -273,7 +273,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 25px;
-}.AlbumQuerryPage  > .albumSongs {}.AlbumQuerryPage h2 {
+}.AlbumQuerryPage h2 {
         margin-top: 25px;
         margin-bottom: 25px;
     }.AlbumQuerryPage .so {
@@ -415,7 +415,48 @@
                 border-radius: 25px;
                 margin-right: 20px;
                 cursor: pointer;
-            }.PlaylistQuerryPage h2 {
+            }@media screen and (max-width:725px) {
+            .ArtistQuerryPage .imgText img {
+                width: 40vw;
+            }
+                .ArtistQuerryPage .imgText .text h1 {
+                    font-size: 25px;
+                }
+                .ArtistQuerryPage .imgText .text p {
+                    font-size:  16px;
+                }
+                .ArtistQuerryPage .imgText .text h1,.ArtistQuerryPage .imgText .text p {
+                    text-wrap:  nowrap;
+                }
+}@media screen and (max-width:450px) {
+        .ArtistQuerryPage .imgText {
+            flex-direction: column;
+            align-items: start;
+            // justify-content: start;
+        }
+            .ArtistQuerryPage .imgText img {
+                width: 200px;
+            }
+            .ArtistQuerryPage .imgText .text {
+                // border: 1px solid red;
+                margin-top: 20px;
+                position: relative;
+                width: 100%;
+            }
+                .ArtistQuerryPage .imgText .text button {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    margin: 0px;
+                    right: 10px;
+                }
+                .ArtistQuerryPage .imgText .text h1 {
+                    font-size: 24px;
+                }
+                .ArtistQuerryPage .imgText .text p {
+                    font-size:  15px;
+                }
+}.PlaylistQuerryPage h2 {
         margin-bottom: 25px;
     }.DynamicContent  > .albumCont {
         // display: flex;
