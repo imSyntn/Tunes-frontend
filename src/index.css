@@ -3,8 +3,9 @@
 @import './Styles/HeaderSearchResult.scss';
 @import './Styles/Player.scss';
 @import './Styles//Main.scss';
+@import './Styles/Home/Home.scss';
 @import './Styles/SongCard.scss';
-@import './Styles/AlbumQuerryPage.scss';
+@import './Styles/AlbumRoute/AlbumQuerryPage.scss';
 @import './Styles/ImgAlbumDetails.scss';
 @import './Styles/Artists.scss';
 @import './Styles/SongRoute/SongQuerryPage.scss';

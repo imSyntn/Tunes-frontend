@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const ImgAlbumDetails = ({ data }:any) => {
+const ImgAlbumDetails = ({ data, audioSet }:any) => {
     // useEffect(()=> console.log(data),[])
     if (!data || !data.image) {
         return <p>Loading album details...</p>; // Add a fallback for when data is not available
@@ -21,7 +21,7 @@ const ImgAlbumDetails = ({ data }:any) => {
                 <p>{data.label} {data.year}</p>
                 <p>{data.playCount ?  `${data.playCount}  plays` : ''}</p>
                 <p>{data.songCount ? `${data.songCount}  Songs` : ''}</p>
-                <button>Play</button>
+                <button onClick={()=> audioSet()}>Play</button>
             </div>
         </div>
     )

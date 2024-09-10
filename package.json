@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "postcss:watch": "postcss src/index.css -o public/style.css --watch"
   },
+  "browserslist": "last 4 versions",
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

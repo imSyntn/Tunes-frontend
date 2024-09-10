@@ -1,5 +1,5 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useContext, useEffect, useState, useCallback } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch';
 // import SongCard from './SongCard';
 import ImgAlbumDetails from '../ImgAlbumDetails';
@@ -7,30 +7,57 @@ import Artists from '../Artists';
 import Lyrics from './Lyrics';
 import SimilarSongs from './SimilarSongs';
 import SongFromAlbum from './SongFromAlbum';
+import { songIdContext } from '../../App';
+import { GoArrowUpRight } from "react-icons/go";
 
 const SongQuerryPage = () => {
 
     const { id } = useParams()
+    const navigate = useNavigate()
+    const songContext = useContext(songIdContext)
 
     if (!id) {
         return <p>Invalid Song</p>
     }
+    if (!songContext) {
+        return null
+    }
 
-    const fetchUrl = `https://saavn.dev/api/songs?ids=${id}`;
+    const { setPlayId } = songContext;
+
+    const fetchUrl = `https://saavn.dev/api/songs/${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
-    // const loading = true;
+
+    const [allSongData, setAllSongData] = useState<any[]>([])
+
+    useEffect(() => {
+        if (!loading && !error) {
+            setAllSongData([...data])
+        }
+    }, [data])
+
+    // useEffect(() => {
+    //     console.log(allSongData)
+    // }, [allSongData])
+
+    const audioSet = useCallback(() => {
+        setPlayId(allSongData)
+    },[allSongData])
+
 
     if (loading) return <p className='Loading-Error'>Loading...</p>;
     if (error) return <p className='Loading-Error'>Error loading album details.</p>;
 
-    console.log(data)
+    // console.log(data)
+
+
 
     return (
         <div className='SongQuerryPage'>
             {
                 !loading && !error && data && (
                     <>
-                        <ImgAlbumDetails data={data[0]} />
+                        <ImgAlbumDetails audioSet={audioSet} data={data[0]} />
                         {
                             data[0]?.hasLyrics && (
                                 <>
@@ -42,13 +69,13 @@ const SongQuerryPage = () => {
                         {
                             data[0]?.album?.id && (
                                 <>
-                                    <h2>More from {data[0].album.name}</h2>
+                                    <h2>More from <span onClick={()=> navigate(`/album/${data[0]?.album?.id}`)}>{data[0].album.name}<GoArrowUpRight /></span></h2>
                                     <SongFromAlbum id={data[0].album.id} currentSongId={id} />
                                 </>
                             )
                         }
                         <h2>Similar songs</h2>
-                        <SimilarSongs id={id} />
+                        <SimilarSongs id={id} setAllSongData={setAllSongData} />
                         <h2>Artists</h2>
                         <Artists data={data[0]} />
                     </>

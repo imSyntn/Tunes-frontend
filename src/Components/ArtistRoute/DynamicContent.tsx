@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useFetch } from '../../Utils/useFetch'
 import SongCard from '../SongCard'
 import AlbumThumbnail from '../AlbumThumbnail'
 
-const DynamicContent = ({ type, id }: { type: string, id: string }) => {
+const DynamicContent = ({ type, id, childToParentDataSend, childData, setPlayId }: { type: string, id: string, childToParentDataSend: (params: any) => void, childData: any, setPlayId: any }) => {
   const [page, setPage] = useState<number>(0)
 
   const fetchUrl = `https://saavn.dev/api/artists/${id}/${type}?page=${page}`
@@ -28,13 +28,22 @@ const DynamicContent = ({ type, id }: { type: string, id: string }) => {
   useEffect(() => {
     setTotalData([])
     setPage(0)
-  }, [type,id])
+  }, [type, id])
 
   // console.log(data)
   useEffect(() => {
     // console.log(data)
     console.log('totalData', totalData)
+    if (type == 'songs') {
+      if (childData.length == 0) {
+        childToParentDataSend(totalData)
+      } else {
+        setPlayId((prev:any)=> ([...prev, ...data[type]]))
+      }
+    }
   }, [totalData])
+
+
 
   // if (loading) {
   //   return null
@@ -46,7 +55,7 @@ const DynamicContent = ({ type, id }: { type: string, id: string }) => {
   return (
     <div className='DynamicContent'>
       <h2>{type.charAt(0).toUpperCase() + type.slice(1)}</h2>
-      <div className={type == 'albums' ? 'albumCont': ''}>
+      <div className={type == 'albums' ? 'albumCont' : ''}>
         {
           totalData?.map((item: any) => (
             (type === 'songs') ? (
@@ -57,9 +66,13 @@ const DynamicContent = ({ type, id }: { type: string, id: string }) => {
           ))
         }
       </div>
-      <div className="load">
-        <button onClick={() => setPage(prev => prev + 1)}>Load more</button>
-      </div>
+      {
+        !loading && !error && (
+          <div className="load">
+            <button onClick={() => setPage(prev => prev + 1)}>Load more</button>
+          </div>
+        )
+      }
     </div>
   )
 }

@@ -12,7 +12,7 @@ const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) =
     if (loading) return <p className='Loading-Error'>Loading...</p>;
     if (error) return <p className='Loading-Error'>Error loading album details.</p>;
 
-    console.log(data)
+    // console.log(data)
 
   return (
     <div className='SongFromAlbum'>

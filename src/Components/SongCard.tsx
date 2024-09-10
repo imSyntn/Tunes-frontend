@@ -1,6 +1,16 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import { songIdContext } from '../App';
 
 const SongCard = ({ result }: any) => {
+
+  const songContext = useContext(songIdContext)
+
+  if (!songContext) {
+    return null
+  }
+
+  const { playId, setPlayId } = songContext;
+
   const artistsNAme = result.artists.primary.map((acc: any) => ` ${acc.name}`).join(' ,')
   const ArtistChar = (artistsNAme.length > 25) ? artistsNAme.slice(0, 29) + '...' : artistsNAme;
 
@@ -9,7 +19,7 @@ const SongCard = ({ result }: any) => {
   // }
 
   return (
-    <div className='SongCard'>
+    <div className='SongCard' onClick={() => setPlayId([result])}>
       <h3><img src={result?.image?.[0]?.url} />
         <div className="names">
           {

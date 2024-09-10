@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch'
 import ImgAlbumDetails from '../ImgAlbumDetails'
 import SongCard from '../SongCard'
 import Artists from '../Artists'
-ImgAlbumDetails
+import { songIdContext } from '../../App';
 
 const PlaylistQuerryPage = () => {
 
     const { id } = useParams()
+
+    const songContext = useContext(songIdContext);
+
+    if (!songContext) {
+        return null
+    }
+    const { setPlayId } = songContext;
 
     // const [totalData, setTotalData] = useState<any>([])
     // const [page, setPage] = useState<number>(0)
@@ -23,6 +30,12 @@ const PlaylistQuerryPage = () => {
         return null
     }
 
+    const audioSet = () => {
+        if (!loading && !error && Array.isArray(data.songs)) {
+            setPlayId(data.songs)
+        }
+    }
+
     // useEffect(() => {
     //     console.log(totalData.slice(1))
     // }, [totalData])
@@ -32,14 +45,14 @@ const PlaylistQuerryPage = () => {
             {
                 !loading && !error && data && (
                     <>
-                        <ImgAlbumDetails data={data} />
+                        <ImgAlbumDetails data={data} audioSet={audioSet} />
                         <h2>Songs</h2>
                         {
-                            data.songs?.map((item:any)=> (
+                            data.songs?.map((item: any) => (
                                 <SongCard result={item} key={item.id} />
                             ))
                         }
-                        <h2 style={{marginTop: '30px'}}>Artists</h2>
+                        <h2 style={{ marginTop: '30px' }}>Artists</h2>
                         <Artists data={data} />
                     </>
                 )

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import { useState, useContext, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch'
 import { SiTicktick } from "react-icons/si";
 import DynamicContent from './DynamicContent';
+import { songIdContext } from '../../App';
 
 // interface typeStateType {
 //     song: boolean,
@@ -13,20 +14,40 @@ const ArtistQuerryPage = () => {
 
     const { id } = useParams()
 
-    if(!id) {
+    const songContext = useContext(songIdContext);
+    // const counter = useRef(false)
+
+    if (!songContext) {
+        return null
+    }
+    const { setPlayId } = songContext;
+
+    if (!id) {
         return null
     }
 
     const [type, setType] = useState<string>('songs')
+    const [childData, setChildData] = useState<any>([])
 
     const fetchUrl = `https://saavn.dev/api/artists?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl)
 
-    if (loading) {
-        return <p>Loading...</p>
+    // if (loading) {
+    //     return <p>Loading...</p>
+    // }
+    // if (error) {
+    //     return <p>Error in loading.</p>
+    // }
+
+    const audioSet = () => {
+        if (!loading && !error && Array.isArray(childData) && childData.length==10) {
+            console.log(1)
+            setPlayId(childData)
+        }
     }
-    if (error) {
-        return <p>Error in loading.</p>
+
+    const childToParentDataSend = (childSentData:any) => {
+        setChildData(childSentData)
     }
 
     return (
@@ -39,18 +60,18 @@ const ArtistQuerryPage = () => {
                             <div className="text">
                                 <h1>{data.name} {data.isVerified && <SiTicktick />}</h1>
                                 <p>{data.fanCount} Listeners</p>
-                                <button>PLay</button>
+                                <button style={(type != 'songs')?{opacity: 0.2,cursor: 'inherit'} : {}} disabled={(type != 'songs' && childData.length==0)? true : false} onClick={audioSet}>PLay</button>
                             </div>
                         </div>
                         <h2>Introduction</h2>
                         <p>{data.bio?.[0]?.text}</p>
                         <div className="type">
                             <div className="contentSwitcher">
-                                <button onClick={() => setType('songs')} style={type === 'songs' ? {borderColor: '#2bc5b4'} : {borderColor: 'white'}}>Songs</button>
-                                <button onClick={() => setType('albums')} style={type==='albums' ? {borderColor: '#2bc5b4'} : {borderColor: 'white'}}>Albums</button>
+                                <button onClick={() => setType('songs')} style={type === 'songs' ? { borderColor: '#2bc5b4' } : { borderColor: 'white' }}>Songs</button>
+                                <button onClick={() => setType('albums')} style={type === 'albums' ? { borderColor: '#2bc5b4' } : { borderColor: 'white' }}>Albums</button>
                             </div>
                             <div className="content">
-                                <DynamicContent type={type} id={id} />
+                                <DynamicContent type={type} id={id} childToParentDataSend={childToParentDataSend} childData={childData} setPlayId={setPlayId} />
                             </div>
                         </div>
                     </>

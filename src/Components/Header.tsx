@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom';
 // import '../Styles/Header.css'
 import { FaRegUser, FaSearch } from "react-icons/fa";
 import HeaderSearchResult from './HeaderSearchResult';
@@ -15,6 +16,8 @@ const Header = () => {
 
     const inputRef = useRef<HTMLInputElement>(null)
     const timer = useRef<number | null>(null)
+
+    const navigate = useNavigate()
 
     // useEffect(()=>{
     //     console.log(searchClicked)
@@ -42,12 +45,12 @@ const Header = () => {
 
     // useEffect(() => {
     //     console.log(data)
-    //     // console.log(Object.keys(data))
+    //     console.log(Object.keys(data))
     // }, [data])
 
     return (
         <header>
-            <h1><img src="../../music.png" alt="" />Tunes</h1>
+            <h1 onClick={()=> navigate('/')}><img src="../../music.png" alt="" />Tunes</h1>
             <div className={`inputWrapper ${searchClicked ? 'activeInputWrapper' : ''}`} onClick={() => {
                 setSearchClicked(true);
                 inputRef.current?.focus()

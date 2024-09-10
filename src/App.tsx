@@ -3,14 +3,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './Components/Header'
 import Player from './Components/Player'
 import Main from './Components/Main'
-import AlbumQuerryPage from './Components/AlbumQuerryPage'
+import AlbumQuerryPage from './Components/AlbumRoute/AlbumQuerryPage'
 import SongQuerryPage from './Components/SongRoute/SongQuerryPage'
 import ArtistQuerryPage from './Components/ArtistRoute/ArtistQuerryPage'
 import PlaylistQuerryPage from './Components/PlaylistRoute/PlaylistQuerryPage'
+import Home from './Components/Home/Home'
 
 interface songIdContextType {
-  playId: string,
-  setPlayId: React.Dispatch<React.SetStateAction<string>>
+  playId: any[],
+  setPlayId: React.Dispatch<React.SetStateAction<any[]>>
 }
 
 
@@ -18,7 +19,7 @@ export const songIdContext = createContext<songIdContextType | undefined>(undefi
 
 function App() {
 
-  const [playId, setPlayId] = useState<string>('')
+  const [playId, setPlayId] = useState<any[]>([])
 
   useEffect(() => {
     console.log(playId)
@@ -30,7 +31,7 @@ function App() {
         <Header />
         <Routes>
           <Route path='/'element={<Main />}>
-            <Route path='/' element={<p>adsdnsaj</p>} />
+            <Route path='/' element={<Home />} />
             <Route path='/album/:id' element={<AlbumQuerryPage />} />
             <Route path='/song/:id' element={<SongQuerryPage />} />
             <Route path='/artist/:id' element={<ArtistQuerryPage />} />
