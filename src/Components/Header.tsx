@@ -5,6 +5,7 @@ import { FaRegUser, FaSearch } from "react-icons/fa";
 import HeaderSearchResult from './HeaderSearchResult';
 // import { useFetch } from '../Utils/useFetch';
 import { globalSearchResultType } from '../App.types';
+import Loader from './Loader';
 // import { globalSearchResultType } from '../App.types';
 
 
@@ -14,6 +15,7 @@ const Header = () => {
     const [inputText, setInputText] = useState<string>('')
     const [data, setData] = useState<globalSearchResultType | []>([])
     const [blank, setBlank] = useState<boolean>(false)
+    const [loading, setLoading] = useState(false)
 
     const inputRef = useRef<HTMLInputElement>(null)
     const timer = useRef<number | null>(null)
@@ -26,6 +28,7 @@ const Header = () => {
 
     useEffect(() => {
         const getData = async () => {
+            setLoading(true)
             if (inputText) {
                 // console.log(inputText)
                 try {
@@ -35,7 +38,12 @@ const Header = () => {
                     setData(res.data)
                 } catch (error: any) {
                     console.log(error.message)
+                } finally {
+                    setLoading(false)
                 }
+            } else {
+                setData([])
+                setLoading(false)
             }
         }
         if (timer.current !== null) {
@@ -56,7 +64,7 @@ const Header = () => {
                     counter++
                 }
             });
-            if(counter == 5) {
+            if (counter == 5) {
                 setBlank(true)
             }
         }
@@ -89,21 +97,25 @@ const Header = () => {
                     searchClicked && (
                         <div className='bottom' onClick={e => e.stopPropagation()}>
                             {
-                                (Array.isArray(data)) ? (
-                                    <h2>Search...</h2>
+                                loading ? (
+                                    <Loader black={true} />
                                 ) : (
-                                    <>
-                                        {
-                                            Object.keys(data).map((item: string, index: number) => (
-                                                <HeaderSearchResult headerName={item} result={data[item].results} key={index} setSearchClicked={setSearchClicked} />
-                                            ))
-                                        }
-                                        {
-                                            blank && (
-                                                <h2>No results.</h2>
-                                            )
-                                        }
-                                    </>
+                                    (Array.isArray(data)) ? (
+                                        <h2>Search...</h2>
+                                    ) : (
+                                        <>
+                                            {
+                                                Object.keys(data).map((item: string, index: number) => (
+                                                    <HeaderSearchResult headerName={item} result={data[item].results} key={index} setSearchClicked={setSearchClicked} />
+                                                ))
+                                            }
+                                            {
+                                                blank && (
+                                                    <h2>No results.</h2>
+                                                )
+                                            }
+                                        </>
+                                    )
                                 )
                             }
                         </div>

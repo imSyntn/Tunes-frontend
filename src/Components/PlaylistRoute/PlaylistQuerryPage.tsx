@@ -5,6 +5,7 @@ import ImgAlbumDetails from '../ImgAlbumDetails'
 import SongCard from '../SongCard'
 import Artists from '../Artists'
 import { songIdContext } from '../../App';
+import Loader from '../Loader'
 
 const PlaylistQuerryPage = () => {
 
@@ -26,8 +27,11 @@ const PlaylistQuerryPage = () => {
         console.log(data)
     }, [data])
 
-    if (loading || error) {
-        return null
+    if (loading) {
+        return <Loader />
+    }
+    if (error) {
+        return <p className='Loading-Error'>Error in loading.</p>
     }
 
     const audioSet = () => {

@@ -7,17 +7,12 @@ const Lyrics = ({ id }: { id: string }) => {
 
     const fetchUrl = `https://saavn.dev/api/songs/${id}/lyrics`;
     const { loading, error, data } = useFetch(fetchUrl);
-    if (loading) {
-        return <p>Loading lyrics...</p>
-    }
-    if (error) {
-        return <p>Error in loading lyrics.</p>
-    }
+
     return (
         <>
             <div className={`Lyrics ${showFullLyrics ? 'fullView' : ''}`}>
                 {
-                    data && (
+                    !loading && !error && data && (
                         <>
                             {
                                 ('lyrics' in data) && (

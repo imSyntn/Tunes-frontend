@@ -19,3 +19,44 @@ body {
 body ::-webkit-scrollbar {
   display: none;
 }
+
+
+
+.loaderWrapper {
+  /* height: calc(100vh - 132.5px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.loader {
+  width: 65px;
+  height: 30px;
+  position: relative;
+}
+.BlackClass::before {
+  box-shadow: 0 0 0 3px inset #000000 !important;
+  /* box-shadow-a */
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  border-radius: 50px;
+  box-shadow: 0 0 0 3px inset #fff;
+  animation: l3 0.75s infinite alternate;
+}
+@keyframes l3 {
+  0% {
+    inset: 0 35px 0 0;
+  }
+  50% {
+    inset: 0 0 0 0;
+  }
+  100% {
+    inset: 0 0 0 35px;
+  }
+}

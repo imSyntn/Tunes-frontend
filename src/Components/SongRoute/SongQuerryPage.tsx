@@ -10,6 +10,7 @@ import SongFromAlbum from './SongFromAlbum';
 import { songIdContext } from '../../App';
 import { GoArrowUpRight } from "react-icons/go";
 import { ResultsInDataType } from '../../App.types';
+import Loader from '../Loader';
 
 const SongQuerryPage = () => {
 
@@ -46,10 +47,10 @@ const SongQuerryPage = () => {
     },[allSongData])
 
 
-    if (loading) return <p className='Loading-Error'>Loading...</p>;
+    if (loading) return <Loader />;
     if (error) return <p className='Loading-Error'>Error loading album details.</p>;
 
-    console.log(data)
+    // console.log(data)
 
 
 

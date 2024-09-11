@@ -21,8 +21,8 @@ const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
       }
     },[data])
 
-    if (loading) return <p className='Loading-Error'>Loading...</p>;
-    if (error) return <p className='Loading-Error'>Error loading album details.</p>;
+    // if (loading) return <p className='Loading-Error'>Loading...</p>;
+    // if (error) return <p className='Loading-Error'>Error loading album details.</p>;
   return (
     <div className='SimilarSongs' style={{marginBottom: '20px'}}>
       {

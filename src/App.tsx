@@ -1,13 +1,15 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './Components/Header'
 import Player from './Components/Player'
-import Main from './Components/Main'
-import AlbumQuerryPage from './Components/AlbumRoute/AlbumQuerryPage'
-import SongQuerryPage from './Components/SongRoute/SongQuerryPage'
-import ArtistQuerryPage from './Components/ArtistRoute/ArtistQuerryPage'
-import PlaylistQuerryPage from './Components/PlaylistRoute/PlaylistQuerryPage'
-import Home from './Components/Home/Home'
+import Loader from './Components/Loader'
+
+const Main = lazy(()=> import('./Components/Main'))
+const AlbumQuerryPage = lazy(()=> import('./Components/AlbumRoute/AlbumQuerryPage'))
+const SongQuerryPage = lazy(()=> import('./Components/SongRoute/SongQuerryPage'))
+const ArtistQuerryPage = lazy(()=> import('./Components/ArtistRoute/ArtistQuerryPage'))
+const PlaylistQuerryPage = lazy(()=> import('./Components/PlaylistRoute/PlaylistQuerryPage'))
+const Home = lazy(()=> import('./Components/Home/Home'))
 
 interface songIdContextType {
   playId: any[],
@@ -30,12 +32,12 @@ function App() {
       <songIdContext.Provider value={{ playId, setPlayId }}>
         <Header />
         <Routes>
-          <Route path='/'element={<Main />}>
-            <Route path='/' element={<Home />} />
-            <Route path='/album/:id' element={<AlbumQuerryPage />} />
-            <Route path='/song/:id' element={<SongQuerryPage />} />
-            <Route path='/artist/:id' element={<ArtistQuerryPage />} />
-            <Route path='/playlist/:id' element={<PlaylistQuerryPage />} />
+          <Route path='/'element={<Suspense fallback={<Loader />}><Main /></Suspense>}>
+            <Route path='/' element={<Suspense fallback={<Loader />}><Home /></Suspense>} />
+            <Route path='/album/:id' element={<Suspense fallback={<Loader />}><AlbumQuerryPage /></Suspense>} />
+            <Route path='/song/:id' element={<Suspense fallback={<Loader />}><SongQuerryPage /></Suspense>} />
+            <Route path='/artist/:id' element={<Suspense fallback={<Loader />}><ArtistQuerryPage /></Suspense>} />
+            <Route path='/playlist/:id' element={<Suspense fallback={<Loader />}><PlaylistQuerryPage /></Suspense>} />
           </Route>
         </Routes>
         <Player />
