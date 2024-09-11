@@ -1,17 +1,60 @@
-export interface DataType {
-    [key: string]: {
-        results: ResultsInDataType[]
-    }
+// export interface DataType {
+//     [key: string]: {
+//         results: ResultsInDataType[] | []
+//     }
+// }
+interface imageType {
+    quality: string,
+    url: string
 }
+
+interface artistsType {
+    name: string,
+    id: string,
+    image: imageType[]
+}
+
 export interface ResultsInDataType {
-    artist : string ,
-    description  : string ,
-    id : string ,
-    image : {quality : string, url: string}[],
-    language : string ,
-    songIds : string  ,
-    title : string   ,
-    type : string  ,
-    url : string ,
-    year : string ,
+    name: string,
+    artist?: string,
+    description?: string,
+    id: string,
+    image?: imageType[],
+    language?: string,
+    songIds?: string,
+    songCount?: number,
+    title: string,
+    type: string,
+    url?: string,
+    year?: string,
+    duration?: number,
+    releaseDate?: string,
+    label?: string,
+    playCount?: string,
+    hasLyrics?: boolean,
+    copyright?: string,
+    album?: { id?: string, name?: string },
+    artists?: {
+        primary?: artistsType[],
+        all?: artistsType[]
+    },
+    downloadUrl?: { quality: string, url: string }[],
+    songs?: ResultsInDataType[],
+    albums?: ResultsInDataType[],
+    lyrics?: string,
+    isVerified?: boolean,
+    fanCount?: string,
+    bio?: {text: string, title: string}[],
+}
+
+export interface globalSearchResultType {
+    [key: string] : resultsType
+    // topQuery: resultsType,
+    // songs: resultsType,
+    // albums: resultsType,
+    // artists: resultsType,
+    // playlists: resultsType
+}
+interface resultsType {
+    results: ResultsInDataType[] | []
 }

@@ -4,15 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { FaRegUser, FaSearch } from "react-icons/fa";
 import HeaderSearchResult from './HeaderSearchResult';
 // import { useFetch } from '../Utils/useFetch';
-import { DataType } from '../App.types';
+import { globalSearchResultType } from '../App.types';
+// import { globalSearchResultType } from '../App.types';
 
 
 const Header = () => {
 
     const [searchClicked, setSearchClicked] = useState<boolean>(false)
     const [inputText, setInputText] = useState<string>('')
-    // const [searchQuerry, setSearchQuerry] = useState<Boolean>(false)
-    const [data, setData] = useState<DataType | any>([])
+    const [data, setData] = useState<globalSearchResultType | []>([])
+    const [blank, setBlank] = useState<boolean>(false)
 
     const inputRef = useRef<HTMLInputElement>(null)
     const timer = useRef<number | null>(null)
@@ -43,14 +44,31 @@ const Header = () => {
         timer.current = setTimeout(getData, 500)
     }, [inputText])
 
-    // useEffect(() => {
-    //     console.log(data)
-    //     console.log(Object.keys(data))
-    // }, [data])
+    useEffect(() => {
+        setBlank(false)
+        if (!Array.isArray(data)) {
+            // console.log(data)
+            // console.log(Object.keys(data))
+            let counter = 0;
+            Object.keys(data).forEach((item: string) => {
+                const result = data[item as keyof globalSearchResultType].results;
+                if (result.length == 0) {
+                    counter++
+                }
+            });
+            if(counter == 5) {
+                setBlank(true)
+            }
+        }
+    }, [data])
 
     return (
         <header>
-            <h1 onClick={()=> navigate('/')}><img src="../../music.png" alt="" />Tunes</h1>
+            <h1 onClick={() => navigate('/')}>
+                <div className="imgWrapper">
+                    <img src="../../musicTransparent.png" alt="" />
+                </div>
+                Tunes</h1>
             <div className={`inputWrapper ${searchClicked ? 'activeInputWrapper' : ''}`} onClick={() => {
                 setSearchClicked(true);
                 inputRef.current?.focus()
@@ -71,12 +89,21 @@ const Header = () => {
                     searchClicked && (
                         <div className='bottom' onClick={e => e.stopPropagation()}>
                             {
-                                data.length == 0 ? (
-                                    <p>Search...</p>
+                                (Array.isArray(data)) ? (
+                                    <h2>Search...</h2>
                                 ) : (
-                                    Object.keys(data).map((item: string, index) => (
-                                        <HeaderSearchResult headerName={item} result={data[item].results} key={index} setSearchClicked={setSearchClicked} />
-                                    ))
+                                    <>
+                                        {
+                                            Object.keys(data).map((item: string, index: number) => (
+                                                <HeaderSearchResult headerName={item} result={data[item].results} key={index} setSearchClicked={setSearchClicked} />
+                                            ))
+                                        }
+                                        {
+                                            blank && (
+                                                <h2>No results.</h2>
+                                            )
+                                        }
+                                    </>
                                 )
                             }
                         </div>

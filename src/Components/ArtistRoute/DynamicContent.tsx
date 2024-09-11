@@ -2,23 +2,27 @@ import { useState, useEffect } from 'react'
 import { useFetch } from '../../Utils/useFetch'
 import SongCard from '../SongCard'
 import AlbumThumbnail from '../AlbumThumbnail'
+import { ResultsInDataType } from '../../App.types'
 
-const DynamicContent = ({ type, id, childToParentDataSend, childData, setPlayId }: { type: string, id: string, childToParentDataSend: (params: any) => void, childData: any, setPlayId: any }) => {
+const DynamicContent = ({ type, id, childToParentDataSend, childData, setPlayId, playId }: { type: string, id: string, childToParentDataSend: (params: any) => void, childData: any, setPlayId: any, playId: ResultsInDataType[] }) => {
   const [page, setPage] = useState<number>(0)
 
   const fetchUrl = `https://saavn.dev/api/artists/${id}/${type}?page=${page}`
 
   const { loading, error, data } = useFetch(fetchUrl)
-  const [totalData, setTotalData] = useState<any>([])
+  const [totalData, setTotalData] = useState<ResultsInDataType[]>([])
 
   useEffect(() => {
-    if (data && Array.isArray(data[type])) {
-      setTotalData((prev: any) => {
-        let updatedData;
+    if (data && Array.isArray((data as ResultsInDataType)[type as keyof ResultsInDataType])) {
+      setTotalData((prev: ResultsInDataType[]) => {
+        let updatedData: ResultsInDataType[];
+
+        let newData: any = (data as ResultsInDataType)[type as keyof ResultsInDataType]
+
         if (prev.length == 0) {
-          updatedData = [...data[type]]
+          updatedData = [...newData]
         } else {
-          updatedData = [...prev, ...data[type]]
+          updatedData = [...prev, ...newData]
         }
         return updatedData;
       });
@@ -30,15 +34,19 @@ const DynamicContent = ({ type, id, childToParentDataSend, childData, setPlayId 
     setPage(0)
   }, [type, id])
 
-  // console.log(data)
+
   useEffect(() => {
-    // console.log(data)
     console.log('totalData', totalData)
-    if (type == 'songs') {
+    if (data && Array.isArray((data as ResultsInDataType)[type as keyof ResultsInDataType]) && type == 'songs') {
       if (childData.length == 0) {
         childToParentDataSend(totalData)
       } else {
-        setPlayId((prev:any)=> ([...prev, ...data[type]]))
+        if (playId.length != 0) {
+          let newData: any = (data as ResultsInDataType)[type as keyof ResultsInDataType]
+          const allData = [...playId, ...newData]
+          const withoutDuplicates = allData.filter((item:ResultsInDataType, index:number, ref:ResultsInDataType[])=> index === ref.findIndex(t=> t.id === item.id))
+          setPlayId(withoutDuplicates)
+        }
       }
     }
   }, [totalData])

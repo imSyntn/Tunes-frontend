@@ -9,6 +9,7 @@ import SimilarSongs from './SimilarSongs';
 import SongFromAlbum from './SongFromAlbum';
 import { songIdContext } from '../../App';
 import { GoArrowUpRight } from "react-icons/go";
+import { ResultsInDataType } from '../../App.types';
 
 const SongQuerryPage = () => {
 
@@ -28,10 +29,10 @@ const SongQuerryPage = () => {
     const fetchUrl = `https://saavn.dev/api/songs/${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
-    const [allSongData, setAllSongData] = useState<any[]>([])
+    const [allSongData, setAllSongData] = useState<ResultsInDataType[] | []>([])
 
     useEffect(() => {
-        if (!loading && !error) {
+        if (!loading && !error && Array.isArray(data)) {
             setAllSongData([...data])
         }
     }, [data])
@@ -48,14 +49,14 @@ const SongQuerryPage = () => {
     if (loading) return <p className='Loading-Error'>Loading...</p>;
     if (error) return <p className='Loading-Error'>Error loading album details.</p>;
 
-    // console.log(data)
+    console.log(data)
 
 
 
     return (
         <div className='SongQuerryPage'>
             {
-                !loading && !error && data && (
+                !loading && !error && data && Array.isArray(data) && (
                     <>
                         <ImgAlbumDetails audioSet={audioSet} data={data[0]} />
                         {

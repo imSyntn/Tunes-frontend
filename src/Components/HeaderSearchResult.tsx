@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import { ResultsInDataType } from '../App.types'
 import { useNavigate } from 'react-router-dom'
 // import { songIdContext } from '../App';
@@ -13,39 +13,37 @@ const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, res
 
     const navigate = useNavigate()
 
-    // const songContext = useContext(songIdContext)
-
-    // if (!songContext) {
-    //     return null
-    // }
-
-    // const { setPlayId } = songContext;
-
-    useEffect(() => {
-        // console.log(result)
-    }, [])
+    // useEffect(() => {
+    //     // console.log(result)
+    // }, [])
 
     return (
-        <div className='HeaderSearchResult'>
-            <div className="top">
-                <h5>{headerName.toUpperCase()}</h5>
-                <button>View all</button>
-            </div>
+        <>
             {
-                result.map((item) => (
-                    <div className="container" key={item.id} onClick={()=> {
-                        navigate(`/${item.type}/${item.id}`);
-                        setSearchClicked(false)
-                    }}>
-                        <img src={item.image[0].url} alt="" />
-                        <div className="detaiils">
-                            <p className='mainName'>{item.title}</p>
-                            <p>{(item.description.length > 25) ? item.description.slice(0, 25) + ' ...' : item.description}</p>
+                (result.length != 0) && (
+                    <div className='HeaderSearchResult'>
+                        <div className="top">
+                            <h5>{headerName.toUpperCase()}</h5>
+                            <button>View all</button>
                         </div>
+                        {
+                            result.map((item:ResultsInDataType) => (
+                                <div className="container" key={item.id} onClick={() => {
+                                    navigate(`/${item.type}/${item.id}`);
+                                    setSearchClicked(false)
+                                }}>
+                                    <img src={item?.image?.[0].url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt="" />
+                                    <div className="detaiils">
+                                        <p className='mainName'>{item.title}</p>
+                                        <p>{(item.description && item.description.length > 25) ? item.description.slice(0, 25) + ' ...' : item.description}</p>
+                                    </div>
+                                </div>
+                            ))
+                        }
                     </div>
-                ))
+                )
             }
-        </div>
+        </>
     )
 }
 

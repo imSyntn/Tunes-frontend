@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from 'react'
+import { useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch'
 import { SiTicktick } from "react-icons/si";
@@ -20,7 +20,7 @@ const ArtistQuerryPage = () => {
     if (!songContext) {
         return null
     }
-    const { setPlayId } = songContext;
+    const { playId, setPlayId } = songContext;
 
     if (!id) {
         return null
@@ -53,7 +53,7 @@ const ArtistQuerryPage = () => {
     return (
         <div className='ArtistQuerryPage'>
             {
-                !loading && !error && data && (
+                !loading && !error && data && !Array.isArray(data) && (
                     <>
                         <div className="imgText">
                             <img src={data.image?.[2]?.url || data.image?.[1]?.url || data.image?.[0]?.url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt="" />
@@ -71,7 +71,7 @@ const ArtistQuerryPage = () => {
                                 <button onClick={() => setType('albums')} style={type === 'albums' ? { borderColor: '#2bc5b4' } : { borderColor: 'white' }}>Albums</button>
                             </div>
                             <div className="content">
-                                <DynamicContent type={type} id={id} childToParentDataSend={childToParentDataSend} childData={childData} setPlayId={setPlayId} />
+                                <DynamicContent type={type} id={id} childToParentDataSend={childToParentDataSend} childData={childData} setPlayId={setPlayId} playId={playId} />
                             </div>
                         </div>
                     </>

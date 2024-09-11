@@ -1,9 +1,11 @@
 import React,{useContext} from 'react'
+import { useformatTime } from '../Utils/useformatTime';
 import { songIdContext } from '../App';
 
 const SongCard = ({ result }: any) => {
 
   const songContext = useContext(songIdContext)
+  const formatTime = useformatTime()
 
   if (!songContext) {
     return null
@@ -29,7 +31,7 @@ const SongCard = ({ result }: any) => {
         </div>
       </h3>
       <p className='desktopView'>{ArtistChar}</p>
-      <span>{(result.duration / 60).toFixed(2)}</span>
+      <span>{formatTime(result.duration)}</span>
     </div>
   )
 }

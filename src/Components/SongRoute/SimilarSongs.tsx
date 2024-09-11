@@ -16,7 +16,7 @@ const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
     // console.log(data)
 
     useEffect(()=> {
-      if(!loading && !error) {
+      if(!loading && !error && Array.isArray(data)) {
         setAllSongData((prev:any)=> [...prev,...data])
       }
     },[data])
@@ -26,7 +26,7 @@ const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
   return (
     <div className='SimilarSongs' style={{marginBottom: '20px'}}>
       {
-        !loading && !error && data && (
+        !loading && !error && Array.isArray(data) && (
           data.map((item:any) => (
             <SongCard key={item.id} result={item} />
           ))

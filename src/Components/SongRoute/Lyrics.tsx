@@ -17,18 +17,29 @@ const Lyrics = ({ id }: { id: string }) => {
         <>
             <div className={`Lyrics ${showFullLyrics ? 'fullView' : ''}`}>
                 {
-                    data?.lyrics?.split('<br>').map((item: string, index: number) => (
-                        <p key={index}>{item}</p>
-                    ))
-                }
-                {
-                    data?.copyright?.split('<br>').map((item: string, index: number) => (
-                        <h4 key={index}>{item}</h4>
-                    ))
+                    data && (
+                        <>
+                            {
+                                ('lyrics' in data) && (
+                                    data?.lyrics?.split('<br>').map((item: string, index: number) => (
+                                        <p key={index}>{item}</p>
+                                    ))
+                                )
+                            }
+                            {
+                                ('copyright' in data) && (
+                                    data?.copyright?.split('<br>').map((item: string, index: number) => (
+                                        <h4 key={index}>{item}</h4>
+                                    ))
+                                )
+
+                            }
+                        </>
+                    )
                 }
             </div>
 
-            <button className='readMore' onClick={()=> setShowFullLyrics(prev => !prev)}>
+            <button className='readMore' onClick={() => setShowFullLyrics(prev => !prev)}>
                 {
                     showFullLyrics ? 'Read less' : 'Read more'
                 }

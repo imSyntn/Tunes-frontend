@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
+import { ResultsInDataType } from '../App.types';
 
-const ImgAlbumDetails = ({ data, audioSet }:any) => {
+const ImgAlbumDetails = ({ data, audioSet }: {data: ResultsInDataType, audioSet: ()=> void}) => {
     // useEffect(()=> console.log(data),[])
     if (!data || !data.image) {
         return <p>Loading album details...</p>; // Add a fallback for when data is not available

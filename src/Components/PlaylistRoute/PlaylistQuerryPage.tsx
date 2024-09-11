@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch'
 import ImgAlbumDetails from '../ImgAlbumDetails'
@@ -31,7 +31,7 @@ const PlaylistQuerryPage = () => {
     }
 
     const audioSet = () => {
-        if (!loading && !error && Array.isArray(data.songs)) {
+        if (!loading && !error && data && 'songs' in data && Array.isArray(data.songs)) {
             setPlayId(data.songs)
         }
     }
@@ -43,7 +43,7 @@ const PlaylistQuerryPage = () => {
     return (
         <div className='PlaylistQuerryPage'>
             {
-                !loading && !error && data && (
+                !loading && !error && data && !Array.isArray(data) && (
                     <>
                         <ImgAlbumDetails data={data} audioSet={audioSet} />
                         <h2>Songs</h2>

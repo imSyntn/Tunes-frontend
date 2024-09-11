@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
+import { ResultsInDataType } from '../App.types'
 
 export const useFetch = (url: string) => {
 
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<boolean>(false)
-    const [data, setData] = useState<any>([])
+    const [data, setData] = useState<ResultsInDataType[] | ResultsInDataType | null>(null)
 
     useEffect(() => {
 

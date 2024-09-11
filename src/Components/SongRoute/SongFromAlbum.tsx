@@ -1,4 +1,3 @@
-import React from 'react'
 import { useFetch } from '../../Utils/useFetch';
 import { useNavigate } from 'react-router-dom'
 
@@ -17,7 +16,7 @@ const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) =
   return (
     <div className='SongFromAlbum'>
         {
-            !loading && !error && data && (
+            !loading && !error && data && !Array.isArray(data) && (
                 <>
                 {
                     data?.songs?.filter((item:any) => item.id !== currentSongId).map((item:any)=> (
