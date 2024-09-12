@@ -6,6 +6,7 @@ import SongCard from '../SongCard'
 import Artists from '../Artists'
 import { songIdContext } from '../../App';
 import Loader from '../Loader'
+import { ResultsInDataType } from '../../App.types'
 
 const PlaylistQuerryPage = () => {
 
@@ -14,12 +15,9 @@ const PlaylistQuerryPage = () => {
     const songContext = useContext(songIdContext);
 
     if (!songContext) {
-        return null
+        return 
     }
-    const { setPlayId } = songContext;
-
-    // const [totalData, setTotalData] = useState<any>([])
-    // const [page, setPage] = useState<number>(0)
+    const { setTracks } = songContext;
 
     const fetchUrl = `https://saavn.dev/api/playlists?id=${id}&limit=100`
     const { loading, error, data } = useFetch(fetchUrl)
@@ -36,7 +34,7 @@ const PlaylistQuerryPage = () => {
 
     const audioSet = () => {
         if (!loading && !error && data && 'songs' in data && Array.isArray(data.songs)) {
-            setPlayId(data.songs)
+            setTracks(data.songs)
         }
     }
 
@@ -52,7 +50,7 @@ const PlaylistQuerryPage = () => {
                         <ImgAlbumDetails data={data} audioSet={audioSet} />
                         <h2>Songs</h2>
                         {
-                            data.songs?.map((item: any) => (
+                            data.songs?.map((item: ResultsInDataType) => (
                                 <SongCard result={item} key={item.id} />
                             ))
                         }

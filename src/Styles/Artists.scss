@@ -2,8 +2,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 150px);
     gap: 20px;
-    // justify-content: space-evenly;
-    // justify-items: start;
     >.artistCont {
         width: fit-content;
         cursor: pointer;

@@ -1,3 +1,4 @@
+import { ResultsInDataType } from '../../App.types';
 import { useFetch } from '../../Utils/useFetch';
 import { useNavigate } from 'react-router-dom'
 
@@ -19,7 +20,7 @@ const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) =
             !loading && !error && data && !Array.isArray(data) && (
                 <>
                 {
-                    data?.songs?.filter((item:any) => item.id !== currentSongId).map((item:any)=> (
+                    data?.songs?.filter((item: ResultsInDataType) => item.id !== currentSongId).map((item:ResultsInDataType)=> (
                         <div className="songInAlbum" key={item.id} onClick={()=> navigate(`/song/${item.id}`)}>
                             <img src={item.image?.[1]?.url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt="" />
                             <p>{item.name}</p>

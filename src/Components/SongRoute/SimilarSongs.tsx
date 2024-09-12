@@ -1,10 +1,11 @@
 import React, { memo,useEffect } from 'react'
 import { useFetch } from '../.././Utils/useFetch';
 import SongCard from '../SongCard';
+import { ResultsInDataType } from '../../App.types';
 
 interface SimilarSongPropType {
   id: string,
-  setAllSongData: React.Dispatch<React.SetStateAction<any>>
+  setAllSongData: React.Dispatch<React.SetStateAction<ResultsInDataType[]>>
 }
 
 const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
@@ -17,7 +18,7 @@ const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
 
     useEffect(()=> {
       if(!loading && !error && Array.isArray(data)) {
-        setAllSongData((prev:any)=> [...prev,...data])
+        setAllSongData((prev: ResultsInDataType[])=> [...prev,...data])
       }
     },[data])
 
@@ -27,7 +28,7 @@ const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
     <div className='SimilarSongs' style={{marginBottom: '20px'}}>
       {
         !loading && !error && Array.isArray(data) && (
-          data.map((item:any) => (
+          data.map((item: ResultsInDataType) => (
             <SongCard key={item.id} result={item} />
           ))
         )

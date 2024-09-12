@@ -7,6 +7,7 @@ import { IoMdPlay, IoMdPause } from "react-icons/io";
 import { RiRepeat2Fill, RiRepeatOneLine } from "react-icons/ri";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { songIdContext } from '../App';
+import { ResultsInDataType } from '../App.types';
 
 const Player = () => {
 
@@ -18,17 +19,21 @@ const Player = () => {
         return null
     }
 
-    const { playId } = songContext;
+    const { tracks, setCurrentSongObj, songIndex, setSongIndex } = songContext;
+
     const audioRef = useRef<HTMLAudioElement>(null)
+    const trackListMomo = useRef<ResultsInDataType[] | null>(null)
 
     const [isPlaying, setIsPlaying] = useState(false)
     const [audioOptions, setAudioOptions] = useState<any>({
         currentTime: ['-:--', 0],
         totalTime: ['-:--', 0],
         loop: true,
-        currentSong: 0,
+        // currentSong: 0,
         volume: 100
     })
+
+    const disabled = (tracks.length == 0) ? true : false;
 
     // useEffect(() => {
     //     if ((audioOptions.currentTime[1] >= audioOptions.totalTime[1]) && isPlaying && !audioOptions.loop) {
@@ -37,8 +42,20 @@ const Player = () => {
     // }, [audioOptions.currentTime])
 
     useEffect(() => {
-        setAudioOptions((prev: any) => ({ ...prev, currentSong: 0 }))
-    }, [playId])
+        if (trackListMomo.current == null || trackListMomo.current?.[0]?.id != tracks?.[0].id) {
+            // setAudioOptions((prev: any) => ({ ...prev, currentSong: 0 }))
+            setSongIndex(0)
+        }
+        trackListMomo.current = tracks;
+        setCurrentSongObj(tracks[songIndex])
+    }, [tracks])
+
+    useEffect(() => {
+        if (tracks.length != 0) {
+            setCurrentSongObj(tracks[songIndex])
+        }
+    }, [songIndex])
+
 
     const handleLoadedMetadata = () => {
         if (audioRef.current) {
@@ -126,28 +143,32 @@ const Player = () => {
 
     const changeAudioTimeline = (e: any) => {
         if (audioRef.current) {
+            setIsPlaying(false)
             const time = (audioRef.current.duration / 100) * e.target.value;
             audioRef.current.currentTime = time;
+            setIsPlaying(true)
         }
     }
 
     const prevSong = useCallback(() => {
-        if (audioOptions.currentSong - 1 >= 0) {
-            setAudioOptions((prev: any) => ({ ...prev, currentSong: prev.currentSong - 1 }))
+        if (songIndex - 1 >= 0) {
+            // setAudioOptions((prev: any) => ({ ...prev, currentSong: prev.currentSong - 1 }))
+            setSongIndex((prev:number)=> prev-1)
         }
-    },[audioOptions.currentSong])
+    }, [songIndex])
 
     const nextSong = useCallback(() => {
-        if (audioOptions.currentSong + 1 < playId.length) {
-            setAudioOptions((prev: any) => ({ ...prev, currentSong: prev.currentSong + 1 }))
+        if (songIndex + 1 < tracks.length) {
+            // setAudioOptions((prev: any) => ({ ...prev, currentSong: prev.currentSong + 1 }))
+            setSongIndex((prev:number)=> prev+1)
         } else {
             setIsPlaying(false)
         }
-    },[playId, audioOptions.currentSong])
+    }, [tracks, songIndex])
 
     return (
         <div className='Player'>
-            <audio preload='auto' src={playId[audioOptions.currentSong]?.downloadUrl?.[4]?.url} ref={audioRef}
+            <audio preload='auto' src={tracks[songIndex]?.downloadUrl?.[4]?.url} ref={audioRef}
                 loop={audioOptions.loop} onLoadedMetadata={handleLoadedMetadata}
                 onTimeUpdate={currentTimeOfAudio} autoPlay={true} onEnded={nextSong}
             />
@@ -156,34 +177,38 @@ const Player = () => {
             </div>
             <input type="range" step='any' name="audioProgress" id="" value={(audioOptions.currentTime[1] / audioOptions.totalTime[1]) * 100 || 0} onInput={changeAudioTimeline} />
             <div className="img-Name">
-                <img src={playId[audioOptions.currentSong]?.image?.[0]?.url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt="" />
+                <img src={tracks[songIndex]?.image?.[0]?.url || '../../music.png'} alt="" style={disabled ? {opacity:0.5} : {}} />
                 <div className="names">
-                    <h4>{playId[audioOptions.currentSong]?.name || '----'}</h4>
-                    <p>{playId[audioOptions.currentSong]?.artists?.primary[0].name || '----'}</p>
+                    <h4>{tracks[songIndex]?.name || '----'}</h4>
+                    <p>{tracks[songIndex]?.artists?.primary?.[0]?.name || '----'}</p>
                 </div>
             </div>
             <div className="PlayerOptions">
                 <div className="loopOptions" onClick={() => setAudioOptions((prev: any) => ({ ...prev, loop: !prev.loop }))}>
                     {
                         audioOptions.loop ? (
-                            <RiRepeatOneLine />
+                            <RiRepeatOneLine style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
                         ) : (
-                            <RiRepeat2Fill />
+                            <RiRepeat2Fill style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
                         )
                     }
                 </div>
-                <IoPlaySkipBackSharp onClick={prevSong} style={(audioOptions.currentSong == 0) ? { opacity: 0.5 } : {}} />
+                <IoPlaySkipBackSharp onClick={prevSong} style={(disabled || songIndex == 0) ? { opacity: 0.5, cursor: 'initial' } : {}} />
                 <div className="playPause" onClick={() => {
-                    (playId.length > 0) && (
+                    (tracks.length > 0) && (
                         setIsPlaying(prev => !prev)
                     )
                 }}>
                     {
-                        isPlaying ? <IoMdPause /> : <IoMdPlay />
+                        isPlaying ? <IoMdPause style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} /> : <IoMdPlay style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
                     }
                 </div>
-                <IoPlaySkipForwardSharp onClick={nextSong} style={(audioOptions.currentSong == playId.length - 1) ? { opacity: 0.5 } : {}} />
-                <MdOutlineLibraryMusic onClick={() => navigate(`/song/${playId[audioOptions.currentSong]?.id}`)} />
+                <IoPlaySkipForwardSharp onClick={nextSong} style={(disabled || songIndex == tracks.length - 1) ? { opacity: 0.5, cursor: 'initial' } : {}} />
+                <MdOutlineLibraryMusic onClick={() => {
+                    if (!disabled) {
+                        navigate(`/song/${tracks[songIndex]?.id}`)
+                    }
+                }} style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
             </div>
             <p className='timestamp'>{audioOptions.currentTime[0]} / <span>{audioOptions.totalTime[0]}</span></p>
             {/* <div className="timestamp-volume"> */}

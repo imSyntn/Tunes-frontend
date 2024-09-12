@@ -5,15 +5,38 @@
     padding: 10px 20px 10px 10px;
     border-block: 1px solid rgba(143, 143, 143, 0.304);
     cursor: pointer;
+    border-radius: 5px;
 
     h3 {
         width: 250px;
         display: flex;
         align-items: center;
 
-        img {
-            margin-right: 10px;
+        >.imgWrapperInSongCard {
+            position: relative;
+
+            img {
+                margin-right: 10px;
+                height: 50px;
+                width: 50px;
+                z-index: 1;
+            }
+
+            &::before {
+                content: '';
+                opacity: 0;
+                background: url('../../play-button.png') no-repeat center;
+                background-size: 40px;
+                height: 50px;
+                width: 50px;
+                position: absolute;
+                top: 0px;
+                left: 0;
+                z-index: 2;
+                transition: all 0.3s;
+            }
         }
+
         >.names {
             p {
                 display: none;
@@ -21,7 +44,20 @@
                 font-weight: 400;
             }
         }
+
+        >.playing {
+            img {
+                opacity: 0;
+            }
+
+            &::before {
+                background: url('../../giphy.webp') no-repeat center;
+                background-size: 50px;
+                opacity: 1;
+            }
+        }
     }
+
 
     h3,
     p {
@@ -32,8 +68,23 @@
     p {
         width: 200px;
     }
+
     .desktopView {
         display: block;
+    }
+
+    &:hover {
+        box-shadow: inset 0px 0px 12px 15px rgba(255, 255, 255, 0.082);
+
+        >h3>.imgWrapperInSongCard {
+            img {
+                opacity: 0;
+            }
+
+            &::before {
+                opacity: 1;
+            }
+        }
     }
 }
 
@@ -42,6 +93,7 @@
         .desktopView {
             display: none;
         }
+
         h3 {
             .names {
                 p {

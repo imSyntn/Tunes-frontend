@@ -3,9 +3,17 @@ import { useFetch } from '../../Utils/useFetch'
 import SongCard from '../SongCard'
 import AlbumThumbnail from '../AlbumThumbnail'
 import { ResultsInDataType } from '../../App.types'
-import Loader from '../Loader'
 
-const DynamicContent = ({ type, id, childToParentDataSend, childData, setPlayId, playId }: { type: string, id: string, childToParentDataSend: (params: any) => void, childData: any, setPlayId: any, playId: ResultsInDataType[] }) => {
+interface DynamicContentPropType {
+  type: string,
+  id: string,
+  childToParentDataSend: (params: ResultsInDataType[]) => void,
+  childData: ResultsInDataType[],
+  setTracks: React.Dispatch<React.SetStateAction<ResultsInDataType[]>>,
+  tracks: ResultsInDataType[]
+}
+
+const DynamicContent: React.FC<DynamicContentPropType> = ({ type, id, childToParentDataSend, childData, setTracks, tracks }) => {
   const [page, setPage] = useState<number>(0)
 
   const fetchUrl = `https://saavn.dev/api/artists/${id}/${type}?page=${page}`
@@ -42,11 +50,11 @@ const DynamicContent = ({ type, id, childToParentDataSend, childData, setPlayId,
       if (childData.length == 0) {
         childToParentDataSend(totalData)
       } else {
-        if (playId.length != 0) {
+        if (tracks.length != 0) {
           let newData: any = (data as ResultsInDataType)[type as keyof ResultsInDataType]
-          const allData = [...playId, ...newData]
+          const allData = [...tracks, ...newData]
           const withoutDuplicates = allData.filter((item: ResultsInDataType, index: number, ref: ResultsInDataType[]) => index === ref.findIndex(t => t.id === item.id))
-          setPlayId(withoutDuplicates)
+          setTracks(withoutDuplicates)
         }
       }
     }
@@ -67,7 +75,7 @@ const DynamicContent = ({ type, id, childToParentDataSend, childData, setPlayId,
       {
         <div className={type == 'albums' ? 'albumCont' : ''}>
           {
-            totalData?.map((item: any) => (
+            totalData?.map((item: ResultsInDataType) => (
               (type === 'songs') ? (
                 <SongCard key={item.id} result={item} />
               ) : (

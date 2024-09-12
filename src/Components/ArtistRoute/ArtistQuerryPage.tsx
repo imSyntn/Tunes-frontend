@@ -5,6 +5,7 @@ import { SiTicktick } from "react-icons/si";
 import DynamicContent from './DynamicContent';
 import { songIdContext } from '../../App';
 import Loader from '../Loader';
+import { ResultsInDataType } from '../../App.types';
 
 // interface typeStateType {
 //     song: boolean,
@@ -21,14 +22,14 @@ const ArtistQuerryPage = () => {
     if (!songContext) {
         return null
     }
-    const { playId, setPlayId } = songContext;
+    const { tracks, setTracks } = songContext;
 
     if (!id) {
         return null
     }
 
     const [type, setType] = useState<string>('songs')
-    const [childData, setChildData] = useState<any>([])
+    const [childData, setChildData] = useState<ResultsInDataType[]>([])
 
     const fetchUrl = `https://saavn.dev/api/artists?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl)
@@ -42,12 +43,11 @@ const ArtistQuerryPage = () => {
 
     const audioSet = () => {
         if (!loading && !error && Array.isArray(childData) && childData.length == 10) {
-            console.log(1)
-            setPlayId(childData)
+            setTracks(childData)
         }
     }
 
-    const childToParentDataSend = (childSentData: any) => {
+    const childToParentDataSend = (childSentData: ResultsInDataType[]) => {
         setChildData(childSentData)
     }
 
@@ -73,7 +73,7 @@ const ArtistQuerryPage = () => {
                                 <button onClick={() => setType('albums')} style={type === 'albums' ? { borderColor: '#2bc5b4' } : { borderColor: 'white' }}>Albums</button>
                             </div>
                             <div className="content">
-                                <DynamicContent type={type} id={id} childToParentDataSend={childToParentDataSend} childData={childData} setPlayId={setPlayId} playId={playId} />
+                                <DynamicContent type={type} id={id} childToParentDataSend={childToParentDataSend} childData={childData} setTracks={setTracks} tracks={tracks} />
                             </div>
                         </div>
                     </>

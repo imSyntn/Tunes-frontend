@@ -25,7 +25,7 @@ const SongQuerryPage = () => {
         return null
     }
 
-    const { setPlayId } = songContext;
+    const { setTracks, songIndex, setSongIndex } = songContext;
 
     const fetchUrl = `https://saavn.dev/api/songs/${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
@@ -38,14 +38,10 @@ const SongQuerryPage = () => {
         }
     }, [data])
 
-    // useEffect(() => {
-    //     console.log(allSongData)
-    // }, [allSongData])
-
     const audioSet = useCallback(() => {
-        setPlayId(allSongData)
+        setTracks(allSongData)
+        setSongIndex(0)
     },[allSongData])
-
 
     if (loading) return <Loader />;
     if (error) return <p className='Loading-Error'>Error loading album details.</p>;
@@ -71,7 +67,7 @@ const SongQuerryPage = () => {
                         {
                             data[0]?.album?.id && (
                                 <>
-                                    <h2>More from <span onClick={()=> navigate(`/album/${data[0]?.album?.id}`)}>{data[0].album.name}<GoArrowUpRight /></span></h2>
+                                    <h2>More from <span onClick={() => navigate(`/album/${data[0]?.album?.id}`)}>{data[0].album.name}<GoArrowUpRight /></span></h2>
                                     <SongFromAlbum id={data[0].album.id} currentSongId={id} />
                                 </>
                             )

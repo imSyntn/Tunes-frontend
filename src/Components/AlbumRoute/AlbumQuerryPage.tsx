@@ -16,7 +16,7 @@ const AlbumQuerryPage = () => {
   if (!songContext) {
     return null
   }
-  const { setPlayId } = songContext;
+  const { setTracks } = songContext;
 
   const fetchUrl = `https://saavn.dev/api/albums?id=${id}`;
   const { loading, error, data } = useFetch(fetchUrl);
@@ -28,7 +28,7 @@ const AlbumQuerryPage = () => {
 
   const audioSet = () => {
     if (!loading && !error && data && !Array.isArray(data) && Array.isArray(data.songs)) {
-      setPlayId(data.songs)
+      setTracks(data.songs)
     }
   }
 
