@@ -12,6 +12,7 @@ const AlbumQuerryPage = lazy(()=> import('./Components/AlbumRoute/AlbumQuerryPag
 const SongQuerryPage = lazy(()=> import('./Components/SongRoute/SongQuerryPage'))
 const ArtistQuerryPage = lazy(()=> import('./Components/ArtistRoute/ArtistQuerryPage'))
 const PlaylistQuerryPage = lazy(()=> import('./Components/PlaylistRoute/PlaylistQuerryPage'))
+const SearchQuerryPage = lazy(()=> import('./Components/SearchRoute/SearchQuerryPage'))
 
 interface songIdContextType {
   tracks: ResultsInDataType[] | [],
@@ -54,6 +55,9 @@ function App() {
             <Route path='/song/:id' element={<Suspense fallback={<Loader />}><SongQuerryPage /></Suspense>} />
             <Route path='/artist/:id' element={<Suspense fallback={<Loader />}><ArtistQuerryPage /></Suspense>} />
             <Route path='/playlist/:id' element={<Suspense fallback={<Loader />}><PlaylistQuerryPage /></Suspense>} />
+
+            <Route path='/search/:searchType/:querry' element={<Suspense fallback={<Loader />}><SearchQuerryPage /></Suspense>} />
+
             <Route path='*' element={<Suspense fallback={<Loader />}><NoData /></Suspense>} />
           </Route>
         </Routes>

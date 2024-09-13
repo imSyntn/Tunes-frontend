@@ -32,7 +32,7 @@ const Header = () => {
             if (inputText) {
                 // console.log(inputText)
                 try {
-                    const req = await fetch(`https://saavn.dev/api/search?query=${inputText}`)
+                    const req = await fetch(`http://localhost:3000/api/search?query=${inputText}`)
                     const res = await req.json()
                     // console.log(res.data)
                     setData(res.data)
@@ -106,7 +106,7 @@ const Header = () => {
                                         <>
                                             {
                                                 Object.keys(data).map((item: string, index: number) => (
-                                                    <HeaderSearchResult headerName={item} result={data[item].results} key={index} setSearchClicked={setSearchClicked} />
+                                                    <HeaderSearchResult headerName={item} inputText={inputText} result={data[item].results} key={index} setSearchClicked={setSearchClicked} />
                                                 ))
                                             }
                                             {

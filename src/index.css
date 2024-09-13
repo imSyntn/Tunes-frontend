@@ -15,3 +15,5 @@
 @import './Styles/PlaylistRoute/PlaylistQuerryPage.scss';
 @import './Styles/ArtistRoute/DynamicContent.scss';
 @import './Styles/AlbumThumbnail.scss';
+@import './Styles/SearchRoute/SearchQuerryPage.scss';
+@import './Styles/PlaylistThumbnail.scss';

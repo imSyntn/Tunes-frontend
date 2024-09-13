@@ -27,7 +27,7 @@ const SongQuerryPage = () => {
 
     const { setTracks, songIndex, setSongIndex } = songContext;
 
-    const fetchUrl = `https://saavn.dev/api/songs/${id}`;
+    const fetchUrl = `http://localhost:3000/api/songs/${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     const [allSongData, setAllSongData] = useState<ResultsInDataType[] | []>([])

@@ -15,7 +15,8 @@ export const useFetch = (url: string) => {
 
                 const req = await fetch(url)
                 const res = await req.json()
-                setData(res.data || res.top_artists)
+                setData(res.data)
+                // || res.top_artists
                 setLoading(false);
 
             } catch (error: any) {

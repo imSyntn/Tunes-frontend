@@ -31,7 +31,7 @@ const ArtistQuerryPage = () => {
     const [type, setType] = useState<string>('songs')
     const [childData, setChildData] = useState<ResultsInDataType[]>([])
 
-    const fetchUrl = `https://saavn.dev/api/artists?id=${id}`;
+    const fetchUrl = `http://localhost:3000/api/artists?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl)
 
     if (loading) {
@@ -57,8 +57,8 @@ const ArtistQuerryPage = () => {
                 !loading && !error && data && !Array.isArray(data) && (
                     <>
                         <div className="imgText">
-                            <img src={data.image?.[2]?.url || data.image?.[1]?.url || data.image?.[0]?.url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt="" />
-                            <img className='wrapper' src={data.image?.[2]?.url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt={'img wrapper'} />
+                            <img src={data.image?.[2]?.url || data.image?.[1]?.url || data.image?.[0]?.url || '../../../music.png'} alt="" />
+                            <img className='wrapper' src={data.image?.[2]?.url || '../../../music.png'} alt={'img wrapper'} />
                             <div className="text">
                                 <h1>{data.name} {data.isVerified && <SiTicktick />}</h1>
                                 <p>{data.fanCount} Listeners</p>

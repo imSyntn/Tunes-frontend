@@ -12,8 +12,8 @@ const ImgAlbumDetails = ({ data, audioSet }: { data: ResultsInDataType, audioSet
             {
                 data.image?.[2]?.url || data.image?.[1]?.url || data.image?.[0]?.url ? (
                     <>
-                        <img src={data.image?.[2]?.url || data.image[1].url || data.image[0].url} alt={data.name || 'Album cover'} />
-                        <img className='wrapper' src={data.image?.[2]?.url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt={'img wrapper'} />
+                        <img src={data.image?.[2]?.url || data.image[1].url || data.image[0].url || '../../music.png'} alt={data.name || 'Album cover'} />
+                        <img className='wrapper' src={data.image?.[2]?.url || '../../music.png'} alt={'img wrapper'} />
                     </>
                 ) : (
                     <p>No image available</p>

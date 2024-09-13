@@ -22,7 +22,7 @@ const Artists = ({ data }: any) => {
     )
 }
 
-export default Artists
+export default Artists;
 
 const ArtistCont = ({ item }: any) => {
 
@@ -30,7 +30,7 @@ const ArtistCont = ({ item }: any) => {
 
     return (
         <div className="artistCont" onClick={()=> navigate(`/artist/${item.id}`)}>
-            <img src={item?.image?.[1]?.url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt="" />
+            <img src={item?.image?.[1]?.url || '../../music.png'} alt="" />
             <p>{item.name}</p>
         </div>
     )

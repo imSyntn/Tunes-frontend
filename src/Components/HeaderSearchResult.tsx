@@ -5,14 +5,16 @@ import { useNavigate } from 'react-router-dom'
 
 interface HeaderSearchResultProps {
     headerName: string;
+    inputText: string,
     result: ResultsInDataType[];
     setSearchClicked: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, result, setSearchClicked }) => {
+const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, inputText, result, setSearchClicked }) => {
 
     const navigate = useNavigate()
 
+    const headerNameCapital = headerName.toUpperCase();
     // useEffect(() => {
     //     // console.log(result)
     // }, [])
@@ -23,8 +25,15 @@ const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, res
                 (result.length != 0) && (
                     <div className='HeaderSearchResult'>
                         <div className="top">
-                            <h5>{headerName.toUpperCase()}</h5>
-                            <button>View all</button>
+                            <h5>{headerNameCapital}</h5>
+                            {
+                                !(headerNameCapital==='TOPQUERY') && (
+                                    <button onClick={()=> {
+                                        navigate(`/search/${headerName}/${inputText}`)
+                                        setSearchClicked(false)
+                                    }}>View all</button>
+                                )
+                            }
                         </div>
                         {
                             result.map((item:ResultsInDataType) => (
@@ -32,7 +41,7 @@ const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, res
                                     navigate(`/${item.type}/${item.id}`);
                                     setSearchClicked(false)
                                 }}>
-                                    <img src={item?.image?.[0].url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt="" />
+                                    <img src={item?.image?.[0].url || '../../music.png'} alt="" />
                                     <div className="detaiils">
                                         <p className='mainName'>{item.title}</p>
                                         <p>{(item.description && item.description.length > 25) ? item.description.slice(0, 25) + ' ...' : item.description}</p>

@@ -45,6 +45,7 @@ export interface ResultsInDataType {
     isVerified?: boolean,
     fanCount?: string,
     bio?: {text: string, title: string}[],
+    results?: ResultsInDataType[]
 }
 
 export interface globalSearchResultType {
@@ -55,6 +56,6 @@ export interface globalSearchResultType {
     // artists: resultsType,
     // playlists: resultsType
 }
-interface resultsType {
+export interface resultsType {
     results: ResultsInDataType[] | []
 }

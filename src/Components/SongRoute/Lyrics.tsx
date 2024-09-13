@@ -5,7 +5,7 @@ const Lyrics = ({ id }: { id: string }) => {
 
     const [showFullLyrics, setShowFullLyrics] = useState(false)
 
-    const fetchUrl = `https://saavn.dev/api/songs/${id}/lyrics`;
+    const fetchUrl = `http://localhost:3000/api/songs/${id}/lyrics`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     return (

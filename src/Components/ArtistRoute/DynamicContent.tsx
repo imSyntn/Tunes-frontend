@@ -16,7 +16,7 @@ interface DynamicContentPropType {
 const DynamicContent: React.FC<DynamicContentPropType> = ({ type, id, childToParentDataSend, childData, setTracks, tracks }) => {
   const [page, setPage] = useState<number>(0)
 
-  const fetchUrl = `https://saavn.dev/api/artists/${id}/${type}?page=${page}`
+  const fetchUrl = `http://localhost:3000/api/artists/${id}/${type}?page=${page}`
 
   const { loading, error, data } = useFetch(fetchUrl)
   const [totalData, setTotalData] = useState<ResultsInDataType[]>([])

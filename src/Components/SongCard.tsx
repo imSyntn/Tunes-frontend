@@ -35,7 +35,7 @@ const SongCard = ({ result }: { result: ResultsInDataType }) => {
     <div className='SongCard' onClick={audioSet}>
       <h3>
         <div className={`imgWrapperInSongCard ${currentSongObj?.id == result.id ? 'playing' : ''}`}>
-          <img src={result?.image?.[0]?.url} />
+          <img src={result?.image?.[0]?.url || '../../music.png'} />
         </div>
         <div className="names">
           {

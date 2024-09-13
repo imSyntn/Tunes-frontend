@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) => {
 
-    const fetchUrl = `https://saavn.dev/api/albums?id=${id}`;
+    const fetchUrl = `http://localhost:3000/api/albums?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     const navigate = useNavigate()
@@ -22,7 +22,7 @@ const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) =
                 {
                     data?.songs?.filter((item: ResultsInDataType) => item.id !== currentSongId).map((item:ResultsInDataType)=> (
                         <div className="songInAlbum" key={item.id} onClick={()=> navigate(`/song/${item.id}`)}>
-                            <img src={item.image?.[1]?.url || 'https://images5.alphacoders.com/349/thumb-1920-349108.jpg'} alt="" />
+                            <img src={item.image?.[1]?.url || '../../../music.png'} alt="" />
                             <p>{item.name}</p>
                         </div>
                     ))

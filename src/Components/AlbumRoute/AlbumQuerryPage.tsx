@@ -18,7 +18,7 @@ const AlbumQuerryPage = () => {
   }
   const { setTracks } = songContext;
 
-  const fetchUrl = `https://saavn.dev/api/albums?id=${id}`;
+  const fetchUrl = `http://localhost:3000/api/albums?id=${id}`;
   const { loading, error, data } = useFetch(fetchUrl);
   // const loading = true;
   if (loading) return <Loader />;
