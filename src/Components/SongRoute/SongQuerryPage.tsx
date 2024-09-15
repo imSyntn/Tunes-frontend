@@ -27,7 +27,7 @@ const SongQuerryPage = () => {
 
     const { setTracks, setSongIndex } = songContext;
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/songs/${id}`;
+    const fetchUrl = `/api/songs/${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     const [allSongData, setAllSongData] = useState<ResultsInDataType[] | []>([])

@@ -6,6 +6,7 @@ import DynamicContent from './DynamicContent';
 import { songIdContext } from '../../App';
 import Loader from '../Loader';
 import { ResultsInDataType } from '../../App.types';
+import { motion } from 'framer-motion'
 
 // interface typeStateType {
 //     song: boolean,
@@ -31,7 +32,7 @@ const ArtistQuerryPage = () => {
     const [type, setType] = useState<string>('songs')
     const [childData, setChildData] = useState<ResultsInDataType[]>([])
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/artists?id=${id}`;
+    const fetchUrl = `/api/artists?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl)
 
     if (loading) {
@@ -62,7 +63,7 @@ const ArtistQuerryPage = () => {
                             <div className="text">
                                 <h1>{data.name} {data.isVerified && <SiTicktick />}</h1>
                                 <p>{data.fanCount} Listeners</p>
-                                <button style={(type != 'songs') ? { opacity: 0.2, cursor: 'inherit' } : {}} disabled={(type != 'songs' && childData.length == 0) ? true : false} onClick={audioSet}>PLay</button>
+                                <motion.button whileTap={{scale:0.7}} transition={{duration: 0.01}} style={(type != 'songs') ? { opacity: 0.2, cursor: 'inherit' } : {}} disabled={(type != 'songs' && childData.length == 0) ? true : false} onClick={audioSet}>PLay</motion.button>
                             </div>
                         </div>
                         <h2>Introduction</h2>

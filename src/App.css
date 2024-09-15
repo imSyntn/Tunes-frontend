@@ -15,9 +15,18 @@ body {
   background-image: linear-gradient(to right, rgb(28, 28, 28) 0%, black 100%);
 }
 
-body ::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
 }
+
+html {
+  scrollbar-width: none;
+}
+
+body {
+  -ms-overflow-style: none;
+}
+
 
 
 

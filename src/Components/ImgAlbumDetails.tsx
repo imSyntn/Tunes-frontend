@@ -1,11 +1,7 @@
 import { ResultsInDataType } from '../App.types';
+import { motion } from 'framer-motion'
 
 const ImgAlbumDetails = ({ data, audioSet }: { data: ResultsInDataType, audioSet: () => void }) => {
-    // useEffect(()=> console.log(data),[])
-    // if (!data || !data.image) {
-    //     return <p>Loading album details...</p>; // Add a fallback for when data is not available
-    //   }
-    //   console.log(data)
     return (
         <div className="img-albumDetails">
             {
@@ -22,7 +18,7 @@ const ImgAlbumDetails = ({ data, audioSet }: { data: ResultsInDataType, audioSet
                 <p>{data.label} {data.year}</p>
                 <p>{data.playCount ? `${data.playCount}  plays` : ''}</p>
                 <p>{data.songCount ? `${data.songCount}  Songs` : ''}</p>
-                <button onClick={() => audioSet()}>Play</button>
+                <motion.button whileTap={{scale: 0.7}} transition={{duration:0.01}} onClick={() => audioSet()}>Play</motion.button>
             </div>
         </div>
     )

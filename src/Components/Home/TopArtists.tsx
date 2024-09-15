@@ -1,17 +1,29 @@
-// import { useFetch } from '../../Utils/useFetch'
+import { useEffect, useState } from 'react'
 
 const TopArtists = () => {
-    // const FetchUrl = 'https://cors-anywhere.herokuapp.com/https://www.jiosaavn.com/api.php?__call=social.getTopArtists&api_version=4&_format=json&_marker=0&ctx=web6dot0'
-    // const {loading, error, data} = useFetch(FetchUrl)
 
-    // if(loading && error) {
-    //     return null;
-    // }
+  const [data, setData] = useState([])
 
-    // console.log(data)
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const req = await fetch('https://www.jiosaavn.com/api.php?__call=social.getTopArtists&api_version=4&_format=json&_marker=0&ctx=web6dot0', {
+          method: 'GET',
+
+        })
+        const res = await req.json()
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    // getData()
+  }, [])
 
   return (
-    <div className='TopArtists'></div>
+    <div className='TopArtists'>
+      sayantan
+    </div>
   )
 }
 

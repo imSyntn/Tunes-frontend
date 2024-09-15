@@ -9,6 +9,7 @@ import { RiRepeat2Fill, RiRepeatOneLine } from "react-icons/ri";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { songIdContext } from '../App';
 import { ResultsInDataType } from '../App.types';
+import { motion } from 'framer-motion'
 
 const Player = () => {
 
@@ -31,21 +32,13 @@ const Player = () => {
         currentTime: ['-:-', 0],
         totalTime: ['-:-', 0],
         loop: true,
-        // currentSong: 0,
         volume: 100
     })
 
     const disabled = (tracks.length == 0) ? true : false;
 
-    // useEffect(() => {
-    //     if ((audioOptions.currentTime[1] >= audioOptions.totalTime[1]) && isPlaying && !audioOptions.loop) {
-    //         nextSong()
-    //     }
-    // }, [audioOptions.currentTime])
-
     useEffect(() => {
         if (trackListMomo.current == null || trackListMomo.current?.[0]?.id != tracks?.[0].id) {
-            // setAudioOptions((prev: any) => ({ ...prev, currentSong: 0 }))
             setSongIndex(0)
         }
         trackListMomo.current = tracks;
@@ -73,44 +66,11 @@ const Player = () => {
         }
     };
 
-    // useEffect(() => {
-    //     const handleLoadedMetadata = () => {
-    //         if (audioRef.current) {
-    //             const duration = audioRef.current.duration;
-    //             setAudioOptions((prev: any) => ({
-    //                 ...prev,
-    //                 totalTime: [formatTime(duration), duration],
-    //             }));
-    //             if (!isPlaying) {
-    //                 setIsPlaying(true)
-    //                 audioRef.current.play()
-    //             }
-    //         }
-    //     };
-
-    //     const audioElement = audioRef.current;
-    //     if (audioElement) {
-    //         audioElement.addEventListener('loadedmetadata', handleLoadedMetadata);
-    //     }
-
-    //     return () => {
-    //         if (audioElement) {
-    //             audioElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
-    //         }
-    //     };
-    // }, [audioOptions.currentSong]);
-
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.volume = audioOptions.volume / 100;
         }
     }, [audioOptions.volume])
-
-    // const formatTime = (time: number) => {
-    //     const minutes = Math.floor(time / 60);
-    //     const seconds = Math.floor(time % 60);
-    //     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    // };
 
     const currentTimeOfAudio = () => {
         const CTime = audioRef.current?.currentTime || 0;
@@ -120,28 +80,10 @@ const Player = () => {
     useEffect(() => {
         if (isPlaying) {
             audioRef.current?.play()
-            // intervalRef.current = setInterval(currentTimeOfAudio, 500)
         } else {
             audioRef.current?.pause()
-            // clearInterval(intervalRef.current)
         }
-
-        // return () => {
-        //     clearInterval(intervalRef.current)
-        // }
-    }, [isPlaying
-        // , audioOptions.currentTime
-    ])
-
-    // useEffect(() => {                  //// Loop
-    //     if (audioRef.current) {
-    //         audioRef.current.loop = audioOptions.loop;
-    //     }
-    // }, [audioOptions.loop])
-
-    // useEffect(() => {
-    //     console.log(audioOptions)
-    // }, [audioOptions])
+    }, [isPlaying])
 
     const changeAudioTimeline = (e: any) => {
         if (audioRef.current) {
@@ -152,14 +94,12 @@ const Player = () => {
 
     const prevSong = useCallback(() => {
         if (songIndex - 1 >= 0) {
-            // setAudioOptions((prev: any) => ({ ...prev, currentSong: prev.currentSong - 1 }))
             setSongIndex((prev: number) => prev - 1)
         }
     }, [songIndex])
 
     const nextSong = useCallback(() => {
         if (songIndex + 1 < tracks.length) {
-            // setAudioOptions((prev: any) => ({ ...prev, currentSong: prev.currentSong + 1 }))
             setSongIndex((prev: number) => prev + 1)
         } else {
             setIsPlaying(false)
@@ -200,7 +140,7 @@ const Player = () => {
             </div>
 
             <div className="PlayerOptions">
-                <div className="loopOptions" onClick={() => setAudioOptions((prev: any) => ({ ...prev, loop: !prev.loop }))}>
+                <motion.div whileTap={{ scale: 0.5 }} transition={{ duration: 0.01 }} className="loopOptions" onClick={() => setAudioOptions((prev: any) => ({ ...prev, loop: !prev.loop }))}>
                     {
                         audioOptions.loop ? (
                             <RiRepeatOneLine style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
@@ -208,9 +148,11 @@ const Player = () => {
                             <RiRepeat2Fill style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
                         )
                     }
-                </div>
-                <IoPlaySkipBackSharp onClick={prevSong} style={(disabled || songIndex == 0) ? { opacity: 0.5, cursor: 'initial' } : {}} />
-                <div className="playPause" onClick={() => {
+                </motion.div>
+                <motion.div whileTap={{ scale: 0.5 }} transition={{ duration: 0.01 }}>
+                    <IoPlaySkipBackSharp onClick={prevSong} style={(disabled || songIndex == 0) ? { opacity: 0.5, cursor: 'initial' } : {}} />
+                </motion.div>
+                <motion.div whileTap={{ scale: 0.5 }} transition={{ duration: 0.01 }} className="playPause" onClick={() => {
                     (tracks.length > 0) && (
                         setIsPlaying(prev => !prev)
                     )
@@ -218,22 +160,25 @@ const Player = () => {
                     {
                         isPlaying ? <IoMdPause style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} /> : <IoMdPlay style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
                     }
-                </div>
-                <IoPlaySkipForwardSharp onClick={nextSong} style={(disabled || songIndex == tracks.length - 1) ? { opacity: 0.5, cursor: 'initial' } : {}} />
-                <MdOutlineLibraryMusic onClick={() => {
-                    if (!disabled) {
-                        navigate(`/song/${tracks[songIndex]?.id}`)
-                    }
-                }} style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
+                </motion.div>
+                <motion.div whileTap={{ scale: 0.5 }} transition={{ duration: 0.01 }}>
+                    <IoPlaySkipForwardSharp onClick={nextSong} style={(disabled || songIndex == tracks.length - 1) ? { opacity: 0.5, cursor: 'initial' } : {}} />
+                </motion.div>
+                <motion.div whileTap={{ scale: 0.5 }} transition={{ duration: 0.01 }}>
+                    <MdOutlineLibraryMusic onClick={() => {
+                        if (!disabled) {
+                            navigate(`/song/${tracks[songIndex]?.id}`)
+                        }
+                    }} style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
+                </motion.div>
             </div>
 
             <p className='timestamp'>{audioOptions.currentTime[0]} <span>/</span> {audioOptions.totalTime[0]}</p>
-            {/* <div className="timestamp-volume"> */}
+
             <div className="volume">
                 <input type="range" value={audioOptions.volume} name="" id="" onInput={(e: any) => setAudioOptions((prev: any) => ({ ...prev, volume: e.target.value }))} />
                 <HiMiniSpeakerWave style={audioOptions.volume == 0 ? { opacity: 0.4 } : {}} />
             </div>
-            {/* </div> */}
         </div>
     )
 }

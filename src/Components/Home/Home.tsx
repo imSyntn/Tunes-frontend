@@ -1,9 +1,10 @@
+import TopArtists from "./TopArtists"
 
 const Home = () => {
 
   return (
     <div className='Home'>
-      {/* <TopArtists /> */}
+      <TopArtists />
     </div>
   )
 }

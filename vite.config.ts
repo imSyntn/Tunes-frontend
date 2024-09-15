@@ -6,9 +6,9 @@ const manifestForPlugIn: any = {
   registerType:'prompt',
   includeAssests:['favicon.ico', "apple-touch-icon.png", "masked-icon.svg"],
   manifest:{
-    name:"React-vite-app",
-    short_name:"react-vite-app",
-    description:"I am a simple vite app",
+    name:"Tunes",
+    short_name:"Tunes",
+    description:"Play anywhere.",
     icons:[{
       src: '/android-chrome-192x192.png',
       sizes:'192x192',
@@ -35,7 +35,7 @@ const manifestForPlugIn: any = {
     }
   ],
   theme_color:'#171717',
-  background_color:'#f0e7db',
+  background_color:'#16161d',
   display:"standalone",
   scope:'/',
   start_url:"/",
@@ -45,14 +45,14 @@ const manifestForPlugIn: any = {
 
 export default defineConfig({
   plugins: [react(), VitePWA(manifestForPlugIn)],
-  // server: {
-  //   proxy: {
-  //     '/api': {
-  //       target: 'http://localhost:3000',
-  //       changeOrigin: true,
-  //       secure: false,
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
 
-  //     }
-  //   }
-  // }
+      }
+    }
+  }
 });

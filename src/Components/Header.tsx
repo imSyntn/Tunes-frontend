@@ -6,44 +6,58 @@ import HeaderSearchResult from './HeaderSearchResult';
 // import { useFetch } from '../Utils/useFetch';
 import { globalSearchResultType } from '../App.types';
 import Loader from './Loader';
+import { motion } from 'framer-motion'
 // import { globalSearchResultType } from '../App.types';
 
+// const Y = 50;
 
 const Header = () => {
 
     const [searchClicked, setSearchClicked] = useState<boolean>(false)
     const [inputText, setInputText] = useState<string>('')
     const [data, setData] = useState<globalSearchResultType | []>([])
-    const [blank, setBlank] = useState<boolean>(false)
-    const [loading, setLoading] = useState(false)
+    const [resOptions, setResOptions] = useState({
+        loading: false,
+        blank: false
+    })
+    const [visible, setVisible] = useState(true)
 
     const inputRef = useRef<HTMLInputElement>(null)
     const timer = useRef<number | null>(null)
 
     const navigate = useNavigate()
 
-    // useEffect(()=>{
-    //     console.log(searchClicked)
-    // },[searchClicked])
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY >= 100) {
+                setVisible(false)
+            } else {
+                setVisible(true)
+            }
+        })
+    }, [])
 
     useEffect(() => {
         const getData = async () => {
-            setLoading(true)
+            // setLoading(true)
+            setResOptions(prev => ({ ...prev, loading: true }))
             if (inputText) {
                 // console.log(inputText)
                 try {
-                    const req = await fetch(`https://savaan-api-eight.vercel.app/api/search?query=${inputText}`)
+                    const req = await fetch(`/api/search?query=${inputText}`)
                     const res = await req.json()
                     // console.log(res.data)
                     setData(res.data)
                 } catch (error: any) {
                     console.log(error.message)
                 } finally {
-                    setLoading(false)
+                    // setLoading(false)
+                    setResOptions(prev => ({ ...prev, loading: false }))
                 }
             } else {
                 setData([])
-                setLoading(false)
+                // setLoading(false)
+                setResOptions(prev => ({ ...prev, loading: false }))
             }
         }
         if (timer.current !== null) {
@@ -53,7 +67,8 @@ const Header = () => {
     }, [inputText])
 
     useEffect(() => {
-        setBlank(false)
+        // setBlank(false)
+        setResOptions(prev => ({ ...prev, blank: false }))
         if (!Array.isArray(data)) {
             // console.log(data)
             // console.log(Object.keys(data))
@@ -65,19 +80,21 @@ const Header = () => {
                 }
             });
             if (counter == 5) {
-                setBlank(true)
+                // setBlank(true)
+                setResOptions(prev => ({ ...prev, blank: true }))
             }
         }
     }, [data])
 
     return (
         <header>
-            <h1 onClick={() => navigate('/')}>
+            <motion.h1 whileTap={{scale: 0.5}} onClick={() => navigate('/')}>
                 <div className="imgWrapper">
                     <img src="../../musicTransparent.png" alt="" />
                 </div>
-                Tunes</h1>
-            <div className={`inputWrapper ${searchClicked ? 'activeInputWrapper' : ''}`} onClick={() => {
+                Tunes
+            </motion.h1>
+            <motion.div initial={{ opacity: 1 }} animate={{ opacity: visible ? 1 : 0, pointerEvents: visible ? 'initial' : 'none' }} transition={{ duration: 0.3 }} className={`inputWrapper ${searchClicked ? 'activeInputWrapper' : ''}`} onClick={() => {
                 setSearchClicked(true);
                 inputRef.current?.focus()
             }}>
@@ -97,7 +114,7 @@ const Header = () => {
                     searchClicked && (
                         <div className='bottom' onClick={e => e.stopPropagation()}>
                             {
-                                loading ? (
+                                resOptions.loading ? (
                                     <Loader black={true} />
                                 ) : (
                                     (Array.isArray(data)) ? (
@@ -110,7 +127,7 @@ const Header = () => {
                                                 ))
                                             }
                                             {
-                                                blank && (
+                                                resOptions.blank && (
                                                     <h2>No results.</h2>
                                                 )
                                             }
@@ -121,10 +138,10 @@ const Header = () => {
                         </div>
                     )
                 }
-            </div>
-            <div className="user">
+            </motion.div>
+            <motion.div className="user" whileTap={{scale: 0.5}}>
                 <FaRegUser />
-            </div>
+            </motion.div>
         </header>
     )
 }
