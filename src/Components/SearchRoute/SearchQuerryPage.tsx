@@ -22,7 +22,7 @@ const SearchQuerryPage = () => {
     const [page, setPage] = useState<number>(1)
     const [totalData, setTotalData] = useState<ResultsInDataType[] | []>([])
 
-    const fetchUrl = `http://localhost:3000/api/search/${searchType}?query=${querry}&page=${page}&limit=50`;
+    const fetchUrl = `${import.meta.env.VITE_URL}/api/search/${searchType}?query=${querry}&page=${page}&limit=50`;
     const { loading, error, data } = useFetch(fetchUrl)
 
     // console.log(data)
@@ -70,9 +70,9 @@ const SearchQuerryPage = () => {
     // if (loading) {
     //     return <Loader />
     // }
-    // if (error) {
-    //     return <p className='Loading-Error'>Error in loading.</p>
-    // }
+    if (error) {
+        return <p className='Loading-Error'>Error in loading.</p>
+    }
 
 
     return (

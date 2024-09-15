@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { ResultsInDataType } from '../App.types';
 
 const ImgAlbumDetails = ({ data, audioSet }: { data: ResultsInDataType, audioSet: () => void }) => {
@@ -10,13 +9,11 @@ const ImgAlbumDetails = ({ data, audioSet }: { data: ResultsInDataType, audioSet
     return (
         <div className="img-albumDetails">
             {
-                data.image?.[2]?.url || data.image?.[1]?.url || data.image?.[0]?.url ? (
+                (data.image?.[2]?.url || data.image?.[1]?.url || data.image?.[0]?.url) && (
                     <>
                         <img src={data.image?.[2]?.url || data.image[1].url || data.image[0].url || '../../music.png'} alt={data.name || 'Album cover'} />
                         <img className='wrapper' src={data.image?.[2]?.url || '../../music.png'} alt={'img wrapper'} />
                     </>
-                ) : (
-                    <p>No image available</p>
                 )
             }
             <div className="albumDetails">

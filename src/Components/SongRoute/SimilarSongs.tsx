@@ -10,7 +10,7 @@ interface SimilarSongPropType {
 
 const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
     
-    const fetchUrl = `http://localhost:3000/api/songs/${id}/suggestions?limit=10`;
+    const fetchUrl = `${import.meta.env.VITE_URL}/api/songs/${id}/suggestions?limit=10`;
     const { loading, error, data } = useFetch(fetchUrl);
     // const loading = true;
 

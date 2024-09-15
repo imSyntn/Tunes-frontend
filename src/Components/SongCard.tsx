@@ -1,5 +1,6 @@
 import { useContext, useCallback } from 'react'
 import { useformatTime } from '../Utils/useformatTime';
+import { useNameDot } from '../Utils/useNameDot';
 import { songIdContext } from '../App';
 import { ResultsInDataType } from '../App.types';
 
@@ -7,6 +8,7 @@ const SongCard = ({ result }: { result: ResultsInDataType }) => {
 
   const songContext = useContext(songIdContext)
   const formatTime = useformatTime()
+  const nameWithDot = useNameDot()
 
   if (!songContext) {
     return null
@@ -15,7 +17,7 @@ const SongCard = ({ result }: { result: ResultsInDataType }) => {
   const { currentSongObj, tracks, setTracks, setSongIndex } = songContext;
 
   const artistsNAme = result.artists?.primary?.map((acc: any) => ` ${acc.name}`).join(' ,')
-  const ArtistChar = (artistsNAme && artistsNAme.length > 25) ? artistsNAme.slice(0, 29) + '...' : artistsNAme;
+  const ArtistChar = (artistsNAme) ? nameWithDot(artistsNAme) : ''
 
   // const addDot = (str:string) => {
 
@@ -39,7 +41,7 @@ const SongCard = ({ result }: { result: ResultsInDataType }) => {
         </div>
         <div className="names">
           {
-            (result.name.length > 20) ? `${result.name.slice(0, 19)}...` : `${result.name}`
+            nameWithDot(result.name)
           }
           <p>{ArtistChar}</p>
         </div>

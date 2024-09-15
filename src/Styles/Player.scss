@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(9px);
     box-shadow: 0px 0px 15px 20px rgba(0, 0, 0, 0.5);
     z-index: 5;
 
@@ -80,6 +80,7 @@
     >.img-Name {
         display: flex;
         align-items: center;
+        width: 220px;
 
         img {
             margin-right: 10px;
@@ -96,7 +97,12 @@
     }
 
     .PlayerOptions {
-        width: 200px;
+        width: 220px;
+        margin-top: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
         display: flex;
         justify-content: space-between;
 
@@ -150,22 +156,36 @@
 }
 
 
-@media screen and (max-width:680px) {
+@media screen and (max-width:700px) {
     .Player {
-        .PlayerOptions {
-            width: 150px;
-
-            svg {
-                font-size: 20px;
+        padding-right: 20px;
+        .volume {
+            display: none;
+        }
+        .img-Name {
+            width: 79.5px;
+            .names {
+                display: none;
             }
         }
     }
 }
 
-@media screen and (max-width : 550px) {
+@media screen and (max-width : 480px) {
     .Player {
-        >.img-Name {
-            img {
+        .PlayerOptions {
+            width: 180px;
+        }
+    }
+}
+
+@media screen and (max-width : 400px) {
+    .Player {
+        .timestamp {
+            margin-right: 15px;
+            width: 20px;
+            text-wrap: wrap;
+            span {
                 display: none;
             }
         }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ResultsInDataType } from '../App.types'
 import { useNavigate } from 'react-router-dom'
 // import { songIdContext } from '../App';

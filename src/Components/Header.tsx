@@ -32,7 +32,7 @@ const Header = () => {
             if (inputText) {
                 // console.log(inputText)
                 try {
-                    const req = await fetch(`http://localhost:3000/api/search?query=${inputText}`)
+                    const req = await fetch(`${import.meta.env.VITE_URL}/api/search?query=${inputText}`)
                     const res = await req.json()
                     // console.log(res.data)
                     setData(res.data)

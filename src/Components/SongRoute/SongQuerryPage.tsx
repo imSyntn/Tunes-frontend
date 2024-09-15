@@ -25,9 +25,9 @@ const SongQuerryPage = () => {
         return null
     }
 
-    const { setTracks, songIndex, setSongIndex } = songContext;
+    const { setTracks, setSongIndex } = songContext;
 
-    const fetchUrl = `http://localhost:3000/api/songs/${id}`;
+    const fetchUrl = `${import.meta.env.VITE_URL}/api/songs/${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     const [allSongData, setAllSongData] = useState<ResultsInDataType[] | []>([])

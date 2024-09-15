@@ -31,7 +31,7 @@ const ArtistQuerryPage = () => {
     const [type, setType] = useState<string>('songs')
     const [childData, setChildData] = useState<ResultsInDataType[]>([])
 
-    const fetchUrl = `http://localhost:3000/api/artists?id=${id}`;
+    const fetchUrl = `${import.meta.env.VITE_URL}/api/artists?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl)
 
     if (loading) {
