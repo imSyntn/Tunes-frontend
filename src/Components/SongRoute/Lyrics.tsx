@@ -5,7 +5,7 @@ const Lyrics = ({ id }: { id: string }) => {
 
     const [showFullLyrics, setShowFullLyrics] = useState(false)
 
-    const fetchUrl = `${import.meta.env.VITE_URL}/api/songs/${id}/lyrics`;
+    const fetchUrl = `https://savaan-api-eight.vercel.app/api/songs/${id}/lyrics`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     return (
