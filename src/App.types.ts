@@ -1,8 +1,3 @@
-// export interface DataType {
-//     [key: string]: {
-//         results: ResultsInDataType[] | []
-//     }
-// }
 interface imageType {
     quality: string,
     url: string
@@ -44,18 +39,19 @@ export interface ResultsInDataType {
     lyrics?: string,
     isVerified?: boolean,
     fanCount?: string,
-    bio?: {text: string, title: string}[],
-    results?: ResultsInDataType[]
+    bio?: { text: string, title: string }[],
+    results?: ResultsInDataType[],
 }
 
 export interface globalSearchResultType {
-    [key: string] : resultsType
-    // topQuery: resultsType,
-    // songs: resultsType,
-    // albums: resultsType,
-    // artists: resultsType,
-    // playlists: resultsType
+    [key: string]: resultsType
 }
 export interface resultsType {
     results: ResultsInDataType[] | []
+}
+
+export interface top_artists {
+    artistid: string,
+    image: string,
+    name: string,
 }

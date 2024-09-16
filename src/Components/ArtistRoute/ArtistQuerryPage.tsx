@@ -63,11 +63,17 @@ const ArtistQuerryPage = () => {
                             <div className="text">
                                 <h1>{data.name} {data.isVerified && <SiTicktick />}</h1>
                                 <p>{data.fanCount} Listeners</p>
-                                <motion.button whileTap={{scale:0.7}} transition={{duration: 0.01}} style={(type != 'songs') ? { opacity: 0.2, cursor: 'inherit' } : {}} disabled={(type != 'songs' && childData.length == 0) ? true : false} onClick={audioSet}>PLay</motion.button>
+                                <motion.button whileTap={{ scale: 0.7 }} transition={{ duration: 0.01 }} style={(type != 'songs') ? { opacity: 0.2, cursor: 'inherit' } : {}} disabled={(type != 'songs' && childData.length == 0) ? true : false} onClick={audioSet}>PLay</motion.button>
                             </div>
                         </div>
-                        <h2>Introduction</h2>
-                        <p>{data.bio?.[0]?.text}</p>
+                        {
+                            (data.bio?.[0]?.text) && (
+                                <>
+                                    <h2>Introduction</h2>
+                                    <p>{data.bio?.[0]?.text}</p>
+                                </>
+                            )
+                        }
                         <div className="type">
                             <div className="contentSwitcher">
                                 <button onClick={() => setType('songs')} style={type === 'songs' ? { borderColor: '#2bc5b4' } : { borderColor: 'white' }}>Songs</button>

@@ -28,6 +28,7 @@ const Player = () => {
     const trackListMomo = useRef<ResultsInDataType[] | null>(null)
 
     const [isPlaying, setIsPlaying] = useState(false)
+    const [visible, setVisible] = useState(true)
     const [audioOptions, setAudioOptions] = useState<any>({
         currentTime: ['-:-', 0],
         totalTime: ['-:-', 0],
@@ -36,6 +37,21 @@ const Player = () => {
     })
 
     const disabled = (tracks.length == 0) ? true : false;
+
+    useEffect(()=> {
+        const handleScroll = ()=> {
+            if((window.scrollY+window.innerHeight) >= (document.documentElement.scrollHeight-50)) {
+                setVisible(false)
+            } else {
+                setVisible(true)
+            }
+        }
+        window.addEventListener('scroll', handleScroll, { passive: true })
+
+        return ()=> {
+            window.removeEventListener('scroll', handleScroll)
+        }
+    },[window.innerHeight, document.documentElement.scrollHeight])
 
     useEffect(() => {
         if (trackListMomo.current == null || trackListMomo.current?.[0]?.id != tracks?.[0].id) {
@@ -118,7 +134,7 @@ const Player = () => {
     }, [tracks, songIndex])
 
     return (
-        <div className='Player'>
+        <motion.div initial={{opacity: 1}} animate={{opacity: visible ? 1 : 0, pointerEvents: visible ? 'initial' : 'none'}} className='Player'>
 
             <audio preload='auto' src={tracks[songIndex]?.downloadUrl?.[4]?.url} ref={audioRef}
                 loop={audioOptions.loop} onLoadedMetadata={handleLoadedMetadata}
@@ -179,7 +195,7 @@ const Player = () => {
                 <input type="range" value={audioOptions.volume} name="" id="" onInput={(e: any) => setAudioOptions((prev: any) => ({ ...prev, volume: e.target.value }))} />
                 <HiMiniSpeakerWave style={audioOptions.volume == 0 ? { opacity: 0.4 } : {}} />
             </div>
-        </div>
+        </motion.div>
     )
 }
 

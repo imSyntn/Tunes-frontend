@@ -1,18 +1,20 @@
 import { createContext, useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './Components/Header'
+import Main from './Components/Main'
 import Player from './Components/Player'
 import Loader from './Components/Loader'
 import { ResultsInDataType } from './App.types'
+import Footer from './Components/Footer'
 
-const Main = lazy(()=> import('./Components/Main'))
-const Home = lazy(()=> import('./Components/Home/Home'))
-const NoData = lazy(()=> import('./Components/NoData'))
-const AlbumQuerryPage = lazy(()=> import('./Components/AlbumRoute/AlbumQuerryPage'))
-const SongQuerryPage = lazy(()=> import('./Components/SongRoute/SongQuerryPage'))
-const ArtistQuerryPage = lazy(()=> import('./Components/ArtistRoute/ArtistQuerryPage'))
-const PlaylistQuerryPage = lazy(()=> import('./Components/PlaylistRoute/PlaylistQuerryPage'))
-const SearchQuerryPage = lazy(()=> import('./Components/SearchRoute/SearchQuerryPage'))
+// const Main = lazy(()=> import('./Components/Main'))
+const Home = lazy(() => import('./Components/Home/Home'))
+const NoData = lazy(() => import('./Components/NoData'))
+const AlbumQuerryPage = lazy(() => import('./Components/AlbumRoute/AlbumQuerryPage'))
+const SongQuerryPage = lazy(() => import('./Components/SongRoute/SongQuerryPage'))
+const ArtistQuerryPage = lazy(() => import('./Components/ArtistRoute/ArtistQuerryPage'))
+const PlaylistQuerryPage = lazy(() => import('./Components/PlaylistRoute/PlaylistQuerryPage'))
+const SearchQuerryPage = lazy(() => import('./Components/SearchRoute/SearchQuerryPage'))
 
 interface songIdContextType {
   tracks: ResultsInDataType[] | [],
@@ -36,20 +38,20 @@ function App() {
     console.log(tracks)
   }, [tracks])
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(currentSongObj)
-  },[currentSongObj])
+  }, [currentSongObj])
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(songIndex)
-  },[songIndex])
+  }, [songIndex])
 
   return (
     <BrowserRouter>
       <songIdContext.Provider value={{ tracks, setTracks, currentSongObj, setCurrentSongObj, songIndex, setSongIndex }}>
         <Header />
         <Routes>
-          <Route path='/'element={<Suspense fallback={<Loader />}><Main /></Suspense>}>
+          <Route path='/' element={<Main />}>
             <Route path='/' element={<Suspense fallback={<Loader />}><Home /></Suspense>} />
             <Route path='/album/:id' element={<Suspense fallback={<Loader />}><AlbumQuerryPage /></Suspense>} />
             <Route path='/song/:id' element={<Suspense fallback={<Loader />}><SongQuerryPage /></Suspense>} />
@@ -62,6 +64,7 @@ function App() {
           </Route>
         </Routes>
         <Player />
+        <Footer />
       </songIdContext.Provider>
     </BrowserRouter>
   )

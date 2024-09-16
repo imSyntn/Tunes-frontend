@@ -33,8 +33,8 @@ const SongQuerryPage = () => {
     const [allSongData, setAllSongData] = useState<ResultsInDataType[] | []>([])
 
     useEffect(() => {
-        if (!loading && !error && Array.isArray(data)) {
-            setAllSongData([...data])
+        if (!loading && !error && data && Array.isArray(data)) {
+            setAllSongData([...(data as ResultsInDataType[])])
         }
     }, [data])
 
@@ -46,29 +46,29 @@ const SongQuerryPage = () => {
     if (loading) return <Loader />;
     if (error) return <p className='Loading-Error'>Error loading album details.</p>;
 
-    // console.log(data)
+    console.log(data)
 
 
 
     return (
         <div className='SongQuerryPage'>
             {
-                !loading && !error && data && Array.isArray(data) && (
+                (!loading && !error && data && Array.isArray(data)) && (
                     <>
-                        <ImgAlbumDetails audioSet={audioSet} data={data[0]} />
+                        <ImgAlbumDetails audioSet={audioSet} data={(data[0] as ResultsInDataType)} />
                         {
-                            data[0]?.hasLyrics && (
+                            (data[0] as ResultsInDataType)?.hasLyrics && (
                                 <>
                                     <h2>Lyrics</h2>
-                                    <Lyrics id={data[0].id} />
+                                    <Lyrics id={(data[0] as ResultsInDataType).id} />
                                 </>
                             )
                         }
                         {
-                            data[0]?.album?.id && (
+                            (data[0] && (data[0] as ResultsInDataType)?.album?.id) && (
                                 <>
-                                    <h2>More from <span onClick={() => navigate(`/album/${data[0]?.album?.id}`)}>{data[0].album.name}<GoArrowUpRight /></span></h2>
-                                    <SongFromAlbum id={data[0].album.id} currentSongId={id} />
+                                    <h2>More from <span onClick={() => navigate(`/album/${(data[0] as ResultsInDataType)?.album?.id}`)}>{(data[0] as ResultsInDataType)?.album?.name}<GoArrowUpRight /></span></h2>
+                                    <SongFromAlbum id={(data[0] as ResultsInDataType)?.album?.id ?? ''} currentSongId={id} />
                                 </>
                             )
                         }

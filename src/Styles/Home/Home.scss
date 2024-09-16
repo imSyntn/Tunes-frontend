@@ -1,1 +1,23 @@
-.Home {}
+.Home {
+    margin-top: 50px;
+
+    .Trending, .NewReleases {
+        h1 {
+            margin-bottom: 20px;
+        }
+        >section {
+            width: 100%;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, 150px);
+            justify-content: space-evenly;
+        }
+    }
+
+    .NewReleases {
+        h1 {
+            margin-bottom: 20px;
+            margin-top: 50px;
+        }
+    }
+}

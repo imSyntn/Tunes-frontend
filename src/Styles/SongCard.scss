@@ -44,18 +44,6 @@
                 font-weight: 400;
             }
         }
-
-        >.playing {
-            img {
-                opacity: 0;
-            }
-
-            &::before {
-                background: url('../../giphy.webp') no-repeat center;
-                background-size: 50px;
-                opacity: 1;
-            }
-        }
     }
 
 
@@ -82,6 +70,23 @@
             }
 
             &::before {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.playing {
+    box-shadow: inset 0px 0px 12px 15px rgba(89, 244, 255, 0.082);
+    h3 {
+        .imgWrapperInSongCard {
+            img {
+                opacity: 0;
+            }
+
+            &::before {
+                background: url('../../giphy.webp') no-repeat center;
+                background-size: 50px;
                 opacity: 1;
             }
         }

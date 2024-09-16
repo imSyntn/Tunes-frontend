@@ -17,3 +17,6 @@
 @import './Styles/AlbumThumbnail.scss';
 @import './Styles/SearchRoute/SearchQuerryPage.scss';
 @import './Styles/PlaylistThumbnail.scss';
+@import  './Styles/Home/TopArtists.scss';
+@import './Styles/Home/TrendingCards.scss';
+@import './Styles/Footer.scss';

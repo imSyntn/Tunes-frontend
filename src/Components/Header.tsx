@@ -28,13 +28,18 @@ const Header = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY >= 100) {
+        const handleScroll = () => {
+            if (window.scrollY >= 50) {
                 setVisible(false)
             } else {
                 setVisible(true)
             }
-        })
+        }
+        window.addEventListener('scroll', handleScroll)
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
     }, [])
 
     useEffect(() => {

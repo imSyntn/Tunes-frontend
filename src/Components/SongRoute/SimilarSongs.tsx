@@ -18,18 +18,18 @@ const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
 
     useEffect(()=> {
       if(!loading && !error && Array.isArray(data)) {
-        setAllSongData((prev: ResultsInDataType[])=> [...prev,...data])
+        setAllSongData((prev: ResultsInDataType[])=> [...prev,...(data as ResultsInDataType[])])
       }
     },[data])
 
-    // if (loading) return <p className='Loading-Error'>Loading...</p>;
+    if (loading) return <p style={{textAlign: 'center'}}>Loading...</p>;
     // if (error) return <p className='Loading-Error'>Error loading album details.</p>;
   return (
     <div className='SimilarSongs' style={{marginBottom: '20px'}}>
       {
-        !loading && !error && Array.isArray(data) && (
-          data.map((item: ResultsInDataType) => (
-            <SongCard key={item.id} result={item} />
+        (!error && Array.isArray(data) ) && (
+          data.map((item) => (
+            <SongCard key={(item as ResultsInDataType).id} result={(item as ResultsInDataType)} />
           ))
         )
       }

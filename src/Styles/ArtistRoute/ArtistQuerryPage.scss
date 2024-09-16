@@ -19,6 +19,7 @@
             width: 70%;
             height: 500px;
             filter: blur(150px) brightness(60%);
+            pointer-events: none;
             z-index: -1;
         }
 
@@ -121,6 +122,7 @@
                     transform: translateY(-50%);
                     margin: 0px;
                     right: 10px;
+                    margin-top: 25px;
                     z-index: 1;
                 }
 
