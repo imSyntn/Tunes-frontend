@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch'
 import { top_artists } from '../../App.types'
 
-const fetchUrl = 'https://www.jiosaavn.com/api.php?__call=social.getTopArtists&api_version=4&_format=json&_marker=0&ctx=web6dot0'
+const fetchUrl = 'https://proxyapi-ukea.onrender.com/top-artists'
 
 const TopArtists = () => {
 

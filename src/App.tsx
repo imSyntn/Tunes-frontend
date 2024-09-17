@@ -1,13 +1,12 @@
 import { createContext, useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './Components/Header'
-import Main from './Components/Main'
 import Player from './Components/Player'
 import Loader from './Components/Loader'
 import { ResultsInDataType } from './App.types'
 import Footer from './Components/Footer'
 
-// const Main = lazy(()=> import('./Components/Main'))
+const Main = lazy(()=> import('./Components/Main'))
 const Home = lazy(() => import('./Components/Home/Home'))
 const NoData = lazy(() => import('./Components/NoData'))
 const AlbumQuerryPage = lazy(() => import('./Components/AlbumRoute/AlbumQuerryPage'))
