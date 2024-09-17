@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) => {
 
-    const fetchUrl = `/api/albums?id=${id}`;
+    const fetchUrl = `https://savaan-api-eight.vercel.app/api/albums?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     const navigate = useNavigate()

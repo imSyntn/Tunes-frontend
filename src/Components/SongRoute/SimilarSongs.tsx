@@ -10,7 +10,7 @@ interface SimilarSongPropType {
 
 const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
     
-    const fetchUrl = `/api/songs/${id}/suggestions?limit=10`;
+    const fetchUrl = `https://savaan-api-eight.vercel.app/api/songs/${id}/suggestions?limit=10`;
     const { loading, error, data } = useFetch(fetchUrl);
     // const loading = true;
 

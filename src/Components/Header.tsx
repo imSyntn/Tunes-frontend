@@ -49,7 +49,7 @@ const Header = () => {
             if (inputText) {
                 // console.log(inputText)
                 try {
-                    const req = await fetch(`/api/search?query=${inputText}`)
+                    const req = await fetch(`https://savaan-api-eight.vercel.app/api/search?query=${inputText}`)
                     const res = await req.json()
                     // console.log(res.data)
                     setData(res.data)

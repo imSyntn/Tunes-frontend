@@ -19,7 +19,7 @@ const PlaylistQuerryPage = () => {
     }
     const { setTracks } = songContext;
 
-    const fetchUrl = `/api/playlists?id=${id}&limit=100`
+    const fetchUrl = `https://savaan-api-eight.vercel.app/api/playlists?id=${id}&limit=100`
     const { loading, error, data } = useFetch(fetchUrl)
     useEffect(() => {
         console.log(data)
