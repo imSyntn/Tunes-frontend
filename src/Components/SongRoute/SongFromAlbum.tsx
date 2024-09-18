@@ -1,10 +1,11 @@
 import { ResultsInDataType } from '../../App.types';
 import { useFetch } from '../../Utils/useFetch';
 import { useNavigate } from 'react-router-dom'
+import '../../Styles/SongRoute/SongFromAlbum.scss'
 
 const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) => {
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/albums?id=${id}`;
+    const fetchUrl = `/api/albums?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     const navigate = useNavigate()

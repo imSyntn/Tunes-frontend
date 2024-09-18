@@ -7,6 +7,7 @@ import Artists from '../Artists'
 import { songIdContext } from '../../App';
 import Loader from '../Loader'
 import { ResultsInDataType } from '../../App.types'
+import '../../Styles/PlaylistRoute/PlaylistQuerryPage.scss'
 
 const PlaylistQuerryPage = () => {
 
@@ -19,7 +20,7 @@ const PlaylistQuerryPage = () => {
     }
     const { setTracks } = songContext;
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/playlists?id=${id}&limit=100`
+    const fetchUrl = `/api/playlists?id=${id}&limit=100`
     const { loading, error, data } = useFetch(fetchUrl)
     useEffect(() => {
         console.log(data)

@@ -10,6 +10,7 @@ import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { songIdContext } from '../App';
 import { ResultsInDataType } from '../App.types';
 import { motion } from 'framer-motion'
+import '../Styles/Player.scss'
 
 const Player = () => {
 

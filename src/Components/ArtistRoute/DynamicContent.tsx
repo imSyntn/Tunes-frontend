@@ -3,6 +3,7 @@ import { useFetch } from '../../Utils/useFetch'
 import SongCard from '../SongCard'
 import AlbumThumbnail from '../AlbumThumbnail'
 import { ResultsInDataType } from '../../App.types'
+import '../../Styles/ArtistRoute/DynamicContent.scss'
 
 interface DynamicContentPropType {
   type: string,
@@ -16,7 +17,7 @@ interface DynamicContentPropType {
 const DynamicContent: React.FC<DynamicContentPropType> = ({ type, id, childToParentDataSend, childData, setTracks, tracks }) => {
   const [page, setPage] = useState<number>(0)
 
-  const fetchUrl = `https://savaan-api-eight.vercel.app/api/artists/${id}/${type}?page=${page}`
+  const fetchUrl = `/api/artists/${id}/${type}?page=${page}`
 
   const { loading, error, data } = useFetch(fetchUrl)
   const [totalData, setTotalData] = useState<ResultsInDataType[]>([])

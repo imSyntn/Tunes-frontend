@@ -27,7 +27,18 @@ body {
   -ms-overflow-style: none;
 }
 
-
+/* #root {
+  padding-bottom: 0px;
+  padding-top: 62.5px;
+  padding-inline: 20px;
+  min-height: calc(100vh);
+  position: relative;
+}
+@media screen and (max-width: 600px) {
+  #root {
+      padding-inline: 20px;
+  }
+} */
 
 
 .loaderWrapper {

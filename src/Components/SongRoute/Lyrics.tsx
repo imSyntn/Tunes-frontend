@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useFetch } from '../../Utils/useFetch'
+import '../../Styles/SongRoute/Lyrics.scss'
 
 const Lyrics = ({ id }: { id: string }) => {
 
     const [showFullLyrics, setShowFullLyrics] = useState(false)
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/songs/${id}/lyrics`;
+    const fetchUrl = `/api/songs/${id}/lyrics`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     return (

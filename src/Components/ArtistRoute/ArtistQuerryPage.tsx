@@ -7,6 +7,7 @@ import { songIdContext } from '../../App';
 import Loader from '../Loader';
 import { ResultsInDataType } from '../../App.types';
 import { motion } from 'framer-motion'
+import '../../Styles/ArtistRoute/ArtistQuerryPage.scss'
 
 // interface typeStateType {
 //     song: boolean,
@@ -32,7 +33,7 @@ const ArtistQuerryPage = () => {
     const [type, setType] = useState<string>('songs')
     const [childData, setChildData] = useState<ResultsInDataType[]>([])
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/artists?id=${id}`;
+    const fetchUrl = `/api/artists?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl)
 
     if (loading) {

@@ -12,9 +12,10 @@ const NewReleases = () => {
 
     useEffect(() => {
         const getData = async () => {
+            // 'https://proxyapi-ukea.onrender.com/new-releases'
             try {
                 setDataObj(prev => ({ ...prev, loading: true }))
-                const req = await fetch('https://proxyapi-ukea.onrender.com/new-releases')
+                const req = await fetch('https://www.jiosaavn.com/api.php?__call=content.getAlbums&api_version=4&_format=json&_marker=0&n=50&p=1&ctx=web6dot0')
                 const res = await req.json()
                 setDataObj(prev => ({ ...prev, data: res.data }))
             } catch (error) {

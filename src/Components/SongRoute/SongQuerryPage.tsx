@@ -11,6 +11,7 @@ import { songIdContext } from '../../App';
 import { GoArrowUpRight } from "react-icons/go";
 import { ResultsInDataType } from '../../App.types';
 import Loader from '../Loader';
+import '../../Styles/SongRoute/SongQuerryPage.scss'
 
 const SongQuerryPage = () => {
 
@@ -27,7 +28,7 @@ const SongQuerryPage = () => {
 
     const { setTracks, setSongIndex } = songContext;
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/songs/${id}`;
+    const fetchUrl = `/api/songs/${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     const [allSongData, setAllSongData] = useState<ResultsInDataType[] | []>([])

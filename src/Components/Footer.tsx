@@ -3,6 +3,7 @@ import '../Styles/Footer.scss'
 import { SiGithub } from "react-icons/si";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
+import '../Styles/Footer.scss'
 
 const Footer = () => {
   return (

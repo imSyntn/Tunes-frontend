@@ -1,12 +1,12 @@
 import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
-// import '../Styles/Header.css'
 import { FaRegUser, FaSearch } from "react-icons/fa";
 import HeaderSearchResult from './HeaderSearchResult';
 // import { useFetch } from '../Utils/useFetch';
 import { globalSearchResultType } from '../App.types';
 import Loader from './Loader';
 import { motion } from 'framer-motion'
+import '../Styles/Header.scss'
 // import { globalSearchResultType } from '../App.types';
 
 // const Y = 50;
@@ -49,7 +49,7 @@ const Header = () => {
             if (inputText) {
                 // console.log(inputText)
                 try {
-                    const req = await fetch(`https://savaan-api-eight.vercel.app/api/search?query=${inputText}`)
+                    const req = await fetch(`/api/search?query=${inputText}`)
                     const res = await req.json()
                     // console.log(res.data)
                     setData(res.data)

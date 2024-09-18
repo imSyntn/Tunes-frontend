@@ -1,4 +1,5 @@
 import {useNavigate} from 'react-router-dom'
+import '../Styles/Artists.scss'
 
 const Artists = ({ data }: any) => {
     // console.log([...new Set(data.artists)])

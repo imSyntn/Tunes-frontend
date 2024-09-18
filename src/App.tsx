@@ -5,8 +5,9 @@ import Player from './Components/Player'
 import Loader from './Components/Loader'
 import { ResultsInDataType } from './App.types'
 import Footer from './Components/Footer'
+import User from './Components/User/User'
 
-const Main = lazy(()=> import('./Components/Main'))
+const Main = lazy(() => import('./Components/Main'))
 const Home = lazy(() => import('./Components/Home/Home'))
 const NoData = lazy(() => import('./Components/NoData'))
 const AlbumQuerryPage = lazy(() => import('./Components/AlbumRoute/AlbumQuerryPage'))
@@ -14,6 +15,7 @@ const SongQuerryPage = lazy(() => import('./Components/SongRoute/SongQuerryPage'
 const ArtistQuerryPage = lazy(() => import('./Components/ArtistRoute/ArtistQuerryPage'))
 const PlaylistQuerryPage = lazy(() => import('./Components/PlaylistRoute/PlaylistQuerryPage'))
 const SearchQuerryPage = lazy(() => import('./Components/SearchRoute/SearchQuerryPage'))
+const user = lazy(() => import('./Components/User/User'))
 
 interface songIdContextType {
   tracks: ResultsInDataType[] | [],
@@ -51,13 +53,17 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<Main />}>
-            <Route path='/' element={<Suspense fallback={<Loader />}><Home /></Suspense>} />
-            <Route path='/album/:id' element={<Suspense fallback={<Loader />}><AlbumQuerryPage /></Suspense>} />
-            <Route path='/song/:id' element={<Suspense fallback={<Loader />}><SongQuerryPage /></Suspense>} />
-            <Route path='/artist/:id' element={<Suspense fallback={<Loader />}><ArtistQuerryPage /></Suspense>} />
-            <Route path='/playlist/:id' element={<Suspense fallback={<Loader />}><PlaylistQuerryPage /></Suspense>} />
+            {/* so that Every component renders inside main and footer always stays at bottom */}
 
-            <Route path='/search/:searchType/:querry' element={<Suspense fallback={<Loader />}><SearchQuerryPage /></Suspense>} />
+            <Route index element={<Suspense fallback={<Loader />}><Home /></Suspense>} />
+            <Route path='album/:id' element={<Suspense fallback={<Loader />}><AlbumQuerryPage /></Suspense>} />
+            <Route path='song/:id' element={<Suspense fallback={<Loader />}><SongQuerryPage /></Suspense>} />
+            <Route path='artist/:id' element={<Suspense fallback={<Loader />}><ArtistQuerryPage /></Suspense>} />
+            <Route path='playlist/:id' element={<Suspense fallback={<Loader />}><PlaylistQuerryPage /></Suspense>} />
+
+            <Route path='search/:searchType/:querry' element={<Suspense fallback={<Loader />}><SearchQuerryPage /></Suspense>} />
+
+            <Route path='user' element={<Suspense fallback={<Loader />}><User /></Suspense>} />
 
             <Route path='*' element={<Suspense fallback={<Loader />}><NoData /></Suspense>} />
           </Route>

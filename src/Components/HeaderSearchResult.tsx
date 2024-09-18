@@ -1,6 +1,7 @@
 import React from 'react'
 import { ResultsInDataType } from '../App.types'
 import { useNavigate } from 'react-router-dom'
+import '../Styles/HeaderSearchResult.scss'
 // import { songIdContext } from '../App';
 
 interface HeaderSearchResultProps {

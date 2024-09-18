@@ -1,6 +1,7 @@
 import NewReleases from "./NewReleases"
 import TopArtists from "./TopArtists"
 import Trending from "./Trending"
+import '../../Styles/Home/Home.scss'
 
 const Home = () => {
 

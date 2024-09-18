@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import '../../Styles/Home/TrendingCards.scss'
 // import { useNameDot } from '../../Utils/useNameDot'
 
 const TrendingCards = ({ data }: any) => {

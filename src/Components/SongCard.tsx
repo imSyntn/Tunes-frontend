@@ -1,8 +1,10 @@
-import { useContext, useCallback } from 'react'
+import { useContext, useCallback, useState } from 'react'
 import { useformatTime } from '../Utils/useformatTime';
 import { useNameDot } from '../Utils/useNameDot';
 import { songIdContext } from '../App';
 import { ResultsInDataType } from '../App.types';
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import '../Styles/SongCard.scss'
 
 const SongCard = ({ result }: { result: ResultsInDataType }) => {
 
@@ -15,6 +17,8 @@ const SongCard = ({ result }: { result: ResultsInDataType }) => {
   }
 
   const { currentSongObj, tracks, setTracks, setSongIndex } = songContext;
+
+  const [isLiked, setIsLiked] = useState<boolean>(false)
 
   const artistsNAme = result.artists?.primary?.map((acc: any) => ` ${acc.name}`).join(' ,')
   const ArtistChar = (artistsNAme) ? nameWithDot(artistsNAme) : ''
@@ -33,6 +37,10 @@ const SongCard = ({ result }: { result: ResultsInDataType }) => {
     }
   }, [tracks])
 
+  const addToLiked = useCallback(() => {
+    setIsLiked(prev => !prev)
+  }, [isLiked])
+
   return (
     <div className={`SongCard ${currentSongObj?.id == result.id ? 'playing' : ''}`} onClick={audioSet}>
       <h3>
@@ -41,12 +49,17 @@ const SongCard = ({ result }: { result: ResultsInDataType }) => {
         </div>
         <div className="names">
           {
-            nameWithDot(result.name)
+            nameWithDot(result.name, 16)
           }
           <p>{ArtistChar}</p>
         </div>
       </h3>
       <p className='desktopView'>{ArtistChar}</p>
+      <div className="heart" onClick={addToLiked}>
+        {
+          isLiked ? <FaHeart /> : <FaRegHeart />
+        }
+      </div>
       <span>{formatTime(result.duration || 0)}</span>
     </div>
   )

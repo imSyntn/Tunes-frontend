@@ -1,5 +1,6 @@
 import { ResultsInDataType } from '../App.types';
 import { motion } from 'framer-motion'
+import '../Styles/ImgAlbumDetails.scss'
 
 const ImgAlbumDetails = ({ data, audioSet }: { data: ResultsInDataType, audioSet: () => void }) => {
     return (

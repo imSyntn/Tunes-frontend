@@ -6,6 +6,7 @@ import { ResultsInDataType } from '../../App.types'
 import SongCard from '../SongCard'
 import AlbumThumbnail from '../AlbumThumbnail'
 import PlaylistThumbnail from '../PlaylistThumbnail'
+import '../../Styles/SearchRoute/SearchQuerryPage.scss'
 
 const SearchQuerryPage = () => {
 
@@ -22,7 +23,7 @@ const SearchQuerryPage = () => {
     const [page, setPage] = useState<number>(1)
     const [totalData, setTotalData] = useState<ResultsInDataType[] | []>([])
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/search/${searchType}?query=${querry}&page=${page}&limit=50`;
+    const fetchUrl = `/api/search/${searchType}?query=${querry}&page=${page}&limit=50`;
     const { loading, error, data } = useFetch(fetchUrl)
 
     // console.log(data)

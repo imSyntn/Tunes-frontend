@@ -6,6 +6,7 @@ import ImgAlbumDetails from '../ImgAlbumDetails';
 import Artists from '../Artists';
 import { songIdContext } from '../../App';
 import Loader from '../Loader';
+import '../../Styles/AlbumRoute/AlbumQuerryPage.scss'
 
 const AlbumQuerryPage = () => {
 
@@ -18,7 +19,7 @@ const AlbumQuerryPage = () => {
   }
   const { setTracks } = songContext;
 
-  const fetchUrl = `https://savaan-api-eight.vercel.app/api/albums?id=${id}`;
+  const fetchUrl = `/api/albums?id=${id}`;
   const { loading, error, data } = useFetch(fetchUrl);
   // const loading = true;
   if (loading) return <Loader />;
