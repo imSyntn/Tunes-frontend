@@ -25,19 +25,35 @@
         p {
             margin-block: 10px;
         }
-        button {
-            background-color: #2bc5b4;
-            padding: 10px 30px;
-            border: none;
-            border-radius: 50px;
-            font-size: 20px;
-            letter-spacing: 2px;
-            font-weight: 700;
+
+        .btns {
             margin-top: 20px;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            button {
+                background-color: #2bc5b4;
+                padding: 10px 30px;
+                border: none;
+                border-radius: 50px;
+                font-size: 20px;
+                letter-spacing: 2px;
+                margin-right: 20px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .heart {
+                cursor: pointer;
+                svg {
+                    font-size: 30px;
+                    fill: #2bc5b4;
+                }
+            }
         }
     }
 }
+
 @media screen and (max-width: 600px) {
     .img-albumDetails {
         h1 {

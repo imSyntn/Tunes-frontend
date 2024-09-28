@@ -4,7 +4,7 @@ import { useFetch } from '../../Utils/useFetch'
 import ImgAlbumDetails from '../ImgAlbumDetails'
 import SongCard from '../SongCard'
 import Artists from '../Artists'
-import { songIdContext } from '../../App';
+import { Context } from '../../App';
 import Loader from '../Loader'
 import { ResultsInDataType } from '../../App.types'
 import '../../Styles/PlaylistRoute/PlaylistQuerryPage.scss'
@@ -13,7 +13,7 @@ const PlaylistQuerryPage = () => {
 
     const { id } = useParams()
 
-    const songContext = useContext(songIdContext);
+    const songContext = useContext(Context);
 
     if (!songContext) {
         return 

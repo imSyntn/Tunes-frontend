@@ -7,7 +7,7 @@ import Artists from '../Artists';
 import Lyrics from './Lyrics';
 import SimilarSongs from './SimilarSongs';
 import SongFromAlbum from './SongFromAlbum';
-import { songIdContext } from '../../App';
+import { Context } from '../../App';
 import { GoArrowUpRight } from "react-icons/go";
 import { ResultsInDataType } from '../../App.types';
 import Loader from '../Loader';
@@ -17,7 +17,7 @@ const SongQuerryPage = () => {
 
     const { id } = useParams()
     const navigate = useNavigate()
-    const songContext = useContext(songIdContext)
+    const songContext = useContext(Context)
 
     if (!id) {
         return <p>Invalid Song</p>

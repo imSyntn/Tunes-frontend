@@ -5,7 +5,8 @@ import Player from './Components/Player'
 import Loader from './Components/Loader'
 import { ResultsInDataType } from './App.types'
 import Footer from './Components/Footer'
-import User from './Components/User/User'
+import { userType } from './App.types'
+// import from './Components/User/User'
 
 const Main = lazy(() => import('./Components/Main'))
 const Home = lazy(() => import('./Components/Home/Home'))
@@ -15,25 +16,90 @@ const SongQuerryPage = lazy(() => import('./Components/SongRoute/SongQuerryPage'
 const ArtistQuerryPage = lazy(() => import('./Components/ArtistRoute/ArtistQuerryPage'))
 const PlaylistQuerryPage = lazy(() => import('./Components/PlaylistRoute/PlaylistQuerryPage'))
 const SearchQuerryPage = lazy(() => import('./Components/SearchRoute/SearchQuerryPage'))
-const user = lazy(() => import('./Components/User/User'))
+const User = lazy(() => import('./Components/User/User'))
 
-interface songIdContextType {
+interface ContextType {
   tracks: ResultsInDataType[] | [],
   setTracks: React.Dispatch<React.SetStateAction<ResultsInDataType[]>>,
   currentSongObj: ResultsInDataType | null,
   setCurrentSongObj: React.Dispatch<React.SetStateAction<ResultsInDataType | null>>,
   songIndex: number,
-  setSongIndex: React.Dispatch<React.SetStateAction<number>>
+  setSongIndex: React.Dispatch<React.SetStateAction<number>>,
+  user: userType,
+  setUser: React.Dispatch<React.SetStateAction<userType>>
 }
 
 
-export const songIdContext = createContext<songIdContextType | undefined>(undefined)
+export const Context = createContext<ContextType | undefined>(undefined)
 
 function App() {
 
   const [tracks, setTracks] = useState<ResultsInDataType[] | []>([])
   const [currentSongObj, setCurrentSongObj] = useState<ResultsInDataType | null>(null)
   const [songIndex, setSongIndex] = useState<number>(0)
+  const [user, setUser] = useState<userType>({
+    loggedIn: false,
+    registered: false,
+    userSavedData: {},
+    updated: 0
+  })
+
+  useEffect(() => {
+    const handleAutoLogin = async () => {
+      const baseUrl = 'http://localhost:8000/api/user/login'
+      try {
+        const req = await fetch(baseUrl, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        const res = await req.json()
+
+        if (res.loggedIn) {
+          setUser({ loggedIn: true, registered: false, userSavedData: {}, updated: 0 })
+        }
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const cookie = document.cookie
+
+    if (cookie) {
+
+      console.log('handleAutoLogin()')
+      handleAutoLogin()
+    }
+  }, [])
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const req = await fetch('http://localhost:8000/api/user/data', {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        const res = await req.json()
+        setUser({ loggedIn: true, registered: false, userSavedData: res, updated: 0 })
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    if (user.loggedIn) {
+      fetchUserData()
+    }
+  }, [user.loggedIn, user.updated])
+
+  useEffect(()=> {
+    console.log('user saved data', user.userSavedData)
+  },[user.userSavedData])
 
   useEffect(() => {
     console.log(tracks)
@@ -49,7 +115,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <songIdContext.Provider value={{ tracks, setTracks, currentSongObj, setCurrentSongObj, songIndex, setSongIndex }}>
+      <Context.Provider value={{ tracks, setTracks, currentSongObj, setCurrentSongObj, songIndex, setSongIndex, user, setUser }}>
         <Header />
         <Routes>
           <Route path='/' element={<Main />}>
@@ -70,7 +136,7 @@ function App() {
         </Routes>
         <Player />
         <Footer />
-      </songIdContext.Provider>
+      </Context.Provider>
     </BrowserRouter>
   )
 }

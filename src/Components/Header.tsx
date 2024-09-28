@@ -1,8 +1,9 @@
-import { useEffect, useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { FaRegUser, FaSearch } from "react-icons/fa";
+import { useEffect, useState, useRef, useContext } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaRegUser, FaSearch, FaUserAlt } from "react-icons/fa";
 import HeaderSearchResult from './HeaderSearchResult';
 // import { useFetch } from '../Utils/useFetch';
+import { Context } from '../App';
 import { globalSearchResultType } from '../App.types';
 import Loader from './Loader';
 import { motion } from 'framer-motion'
@@ -26,6 +27,9 @@ const Header = () => {
     const timer = useRef<number | null>(null)
 
     const navigate = useNavigate()
+    const location = useLocation()
+
+    // console.log(location)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -91,9 +95,17 @@ const Header = () => {
         }
     }, [data])
 
+    const userContext = useContext(Context)
+
+    if (!userContext) {
+        return null
+    }
+
+    const { user } = userContext
+
     return (
         <header>
-            <motion.h1 whileTap={{scale: 0.5}} onClick={() => navigate('/')}>
+            <motion.h1 whileTap={{ scale: 0.5 }} onClick={() => navigate('/')}>
                 <div className="imgWrapper">
                     <img src="../../musicTransparent.png" alt="" />
                 </div>
@@ -144,8 +156,19 @@ const Header = () => {
                     )
                 }
             </motion.div>
-            <motion.div className="user" whileTap={{scale: 0.5}}>
-                <FaRegUser />
+            <motion.div className="user" whileTap={{ scale: 0.5 }}
+                onClick={() => navigate('/user')} >
+                {
+                    user.loggedIn ? (
+                        <img src="https://raw.githubusercontent.com/imSyntn/PaceFit/refs/heads/main/src/Assets/profile.gif" alt="" />
+                    ) : (
+                        (location.pathname == '/user') ? (
+                            <FaUserAlt style={{ fill: '#43ffd3' }} />
+                        ) : (
+                            <FaRegUser />
+                        )
+                    )
+                }
             </motion.div>
         </header>
     )

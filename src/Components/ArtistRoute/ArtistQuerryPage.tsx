@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch'
 import { SiTicktick } from "react-icons/si";
 import DynamicContent from './DynamicContent';
-import { songIdContext } from '../../App';
+import { Context } from '../../App';
 import Loader from '../Loader';
 import { ResultsInDataType } from '../../App.types';
 import { motion } from 'framer-motion'
@@ -18,7 +18,7 @@ const ArtistQuerryPage = () => {
 
     const { id } = useParams()
 
-    const songContext = useContext(songIdContext);
+    const songContext = useContext(Context);
     // const counter = useRef(false)
 
     if (!songContext) {

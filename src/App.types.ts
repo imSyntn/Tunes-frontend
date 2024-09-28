@@ -55,3 +55,23 @@ export interface top_artists {
     image: string,
     name: string,
 }
+
+export interface userType {
+    loggedIn: boolean,
+    registered: boolean,
+    userSavedData: userDataType | {},
+    updated: number
+}
+
+export interface dataInUserDataType {
+    dataId: string,
+    type: string,
+    image: string
+}
+
+export interface userDataType {
+    userId: string,
+    songs: dataInUserDataType[],
+    albums: dataInUserDataType[],
+    playlists: dataInUserDataType[]
+}
