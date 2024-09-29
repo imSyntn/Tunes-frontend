@@ -1,13 +1,14 @@
-import { useState, useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { Context } from '../App';
-import { ResultsInDataType, dataInUserDataType, userDataType } from '../App.types';
+import { ResultsInDataType } from '../App.types';
 import { motion } from 'framer-motion'
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+// import { FaHeart, FaRegHeart } from "react-icons/fa";
 import '../Styles/ImgAlbumDetails.scss'
+import Heart from './Heart';
 
 const ImgAlbumDetails = ({ data, audioSet }: { data: ResultsInDataType, audioSet: () => void }) => {
 
-  const [isLiked, setIsLiked] = useState<boolean>(false)
+  // const [isLiked, setIsLiked] = useState<boolean>(false)
 
   const songContext = useContext(Context);
 
@@ -18,51 +19,51 @@ const ImgAlbumDetails = ({ data, audioSet }: { data: ResultsInDataType, audioSet
 
   console.log(data)
 
-  useEffect(() => {
-    if (`${data.type}s` in user.userSavedData) {
-      const savedData = (user.userSavedData as userDataType)[data.type + 's' as keyof userDataType] as dataInUserDataType[] | undefined;
-      if (savedData) {
-        const isAvailable = savedData.find((item: dataInUserDataType) => item.dataId === data.id);
-        console.log('img-album details', isAvailable);
-        if (isAvailable) {
-          setIsLiked(true);
-        }
-      }
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (`${data.type}s` in user.userSavedData) {
+  //     const savedData = (user.userSavedData as userDataType)[data.type + 's' as keyof userDataType] as dataInUserDataType[] | undefined;
+  //     if (savedData) {
+  //       const isAvailable = savedData.find((item: dataInUserDataType) => item.dataId === data.id);
+  //       console.log('img-album details', isAvailable);
+  //       if (isAvailable) {
+  //         setIsLiked(true);
+  //       }
+  //     }
+  //   }
+  // }, [])
 
-  const addToLiked = async (e: any) => {
-    e.stopPropagation()
-    if (user.loggedIn) {
-      try {
-        const req = await fetch('http://localhost:8000/api/user/data', {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json", "Access-Control-Allow-Origin": "*",
-          },
-          credentials: 'include',
-          body: JSON.stringify({
-            [data.type + 's']: {
-              dataId: data.id,
-              type: data.type,
-              title: data.title || data.name,
-              image: data.image?.[1]?.url
-            }
-          }),
-        })
-        const res = await req.json()
-        if (res.removed) {
-          setIsLiked(false)
-        } else {
-          setIsLiked(true)
-        }
-        console.log(res)
-        setUser(prev => ({ ...prev, updated: Math.floor(Math.random() * 100) }))
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
+  // const addToLiked = async (e: any) => {
+  //   e.stopPropagation()
+  //   if (user.loggedIn) {
+  //     try {
+  //       const req = await fetch('http://localhost:8000/api/user/data', {
+  //         method: 'POST',
+  //         headers: {
+  //           "Content-Type": "application/json", "Access-Control-Allow-Origin": "*",
+  //         },
+  //         credentials: 'include',
+  //         body: JSON.stringify({
+  //           [data.type + 's']: {
+  //             dataId: data.id,
+  //             type: data.type,
+  //             title: data.title || data.name,
+  //             image: data.image?.[1]?.url
+  //           }
+  //         }),
+  //       })
+  //       const res = await req.json()
+  //       if (res.removed) {
+  //         setIsLiked(false)
+  //       } else {
+  //         setIsLiked(true)
+  //       }
+  //       console.log(res)
+  //       setUser(prev => ({ ...prev, updated: Math.floor(Math.random() * 100) }))
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  // }
 
   return (
     <div className="img-albumDetails">
@@ -83,11 +84,8 @@ const ImgAlbumDetails = ({ data, audioSet }: { data: ResultsInDataType, audioSet
         <div className="btns">
           <motion.button whileTap={{ scale: 0.7 }} transition={{ duration: 0.01 }} onClick={() => audioSet()}>Play</motion.button>
 
-          <div className="heart" onClick={addToLiked} style={!user.loggedIn ? { cursor: 'initial', opacity: 0.3 } : {}}>
-            {
-              isLiked ? <FaHeart /> : <FaRegHeart />
-            }
-          </div>
+          <Heart user={user} setUser={setUser} result={data} type={data.type} />
+          
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import { createContext, useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Header from './Components/Header'
+import Header from './Components/Header/Header'
 import Player from './Components/Player'
 import Loader from './Components/Loader'
 import { ResultsInDataType } from './App.types'
-import Footer from './Components/Footer'
+import Footer from './Components/Footer/Footer'
 import { userType } from './App.types'
 // import from './Components/User/User'
 

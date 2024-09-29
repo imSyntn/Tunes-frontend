@@ -13,9 +13,10 @@ const Trending = () => {
     useEffect(()=>{
         const getData = async () => {
             // 'https://proxyapi-ukea.onrender.com/trending-now'
+            const fetchUrl = 'http://localhost:8000/api/trending-now'
             try {
                 setDataObj(prev => ({...prev, loading: true}))
-                const req = await fetch('https://www.jiosaavn.com/api.php?__call=content.getTrending&api_version=4&_format=json&_marker=0&ctx=web6dot0')
+                const req = await fetch(fetchUrl)
                 const res = await req.json()
                 setDataObj(prev => ({...prev, data: res}))
             } catch (error) {

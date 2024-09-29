@@ -10,7 +10,7 @@ const fetchUrl = 'https://www.jiosaavn.com/api.php?__call=social.getTopArtists&a
 const TopArtists = () => {
 
   // const [data, setData] = useState([])
-  const { loading, error, data } = useFetch(fetchUrl)
+  const { loading, error, data } = useFetch('http://localhost:8000/api/top-artists')
 
   const navigate = useNavigate()
 

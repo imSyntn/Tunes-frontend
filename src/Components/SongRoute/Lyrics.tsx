@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useFetch } from '../../Utils/useFetch'
 import '../../Styles/SongRoute/Lyrics.scss'
 
@@ -18,7 +18,12 @@ const Lyrics = ({ id }: { id: string }) => {
                             {
                                 ('lyrics' in data) && (
                                     data?.lyrics?.split('<br>').map((item: string, index: number) => (
-                                        <p key={index}>{item}</p>
+                                        <React.Fragment key={index}>
+                                            {
+                                                item ? <p>{item}</p> : <br />
+                                            }
+                                        </React.Fragment>
+                                        
                                     ))
                                 )
                             }
