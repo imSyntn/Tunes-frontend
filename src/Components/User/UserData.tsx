@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, memo } from 'react'
 import { Context } from '../../App'
 import '../../Styles/User/UserData.scss'
 import SavedData from './SavedData'
@@ -56,4 +56,4 @@ const UserData = ({ userLoggedOut }: { userLoggedOut: () => void }) => {
   )
 }
 
-export default UserData
+export default memo(UserData)

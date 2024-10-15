@@ -2,6 +2,7 @@ import { ResultsInDataType } from '../../App.types';
 import { useFetch } from '../../Utils/useFetch';
 import { useNavigate } from 'react-router-dom'
 import '../../Styles/SongRoute/SongFromAlbum.scss'
+import { memo } from 'react';
 
 const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) => {
 
@@ -35,4 +36,4 @@ const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) =
   )
 }
 
-export default SongFromAlbum
+export default memo(SongFromAlbum)

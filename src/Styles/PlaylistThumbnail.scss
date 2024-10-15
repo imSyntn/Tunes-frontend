@@ -16,6 +16,8 @@
             width: 150px;
             height: 150px;
             z-index: 1;
+            border: none;
+            border-radius: 15px;
         }
 
         &::before {

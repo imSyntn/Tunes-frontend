@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import '../../Styles/User/User.scss'
 import LoginSignup from './LoginSignup'
 import UserData from './UserData'

@@ -4,7 +4,7 @@ import { top_artists } from '../../App.types'
 import '../../Styles/Home/TopArtists.scss'
 import '../../Styles/Artists.scss'
 
-const fetchUrl = 'https://www.jiosaavn.com/api.php?__call=social.getTopArtists&api_version=4&_format=json&_marker=0&ctx=web6dot0'
+// const fetchUrl = 'https://www.jiosaavn.com/api.php?__call=social.getTopArtists&api_version=4&_format=json&_marker=0&ctx=web6dot0'
 // 'https://proxyapi-ukea.onrender.com/top-artists'
 
 const TopArtists = () => {

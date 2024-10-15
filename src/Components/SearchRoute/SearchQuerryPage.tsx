@@ -86,19 +86,19 @@ const SearchQuerryPage = () => {
                             {
                                 (searchType == 'songs') ? (
                                     totalData.map((item: ResultsInDataType) => (
-                                        <SongCard result={item} key={item.id} />
+                                        <SongCard result={item} key={item.id + (Math.random() * 1000)} />
                                     ))
                                 ) : (searchType == 'albums') ? (
                                     totalData.map((item: ResultsInDataType) => (
-                                        <AlbumThumbnail result={item} key={item.id} />
+                                        <AlbumThumbnail result={item} key={item.id + (Math.random() * 1000)} />
                                     ))
                                 ) : (searchType == 'playlists') ? (
                                     totalData.map((item: ResultsInDataType) => (
-                                        <PlaylistThumbnail result={item} key={item.id} />
+                                        <PlaylistThumbnail result={item} key={item.id + (Math.random() * 1000)} />
                                     ))
                                 ) : (searchType == 'artists') ? (
                                     totalData.map((item: ResultsInDataType) => (
-                                        <div className="artistCont" onClick={() => navigate(`/artist/${item.id}`)} key={item.id}>
+                                        <div className="artistCont" onClick={() => navigate(`/artist/${item.id}`)} key={item.id + (Math.random() * 1000)}>
                                             <img src={item?.image?.[1]?.url || '../../../music.png'} alt="" />
                                             <p>{item.name}</p>
                                         </div>

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef, useCallback, useMemo } from 'react'
+import { useState, useContext, useEffect, useRef, useCallback, useMemo, useLayoutEffect } from 'react'
 import { useformatTime } from '../Utils/useformatTime';
 import { useNameDot } from '../Utils/useNameDot';
 import { useNavigate } from 'react-router-dom'
@@ -8,7 +8,7 @@ import { IoMdPlay, IoMdPause } from "react-icons/io";
 import { RiRepeat2Fill, RiRepeatOneLine } from "react-icons/ri";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { Context } from '../App';
-import { ResultsInDataType } from '../App.types';
+// import { ResultsInDataType } from '../App.types';
 import { motion } from 'framer-motion'
 import '../Styles/Player.scss'
 
@@ -20,13 +20,14 @@ const Player = () => {
 
     const songContext = useContext(Context)
     if (!songContext) {
-        return null
+        return
     }
+
 
     const { tracks, setCurrentSongObj, songIndex, setSongIndex } = songContext;
 
     const audioRef = useRef<HTMLAudioElement>(null)
-    const trackListMomo = useRef<ResultsInDataType[] | null>(null)
+    // const trackListMomo = useRef<ResultsInDataType[] | null>(null)
 
     const [isPlaying, setIsPlaying] = useState(false)
     const [visible, setVisible] = useState(true)
@@ -34,14 +35,20 @@ const Player = () => {
         currentTime: ['-:-', 0],
         totalTime: ['-:-', 0],
         loop: true,
-        volume: 100
+        volume: Number(localStorage.getItem('tunes-volume')) || 100
     })
 
     const disabled = (tracks.length == 0) ? true : false;
 
-    useEffect(()=> {
-        const handleScroll = ()=> {
-            if((window.scrollY+window.innerHeight) >= (document.documentElement.scrollHeight-50)) {
+    useLayoutEffect(()=> {
+        if(localStorage.getItem('tunes-loop')) {
+            setAudioOptions((prev: any) => ({ ...prev, loop: !!Number(localStorage.getItem('tunes-loop')) }))
+        }
+    },[])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if ((window.scrollY + window.innerHeight) >= (document.documentElement.scrollHeight - 50)) {
                 setVisible(false)
             } else {
                 setVisible(true)
@@ -49,25 +56,29 @@ const Player = () => {
         }
         window.addEventListener('scroll', handleScroll, { passive: true })
 
-        return ()=> {
+        return () => {
             window.removeEventListener('scroll', handleScroll)
         }
-    },[window.innerHeight, document.documentElement.scrollHeight])
+    }, [window.innerHeight, document.documentElement.scrollHeight])
 
-    useEffect(() => {
-        if (trackListMomo.current == null || trackListMomo.current?.[0]?.id != tracks?.[0].id) {
-            setSongIndex(0)
-        }
-        trackListMomo.current = tracks;
-        setCurrentSongObj(tracks[songIndex])
-    }, [tracks])
+    // useEffect(() => {
+    //     if (trackListMomo.current == null || trackListMomo.current?.[0]?.id != tracks?.[0].id) {
+    //         setSongIndex(0)
+    //     }
+    //     trackListMomo.current = tracks;
+    //     setCurrentSongObj(tracks[songIndex])
+    // }, [tracks])
 
     useEffect(() => {
         if (tracks.length != 0) {
             setCurrentSongObj(tracks[songIndex])
         }
-    }, [songIndex])
+    }, [songIndex, isPlaying])
 
+    const currentTimeOfAudio = () => {
+        const CTime = audioRef.current?.currentTime || 0;
+        setAudioOptions((prev: any) => ({ ...prev, currentTime: [formatTime(CTime), CTime] }))
+    }
 
     const handleLoadedMetadata = () => {
         if (audioRef.current) {
@@ -75,24 +86,18 @@ const Player = () => {
             setAudioOptions((prev: any) => ({
                 ...prev,
                 totalTime: [formatTime(duration), duration],
+                // currentTime: [formatTime(CTime), CTime]
             }));
-            if (!isPlaying) {
-                setIsPlaying(true)
-                audioRef.current.play()
-            }
+            currentTimeOfAudio()
         }
     };
 
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.volume = audioOptions.volume / 100;
+            localStorage.setItem('tunes-volume', audioOptions.volume)
         }
     }, [audioOptions.volume])
-
-    const currentTimeOfAudio = () => {
-        const CTime = audioRef.current?.currentTime || 0;
-        setAudioOptions((prev: any) => ({ ...prev, currentTime: [formatTime(CTime), CTime] }))
-    }
 
     useEffect(() => {
         if (isPlaying) {
@@ -126,6 +131,7 @@ const Player = () => {
     const artistsNAme = useMemo(() => (
         tracks[songIndex]?.artists?.primary?.map((acc: any) => ` ${acc.name}`).join(' ,')
     ), [tracks, songIndex])
+
     const ArtistChar = useMemo(() => {
         return (artistsNAme) ? nameWithDot(artistsNAme) : '';
     }, [artistsNAme])
@@ -135,11 +141,11 @@ const Player = () => {
     }, [tracks, songIndex])
 
     return (
-        <motion.div initial={{opacity: 1}} animate={{opacity: visible ? 1 : 0, pointerEvents: visible ? 'initial' : 'none'}} className='Player'>
+        <motion.div initial={{ opacity: 1 }} animate={{ opacity: visible ? 1 : 0, pointerEvents: visible ? 'initial' : 'none' }} className='Player'>
 
             <audio preload='auto' src={tracks[songIndex]?.downloadUrl?.[4]?.url} ref={audioRef}
                 loop={audioOptions.loop} onLoadedMetadata={handleLoadedMetadata}
-                onTimeUpdate={currentTimeOfAudio} autoPlay={true} onEnded={nextSong}
+                onTimeUpdate={currentTimeOfAudio} autoPlay={ isPlaying ? true : false} onEnded={nextSong}
             />
 
             <div className="rangeAlike">
@@ -157,7 +163,12 @@ const Player = () => {
             </div>
 
             <div className="PlayerOptions">
-                <motion.div whileTap={{ scale: 0.5 }} transition={{ duration: 0.01 }} className="loopOptions" onClick={() => setAudioOptions((prev: any) => ({ ...prev, loop: !prev.loop }))}>
+                <motion.div whileTap={{ scale: 0.5 }} transition={{ duration: 0.01 }} className="loopOptions" onClick={() => {
+                    setAudioOptions((prev: any) => {
+                        localStorage.setItem('tunes-loop', !prev.loop ? '1' : '0')
+                        return { ...prev, loop: !prev.loop }
+                    })
+                }}>
                     {
                         audioOptions.loop ? (
                             <RiRepeatOneLine style={disabled ? { opacity: 0.5, cursor: 'initial' } : {}} />
@@ -190,11 +201,11 @@ const Player = () => {
                 </motion.div>
             </div>
 
-            <p className='timestamp'>{audioOptions.currentTime[0]} <span>/</span> {audioOptions.totalTime[0]}</p>
+            <p className='timestamp' style={disabled ? { opacity: 0.4 } : {}}>{audioOptions.currentTime[0]} <span>/</span> {audioOptions.totalTime[0]}</p>
 
             <div className="volume">
                 <input type="range" value={audioOptions.volume} name="" id="" onInput={(e: any) => setAudioOptions((prev: any) => ({ ...prev, volume: e.target.value }))} />
-                <HiMiniSpeakerWave style={audioOptions.volume == 0 ? { opacity: 0.4 } : {}} />
+                <HiMiniSpeakerWave style={(audioOptions.volume == 0 || disabled) ? { opacity: 0.4 } : {}} />
             </div>
         </motion.div>
     )

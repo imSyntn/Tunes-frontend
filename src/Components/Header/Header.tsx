@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef, useContext } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaRegUser, FaSearch, FaUserAlt } from "react-icons/fa";
-import HeaderSearchResult from '../HeaderSearchResult';
+import HeaderSearchResult from './HeaderSearchResult';
 // import { useFetch } from '../Utils/useFetch';
 import { Context } from '../../App';
 import { globalSearchResultType } from '../../App.types';
 import Loader from '../Loader';
 import { motion } from 'framer-motion'
-import '../../Styles/Header.scss'
+import '../../Styles/Header/Header.scss'
 // import { globalSearchResultType } from '../App.types';
 
 // const Y = 50;

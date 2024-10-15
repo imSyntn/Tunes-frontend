@@ -4,6 +4,8 @@
     justify-content: space-between;
     padding: 10px 20px 10px 10px;
     border-block: 1px solid rgba(143, 143, 143, 0.304);
+    // border: none;
+    // border-radius: 20px;
     cursor: pointer;
     border-radius: 5px;
     
@@ -28,6 +30,8 @@
                 height: 50px;
                 width: 50px;
                 z-index: 1;
+                border: none;
+                border-radius: 7px;
             }
 
             &::before {

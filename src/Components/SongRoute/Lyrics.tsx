@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { useFetch } from '../../Utils/useFetch'
 import '../../Styles/SongRoute/Lyrics.scss'
 
@@ -49,4 +49,4 @@ const Lyrics = ({ id }: { id: string }) => {
     )
 }
 
-export default Lyrics
+export default memo(Lyrics)

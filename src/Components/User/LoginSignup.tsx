@@ -56,11 +56,11 @@ const LoginSignup = ({ userRegistered, userLoggedIn }: { userRegistered: () => v
                 <form className="form" onSubmit={handleUserAction}>
                     <div className="input-group">
                         <label htmlFor="email">Email</label>
-                        <input type="text" name="email" id="email" placeholder="Enter email" value={userInfo.email} onChange={(e) => setUserInfo(prev => ({ ...prev, email: e.target.value }))} />
+                        <input type="text" required={true} name="email" id="email" placeholder="Enter email" value={userInfo.email} onChange={(e) => setUserInfo(prev => ({ ...prev, email: e.target.value }))} />
                     </div>
                     <div className="input-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" name="password" id="password" placeholder="Enter password" value={userInfo.password} onChange={(e) => setUserInfo(prev => ({ ...prev, password: e.target.value }))} />
+                        <input type="password" required={true} name="password" id="password" placeholder="Enter password" value={userInfo.password} onChange={(e) => setUserInfo(prev => ({ ...prev, password: e.target.value }))} />
                         {/* <div className="forgot">
                             <a rel="noopener noreferrer" href="#">Forgot Password ?</a>
                         </div> */}

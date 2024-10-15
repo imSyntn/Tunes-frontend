@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, json } from 'react-router-dom'
 import Header from './Components/Header/Header'
 import Player from './Components/Player'
 import Loader from './Components/Loader'
@@ -35,7 +35,7 @@ export const Context = createContext<ContextType | undefined>(undefined)
 function App() {
 
   const [tracks, setTracks] = useState<ResultsInDataType[] | []>([])
-  const [currentSongObj, setCurrentSongObj] = useState<ResultsInDataType | null>(null)
+  const [currentSongObj, setCurrentSongObj] = useState<ResultsInDataType | null>(null) // for song card playing animation
   const [songIndex, setSongIndex] = useState<number>(0)
   const [user, setUser] = useState<userType>({
     loggedIn: false,
@@ -73,6 +73,16 @@ function App() {
       console.log('handleAutoLogin()')
       handleAutoLogin()
     }
+
+    const storedTracks = localStorage.getItem('tunes-tracks')
+    const storedSongIndex = localStorage.getItem('tunes-song-index')
+
+    if (storedTracks) {
+      setTracks((JSON.parse(storedTracks) as ResultsInDataType[]))
+      if(storedSongIndex) {
+        setSongIndex(JSON.parse(storedSongIndex))
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -97,13 +107,20 @@ function App() {
     }
   }, [user.loggedIn, user.updated])
 
-  useEffect(()=> {
+  useEffect(() => {
     console.log('user saved data', user.userSavedData)
-  },[user.userSavedData])
+  }, [user.userSavedData])
 
   useEffect(() => {
-    console.log(tracks)
+    console.log('tracks', tracks)
+    if (Array.isArray(tracks)) {
+      localStorage.setItem('tunes-tracks', JSON.stringify(tracks))
+    }
   }, [tracks])
+
+  useEffect(() => {
+      localStorage.setItem('tunes-song-index', JSON.stringify(songIndex))
+  }, [songIndex])
 
   useEffect(() => {
     console.log(currentSongObj)

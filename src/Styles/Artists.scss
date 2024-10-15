@@ -1,8 +1,7 @@
 .artists, .homeArtistCont {
     display: grid;
     grid-template-columns: repeat(auto-fit, 150px);
-    justify-content: space-evenly;
-
+    // justify-content: space-evenly;
     gap: 20px;
     >.artistCont {
         width: fit-content;
