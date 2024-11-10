@@ -1,5 +1,5 @@
-import { useEffect, useContext, memo } from 'react'
-import { Context } from '../../App'
+import { memo } from 'react'
+import { useAppContext } from '../../Context/ContextProvider'
 import '../../Styles/User/UserData.scss'
 import SavedData from './SavedData'
 // import { userDataType } from '../../App.types'
@@ -7,35 +7,8 @@ import SavedData from './SavedData'
 
 const UserData = ({ userLoggedOut }: { userLoggedOut: () => void }) => {
 
-  const UserSavedDateContext = useContext(Context)
+  const {user} = useAppContext()
 
-  if(!UserSavedDateContext) {
-    return null
-  }
-
-  const {user} = UserSavedDateContext
-
-  // const [data, setData] = useState<userDataType | null>(null)
-
-  useEffect(() => {
-    // const fetchUserData = async () => {
-    //   try {
-    //     const req = await fetch('http://localhost:8000/api/user/data', {
-    //       method: 'GET',
-    //       credentials: 'include',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       }
-    //     })
-    //     const res = await req.json()
-    //     setData(res)
-    //     console.log(res)
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-    // fetchUserData()
-  }, [])
 
   return (
     <div className='UserData'>

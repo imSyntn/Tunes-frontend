@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef, useCallback, useMemo, useLayoutEffect } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo, useLayoutEffect } from 'react'
 import { useformatTime } from '../Utils/useformatTime';
 import { useNameDot } from '../Utils/useNameDot';
 import { useNavigate } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { IoPlaySkipBackSharp, IoPlaySkipForwardSharp } from "react-icons/io5";
 import { IoMdPlay, IoMdPause } from "react-icons/io";
 import { RiRepeat2Fill, RiRepeatOneLine } from "react-icons/ri";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
-import { Context } from '../App';
+import { useAppContext } from '../Context/ContextProvider';
 // import { ResultsInDataType } from '../App.types';
 import { motion } from 'framer-motion'
 import '../Styles/Player.scss'
@@ -18,13 +18,15 @@ const Player = () => {
     const formatTime = useformatTime()
     const nameWithDot = useNameDot()
 
-    const songContext = useContext(Context)
-    if (!songContext) {
-        return
-    }
+    // const songContext = useContext(Context)
+    // if (!songContext) {
+    //     return
+    // }
 
+    
+    const limitCounter = useRef(Number(localStorage.getItem('limit')) || 0)
 
-    const { tracks, setCurrentSongObj, songIndex, setSongIndex } = songContext;
+    const { tracks, setCurrentSongObj, songIndex, setSongIndex, setLimitExceed } = useAppContext();
 
     const audioRef = useRef<HTMLAudioElement>(null)
     // const trackListMomo = useRef<ResultsInDataType[] | null>(null)
@@ -73,7 +75,7 @@ const Player = () => {
         if (tracks.length != 0) {
             setCurrentSongObj(tracks[songIndex])
         }
-    }, [songIndex, isPlaying])
+    }, [songIndex, tracks])
 
     const currentTimeOfAudio = () => {
         const CTime = audioRef.current?.currentTime || 0;
@@ -140,8 +142,29 @@ const Player = () => {
         return (tracks[songIndex]?.name) ? nameWithDot(tracks[songIndex]?.name) : ''
     }, [tracks, songIndex])
 
+
+    useEffect(()=> {
+        if(isPlaying && tracks.length>0) {
+            limitCounter.current+=1
+            localStorage.setItem('limit', limitCounter.current.toString())
+        }
+    },[songIndex, tracks, isPlaying])
+
+    useEffect(()=> {
+
+        if(limitCounter.current>20) {
+            setLimitExceed(true)
+            setIsPlaying(false)
+        }
+    },[limitCounter.current])
+    
+
+
     return (
+
         <motion.div initial={{ opacity: 1 }} animate={{ opacity: visible ? 1 : 0, pointerEvents: visible ? 'initial' : 'none' }} className='Player'>
+
+            
 
             <audio preload='auto' src={tracks[songIndex]?.downloadUrl?.[4]?.url} ref={audioRef}
                 loop={audioOptions.loop} onLoadedMetadata={handleLoadedMetadata}
@@ -208,6 +231,7 @@ const Player = () => {
                 <HiMiniSpeakerWave style={(audioOptions.volume == 0 || disabled) ? { opacity: 0.4 } : {}} />
             </div>
         </motion.div>
+
     )
 }
 

@@ -26,7 +26,6 @@ const SearchQuerryPage = () => {
     const fetchUrl = `/api/search/${searchType}?query=${querry}&page=${page}&limit=50`;
     const { loading, error, data } = useFetch(fetchUrl)
 
-    // console.log(data)
 
     useEffect(() => {
         if (data && !Array.isArray(data) && Array.isArray(data.results)) {
@@ -39,15 +38,11 @@ const SearchQuerryPage = () => {
         setTotalData([])
     },[searchType, querry])
 
-    // useEffect(()=> {
-    //     console.log(page)
-    // },[page])
 
     const handleScroll = useCallback(()=> {
         const { scrollHeight, clientHeight, scrollTop } = document.documentElement;
         if((clientHeight + scrollTop >= (scrollHeight - 200)) && !loading) {
             setPage((prev:number)=> prev+1)
-            // console.log(1)
         }
     },[loading, searchType, querry])
 

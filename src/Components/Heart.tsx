@@ -47,7 +47,6 @@ const Heart = ({ user, setUser, result, type }: { user: userType, setUser: React
                 } else {
                     setIsLiked(true)
                 }
-                console.log(res)
                 setUser(prev => ({ ...prev, updated: Math.floor(Math.random() * 100) }))
             } catch (error) {
                 console.log(error)

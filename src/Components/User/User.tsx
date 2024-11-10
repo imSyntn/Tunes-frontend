@@ -1,18 +1,18 @@
-import { useContext } from 'react'
+// import { useContext } from 'react'
 import '../../Styles/User/User.scss'
 import LoginSignup from './LoginSignup'
 import UserData from './UserData'
-import { Context } from '../../App'
+import { useAppContext } from '../../Context/ContextProvider'
 
 const User = () => {
 
-  const userContext = useContext(Context)
+  // const userContext = useContext(Context)
 
-  if (!userContext) {
-    return null
-  }
+  // if (!userContext) {
+  //   return null
+  // }
 
-  const { user, setUser } = userContext
+  const { user, setUser } = useAppContext()
 
   const userRegistered = () => {
     setUser(prev => ({ ...prev, registered: true }))

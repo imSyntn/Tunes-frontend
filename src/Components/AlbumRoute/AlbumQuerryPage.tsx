@@ -1,10 +1,10 @@
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../../Utils/useFetch';
 import SongCard from '../SongCard';
 import ImgAlbumDetails from '../ImgAlbumDetails';
 import Artists from '../Artists';
-import { Context } from '../../App';
+import { useAppContext } from '../../Context/ContextProvider';
 import Loader from '../Loader';
 import '../../Styles/AlbumRoute/AlbumQuerryPage.scss'
 
@@ -12,12 +12,12 @@ const AlbumQuerryPage = () => {
 
   const { id } = useParams();
 
-  const songContext = useContext(Context);
+  // const songContext = useContext(Context);
 
-  if (!songContext) {
-    return null
-  }
-  const { setTracks } = songContext;
+  // if (!songContext) {
+  //   return null
+  // }
+  const { setTracks } = useAppContext();
 
   const fetchUrl = `/api/albums?id=${id}`;
   const { loading, error, data } = useFetch(fetchUrl);
@@ -25,7 +25,6 @@ const AlbumQuerryPage = () => {
   if (loading) return <Loader />;
   if (error) return <p className='Loading-Error'>Error loading album details.</p>;
 
-  console.log(data)
 
   const audioSet = () => {
     if (!loading && !error && data && !Array.isArray(data) && Array.isArray(data.songs)) {

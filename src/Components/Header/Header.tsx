@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef, useContext } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaRegUser, FaSearch, FaUserAlt } from "react-icons/fa";
 import HeaderSearchResult from './HeaderSearchResult';
 // import { useFetch } from '../Utils/useFetch';
-import { Context } from '../../App';
+import { useAppContext } from '../../Context/ContextProvider';
 import { globalSearchResultType } from '../../App.types';
 import Loader from '../Loader';
 import { motion } from 'framer-motion'
@@ -29,7 +29,6 @@ const Header = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    // console.log(location)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -51,11 +50,9 @@ const Header = () => {
             // setLoading(true)
             setResOptions(prev => ({ ...prev, loading: true }))
             if (inputText) {
-                // console.log(inputText)
                 try {
                     const req = await fetch(`/api/search?query=${inputText}`)
                     const res = await req.json()
-                    // console.log(res.data)
                     setData(res.data)
                 } catch (error: any) {
                     console.log(error.message)
@@ -79,8 +76,6 @@ const Header = () => {
         // setBlank(false)
         setResOptions(prev => ({ ...prev, blank: false }))
         if (!Array.isArray(data)) {
-            // console.log(data)
-            // console.log(Object.keys(data))
             let counter = 0;
             Object.keys(data).forEach((item: string) => {
                 const result = data[item as keyof globalSearchResultType].results;
@@ -95,13 +90,13 @@ const Header = () => {
         }
     }, [data])
 
-    const userContext = useContext(Context)
+    // const userContext = useContext(Context)
 
-    if (!userContext) {
-        return null
-    }
+    // if (!userContext) {
+    //     return null
+    // }
 
-    const { user } = userContext
+    const { user } = useAppContext()
 
     return (
         <header>
@@ -111,10 +106,14 @@ const Header = () => {
                 </div>
                 Tunes
             </motion.h1>
-            <motion.div initial={{ opacity: 1 }} animate={{ opacity: visible ? 1 : 0, pointerEvents: visible ? 'initial' : 'none' }} transition={{ duration: 0.3 }} className={`inputWrapper ${searchClicked ? 'activeInputWrapper' : ''}`} onClick={() => {
-                setSearchClicked(true);
-                inputRef.current?.focus()
-            }}>
+            <motion.div style={{ borderColor: '#2ec0a1c7' }}
+                initial={{ opacity: 1 }} animate={{
+                    opacity: visible ? 1 : 0, pointerEvents: visible ? 'initial' : 'none'
+                }} transition={{ duration: 0.3 }}
+                className={`inputWrapper ${searchClicked ? 'activeInputWrapper' : ''}`} onClick={() => {
+                    setSearchClicked(true);
+                    inputRef.current?.focus()
+                }}>
                 <div className="top">
                     <FaSearch />
                     <p>Search</p>

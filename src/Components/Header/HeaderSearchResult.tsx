@@ -16,9 +16,6 @@ const HeaderSearchResult: React.FC<HeaderSearchResultProps> = ({ headerName, inp
     const navigate = useNavigate()
 
     const headerNameCapital = headerName.toUpperCase();
-    // useEffect(() => {
-    //     // console.log(result)
-    // }, [])
 
     return (
         <>

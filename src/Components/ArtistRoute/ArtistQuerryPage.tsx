@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch'
 import { SiTicktick } from "react-icons/si";
 import DynamicContent from './DynamicContent';
-import { Context } from '../../App';
+import { useAppContext } from '../../Context/ContextProvider';
 import Loader from '../Loader';
 import { ResultsInDataType } from '../../App.types';
 import { motion } from 'framer-motion'
@@ -18,13 +18,13 @@ const ArtistQuerryPage = () => {
 
     const { id } = useParams()
 
-    const songContext = useContext(Context);
-    // const counter = useRef(false)
+    // const songContext = useContext(Context);
+    // // const counter = useRef(false)
 
-    if (!songContext) {
-        return null
-    }
-    const { tracks, setTracks } = songContext;
+    // if (!songContext) {
+    //     return null
+    // }
+    const { tracks, setTracks } = useAppContext();
 
     if (!id) {
         return null

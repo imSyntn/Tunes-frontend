@@ -46,7 +46,6 @@ const DynamicContent: React.FC<DynamicContentPropType> = ({ type, id, childToPar
 
 
   useEffect(() => {
-    console.log('totalData', totalData)
     if (data && Array.isArray((data as ResultsInDataType)[type as keyof ResultsInDataType]) && type == 'songs') {
       if (childData.length == 0) {
         childToParentDataSend(totalData)
@@ -78,9 +77,9 @@ const DynamicContent: React.FC<DynamicContentPropType> = ({ type, id, childToPar
           {
             totalData?.map((item: ResultsInDataType) => (
               (type === 'songs') ? (
-                <SongCard key={item.id} result={item} />
+                <SongCard key={item.id + (Math.random() * 1000)} result={item} />
               ) : (
-                <AlbumThumbnail key={item.id} result={item} />
+                <AlbumThumbnail key={item.id + (Math.random() * 1000)} result={item} />
               )
             ))
           }

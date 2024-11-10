@@ -11,12 +11,8 @@ const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) =
 
     const navigate = useNavigate()
 
-    // if (loading) return <p className='Loading-Error'>Loading...</p>;
-    // if (error) return <p className='Loading-Error'>Error loading album details.</p>;
-
-    // console.log(data)
-
   return (
+    
     <div className='SongFromAlbum'>
         {
             !loading && !error && data && !Array.isArray(data) && (

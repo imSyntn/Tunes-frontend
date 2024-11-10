@@ -1,22 +1,22 @@
-import { useContext, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useformatTime } from '../Utils/useformatTime';
 import { useNameDot } from '../Utils/useNameDot';
-import { Context } from '../App';
+import { useAppContext } from '../Context/ContextProvider';
 import { ResultsInDataType } from '../App.types';
 import '../Styles/SongCard.scss'
 import Heart from './Heart';
 
 const SongCard = ({ result }: { result: ResultsInDataType }) => {
 
-  const songContext = useContext(Context)
+  // const songContext = useContext(Context)
   const formatTime = useformatTime()
   const nameWithDot = useNameDot()
 
-  if (!songContext) {
-    return null
-  }
+  // if (!songContext) {
+  //   return null
+  // }
 
-  const { currentSongObj, tracks, setTracks, setSongIndex, user, setUser } = songContext;
+  const { currentSongObj, tracks, setTracks, setSongIndex, user, setUser } = useAppContext();
 
 
   const artistsNAme = result.artists?.primary?.map((acc: any) => ` ${acc.name}`).join(' ,')

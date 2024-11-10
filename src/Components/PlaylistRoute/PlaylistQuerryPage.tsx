@@ -1,10 +1,9 @@
-import { useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch'
 import ImgAlbumDetails from '../ImgAlbumDetails'
 import SongCard from '../SongCard'
 import Artists from '../Artists'
-import { Context } from '../../App';
+import { useAppContext } from '../../Context/ContextProvider';
 import Loader from '../Loader'
 import { ResultsInDataType } from '../../App.types'
 import '../../Styles/PlaylistRoute/PlaylistQuerryPage.scss'
@@ -13,18 +12,15 @@ const PlaylistQuerryPage = () => {
 
     const { id } = useParams()
 
-    const songContext = useContext(Context);
+    // const songContext = useContext(Context);
 
-    if (!songContext) {
-        return 
-    }
-    const { setTracks } = songContext;
+    // if (!songContext) {
+    //     return 
+    // }
+    const { setTracks } = useAppContext();
 
     const fetchUrl = `/api/playlists?id=${id}&limit=100`
     const { loading, error, data } = useFetch(fetchUrl)
-    useEffect(() => {
-        console.log(data)
-    }, [data])
 
     if (loading) {
         return <Loader />
@@ -38,10 +34,6 @@ const PlaylistQuerryPage = () => {
             setTracks(data.songs)
         }
     }
-
-    // useEffect(() => {
-    //     console.log(totalData.slice(1))
-    // }, [totalData])
 
     return (
         <div className='PlaylistQuerryPage'>

@@ -155,20 +155,12 @@ header {
         .activeInputWrapper {
             top: 60px;
             background: rgba(0, 0, 0, 0.32);
+            // position: relative;
             z-index: 5;
         }
 
         >.inputWrapper {
             width: 90%;
-
-            &::after {
-                width: 100vh;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                background: red;
-            }
         }
     }
 }
