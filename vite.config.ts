@@ -44,7 +44,7 @@ const manifestForPlugIn: any = {
   }
 }
 
-const DEFAULT_OPTIONS:any = {
+const DEFAULT_OPTIONS: any = {
   test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
   exclude: undefined,
   include: undefined,
@@ -104,15 +104,9 @@ export default defineConfig({
   plugins: [
     react(),
     ViteImageOptimizer(DEFAULT_OPTIONS),
-    VitePWA(manifestForPlugIn)],
-  // server: {
-  //   proxy: {
-  //     '/api': {
-  //       target: 'http://localhost:3000',
-  //       changeOrigin: true,
-  //       secure: false,
-
-  //     }
-  //   }
-  // }
+    VitePWA(manifestForPlugIn)
+  ],
+  css: {
+    postcss: './postcss.config.js'
+  }
 });

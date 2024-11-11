@@ -1,20 +1,23 @@
-import { useContext, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useformatTime } from '../Utils/useformatTime';
 import { useNameDot } from '../Utils/useNameDot';
-import { songIdContext } from '../App';
+import { useAppContext } from '../Context/ContextProvider';
 import { ResultsInDataType } from '../App.types';
+import '../Styles/SongCard.scss'
+import Heart from './Heart';
 
 const SongCard = ({ result }: { result: ResultsInDataType }) => {
 
-  const songContext = useContext(songIdContext)
+  // const songContext = useContext(Context)
   const formatTime = useformatTime()
   const nameWithDot = useNameDot()
 
-  if (!songContext) {
-    return null
-  }
+  // if (!songContext) {
+  //   return null
+  // }
 
-  const { currentSongObj, tracks, setTracks, setSongIndex } = songContext;
+  const { currentSongObj, tracks, setTracks, setSongIndex, user, setUser } = useAppContext();
+
 
   const artistsNAme = result.artists?.primary?.map((acc: any) => ` ${acc.name}`).join(' ,')
   const ArtistChar = (artistsNAme) ? nameWithDot(artistsNAme) : ''
@@ -33,6 +36,7 @@ const SongCard = ({ result }: { result: ResultsInDataType }) => {
     }
   }, [tracks])
 
+
   return (
     <div className={`SongCard ${currentSongObj?.id == result.id ? 'playing' : ''}`} onClick={audioSet}>
       <h3>
@@ -41,12 +45,15 @@ const SongCard = ({ result }: { result: ResultsInDataType }) => {
         </div>
         <div className="names">
           {
-            nameWithDot(result.name)
+            nameWithDot(result.name, 16)
           }
           <p>{ArtistChar}</p>
         </div>
       </h3>
       <p className='desktopView'>{ArtistChar}</p>
+
+      <Heart user={user} setUser={setUser} result={result} type='song' />
+
       <span>{formatTime(result.duration || 0)}</span>
     </div>
   )

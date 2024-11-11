@@ -1,12 +1,13 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch'
 import { SiTicktick } from "react-icons/si";
 import DynamicContent from './DynamicContent';
-import { songIdContext } from '../../App';
+import { useAppContext } from '../../Context/ContextProvider';
 import Loader from '../Loader';
 import { ResultsInDataType } from '../../App.types';
 import { motion } from 'framer-motion'
+import '../../Styles/ArtistRoute/ArtistQuerryPage.scss'
 
 // interface typeStateType {
 //     song: boolean,
@@ -17,13 +18,13 @@ const ArtistQuerryPage = () => {
 
     const { id } = useParams()
 
-    const songContext = useContext(songIdContext);
-    // const counter = useRef(false)
+    // const songContext = useContext(Context);
+    // // const counter = useRef(false)
 
-    if (!songContext) {
-        return null
-    }
-    const { tracks, setTracks } = songContext;
+    // if (!songContext) {
+    //     return null
+    // }
+    const { tracks, setTracks } = useAppContext();
 
     if (!id) {
         return null
@@ -32,7 +33,7 @@ const ArtistQuerryPage = () => {
     const [type, setType] = useState<string>('songs')
     const [childData, setChildData] = useState<ResultsInDataType[]>([])
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/artists?id=${id}`;
+    const fetchUrl = `${import.meta.env.VITE_DATA_URL}/api/artists?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl)
 
     if (loading) {

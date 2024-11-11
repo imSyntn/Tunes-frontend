@@ -3,6 +3,7 @@ import { useFetch } from '../../Utils/useFetch'
 import SongCard from '../SongCard'
 import AlbumThumbnail from '../AlbumThumbnail'
 import { ResultsInDataType } from '../../App.types'
+import '../../Styles/ArtistRoute/DynamicContent.scss'
 
 interface DynamicContentPropType {
   type: string,
@@ -16,7 +17,7 @@ interface DynamicContentPropType {
 const DynamicContent: React.FC<DynamicContentPropType> = ({ type, id, childToParentDataSend, childData, setTracks, tracks }) => {
   const [page, setPage] = useState<number>(0)
 
-  const fetchUrl = `https://savaan-api-eight.vercel.app/api/artists/${id}/${type}?page=${page}`
+  const fetchUrl = `${import.meta.env.VITE_DATA_URL}/api/artists/${id}/${type}?page=${page}`
 
   const { loading, error, data } = useFetch(fetchUrl)
   const [totalData, setTotalData] = useState<ResultsInDataType[]>([])
@@ -45,7 +46,6 @@ const DynamicContent: React.FC<DynamicContentPropType> = ({ type, id, childToPar
 
 
   useEffect(() => {
-    console.log('totalData', totalData)
     if (data && Array.isArray((data as ResultsInDataType)[type as keyof ResultsInDataType]) && type == 'songs') {
       if (childData.length == 0) {
         childToParentDataSend(totalData)
@@ -77,9 +77,9 @@ const DynamicContent: React.FC<DynamicContentPropType> = ({ type, id, childToPar
           {
             totalData?.map((item: ResultsInDataType) => (
               (type === 'songs') ? (
-                <SongCard key={item.id} result={item} />
+                <SongCard key={item.id + (Math.random() * 1000)} result={item} />
               ) : (
-                <AlbumThumbnail key={item.id} result={item} />
+                <AlbumThumbnail key={item.id + (Math.random() * 1000)} result={item} />
               )
             ))
           }

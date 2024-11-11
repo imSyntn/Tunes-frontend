@@ -10,11 +10,8 @@ interface SimilarSongPropType {
 
 const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
     
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/songs/${id}/suggestions?limit=10`;
+    const fetchUrl = `${import.meta.env.VITE_DATA_URL}/api/songs/${id}/suggestions?limit=10`;
     const { loading, error, data } = useFetch(fetchUrl);
-    // const loading = true;
-
-    // console.log(data)
 
     useEffect(()=> {
       if(!loading && !error && Array.isArray(data)) {
@@ -23,8 +20,9 @@ const SimilarSongs: React.FC<SimilarSongPropType> = ({id,setAllSongData}) => {
     },[data])
 
     if (loading) return <p style={{textAlign: 'center'}}>Loading...</p>;
-    // if (error) return <p className='Loading-Error'>Error loading album details.</p>;
+
   return (
+    
     <div className='SimilarSongs' style={{marginBottom: '20px'}}>
       {
         (!error && Array.isArray(data) ) && (

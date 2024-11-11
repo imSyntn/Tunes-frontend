@@ -1,30 +1,30 @@
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../../Utils/useFetch';
 import SongCard from '../SongCard';
 import ImgAlbumDetails from '../ImgAlbumDetails';
 import Artists from '../Artists';
-import { songIdContext } from '../../App';
+import { useAppContext } from '../../Context/ContextProvider';
 import Loader from '../Loader';
+import '../../Styles/AlbumRoute/AlbumQuerryPage.scss'
 
 const AlbumQuerryPage = () => {
 
   const { id } = useParams();
 
-  const songContext = useContext(songIdContext);
+  // const songContext = useContext(Context);
 
-  if (!songContext) {
-    return null
-  }
-  const { setTracks } = songContext;
+  // if (!songContext) {
+  //   return null
+  // }
+  const { setTracks } = useAppContext();
 
-  const fetchUrl = `https://savaan-api-eight.vercel.app/api/albums?id=${id}`;
+  const fetchUrl = `${import.meta.env.VITE_DATA_URL}/api/albums?id=${id}`;
   const { loading, error, data } = useFetch(fetchUrl);
   // const loading = true;
   if (loading) return <Loader />;
   if (error) return <p className='Loading-Error'>Error loading album details.</p>;
 
-  console.log(data)
 
   const audioSet = () => {
     if (!loading && !error && data && !Array.isArray(data) && Array.isArray(data.songs)) {

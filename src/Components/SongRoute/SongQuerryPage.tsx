@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useFetch } from '../../Utils/useFetch';
 // import SongCard from './SongCard';
@@ -7,27 +7,24 @@ import Artists from '../Artists';
 import Lyrics from './Lyrics';
 import SimilarSongs from './SimilarSongs';
 import SongFromAlbum from './SongFromAlbum';
-import { songIdContext } from '../../App';
+import { useAppContext } from '../../Context/ContextProvider';
 import { GoArrowUpRight } from "react-icons/go";
 import { ResultsInDataType } from '../../App.types';
 import Loader from '../Loader';
+import '../../Styles/SongRoute/SongQuerryPage.scss'
 
 const SongQuerryPage = () => {
 
     const { id } = useParams()
     const navigate = useNavigate()
-    const songContext = useContext(songIdContext)
 
     if (!id) {
         return <p>Invalid Song</p>
     }
-    if (!songContext) {
-        return null
-    }
 
-    const { setTracks, setSongIndex } = songContext;
+    const { setTracks, setSongIndex } = useAppContext();
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/songs/${id}`;
+    const fetchUrl = `${import.meta.env.VITE_DATA_URL}/api/songs/${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     const [allSongData, setAllSongData] = useState<ResultsInDataType[] | []>([])
@@ -46,11 +43,9 @@ const SongQuerryPage = () => {
     if (loading) return <Loader />;
     if (error) return <p className='Loading-Error'>Error loading album details.</p>;
 
-    console.log(data)
-
-
 
     return (
+
         <div className='SongQuerryPage'>
             {
                 (!loading && !error && data && Array.isArray(data)) && (

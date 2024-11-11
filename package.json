@@ -7,8 +7,7 @@
     "dev": "vite ",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "postcss:watch": "postcss src/index.css -o public/style.css --watch"
+    "preview": "vite preview"
   },
   "browserslist": "last 4 versions",
   "dependencies": {

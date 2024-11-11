@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { useFetch } from '../../Utils/useFetch'
+import '../../Styles/SongRoute/Lyrics.scss'
 
 const Lyrics = ({ id }: { id: string }) => {
 
     const [showFullLyrics, setShowFullLyrics] = useState(false)
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/songs/${id}/lyrics`;
+    const fetchUrl = `${import.meta.env.VITE_DATA_URL}/api/songs/${id}/lyrics`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     return (
@@ -17,7 +18,12 @@ const Lyrics = ({ id }: { id: string }) => {
                             {
                                 ('lyrics' in data) && (
                                     data?.lyrics?.split('<br>').map((item: string, index: number) => (
-                                        <p key={index}>{item}</p>
+                                        <React.Fragment key={index}>
+                                            {
+                                                item ? <p>{item}</p> : <br />
+                                            }
+                                        </React.Fragment>
+                                        
                                     ))
                                 )
                             }
@@ -43,4 +49,4 @@ const Lyrics = ({ id }: { id: string }) => {
     )
 }
 
-export default Lyrics
+export default memo(Lyrics)

@@ -1,20 +1,18 @@
 import { ResultsInDataType } from '../../App.types';
 import { useFetch } from '../../Utils/useFetch';
 import { useNavigate } from 'react-router-dom'
+import '../../Styles/SongRoute/SongFromAlbum.scss'
+import { memo } from 'react';
 
 const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) => {
 
-    const fetchUrl = `https://savaan-api-eight.vercel.app/api/albums?id=${id}`;
+    const fetchUrl = `${import.meta.env.VITE_DATA_URL}/api/albums?id=${id}`;
     const { loading, error, data } = useFetch(fetchUrl);
 
     const navigate = useNavigate()
 
-    // if (loading) return <p className='Loading-Error'>Loading...</p>;
-    // if (error) return <p className='Loading-Error'>Error loading album details.</p>;
-
-    // console.log(data)
-
   return (
+    
     <div className='SongFromAlbum'>
         {
             !loading && !error && data && !Array.isArray(data) && (
@@ -34,4 +32,4 @@ const SongFromAlbum = ({id, currentSongId}: {id:string, currentSongId:string}) =
   )
 }
 
-export default SongFromAlbum
+export default memo(SongFromAlbum)

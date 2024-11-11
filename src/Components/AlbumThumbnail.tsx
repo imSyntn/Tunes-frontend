@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { ResultsInDataType } from '../App.types'
+import '../Styles/AlbumThumbnail.scss'
 
 const AlbumThumbnail = ({ result }: { result: ResultsInDataType }) => {
     const navigate = useNavigate()
