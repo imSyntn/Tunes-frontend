@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {  
 
-    blockDevtools()
+    // blockDevtools()
 
     const cookie = document.cookie
 
