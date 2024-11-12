@@ -43,7 +43,7 @@ export const handleAutoLogin = async (setUser: setUserType) => {
 
   export const fetchUserData = async (setUser: setUserType) => {
     try {
-      const req = await fetch('http://localhost:8000/api/user/data', {
+      const req = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/data`, {
         method: 'GET',
         credentials: 'include',
         headers: {
