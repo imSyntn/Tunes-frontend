@@ -18,7 +18,9 @@ const PlaylistQuerryPage = lazy(() => import('./Components/PlaylistRoute/Playlis
 const SearchQuerryPage = lazy(() => import('./Components/SearchRoute/SearchQuerryPage'))
 const User = lazy(() => import('./Components/User/User'))
 
-import { blockDevtools, fetchUserData, handleAutoLogin } from './Utils/functions'
+import { 
+  // blockDevtools, 
+  fetchUserData, handleAutoLogin } from './Utils/functions'
 
 
 function App() {
