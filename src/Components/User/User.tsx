@@ -22,7 +22,7 @@ const User = () => {
   }
   const userLoggedOut = async () => {
     try {
-      const req = await fetch('http://localhost:8000/api/user/logout', {
+      const req = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/logout`, {
         method: 'GET',
         credentials: 'include',
         headers: {
